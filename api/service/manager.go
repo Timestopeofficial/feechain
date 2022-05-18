@@ -22,6 +22,7 @@ const (
 	Pprof
 	Prometheus
 	Synchronize
+	CheckVersion
 )
 
 func (t Type) String() string {
@@ -42,6 +43,8 @@ func (t Type) String() string {
 		return "Prometheus"
 	case Synchronize:
 		return "Synchronize"
+	case CheckVersion:
+		return "CheckVersion"
 	default:
 		return "Unknown"
 	}

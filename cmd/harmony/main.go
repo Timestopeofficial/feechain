@@ -411,6 +411,8 @@ func setupNodeAndRun(hc harmonyconfig.HarmonyConfig) {
 		setupPrometheusService(currentNode, hc, nodeConfig.ShardID)
 	}
 
+	// currentNode.RegisterCheckVersionService()
+
 	if hc.DNSSync.Server && !hc.General.IsOffline {
 		utils.Logger().Info().Msg("support gRPC sync server")
 		currentNode.SupportGRPCSyncServer(hc.DNSSync.ServerPort)
