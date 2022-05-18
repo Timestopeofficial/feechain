@@ -81,10 +81,10 @@ func getTotalCirculatingSupply(chain engine.ChainReader) (ret numeric.Dec, err e
 			return numeric.Dec{}, err
 		}
 	}
-
-	releasedInitSupply := stakingReward.TotalInitialTokens.Mul(
-		reward.PercentageForTimeStamp(timestamp),
-	)
+	releasedInitSupply := stakingReward.TotalInitialTokens
+	// releasedInitSupply := stakingReward.TotalInitialTokens.Mul(
+	// 	reward.PercentageForTimeStamp(timestamp),
+	// )
 	preStakingBlockRewards := stakingReward.GetTotalPreStakingTokens().Sub(stakingReward.TotalInitialTokens)
 	return releasedInitSupply.Add(preStakingBlockRewards).Add(
 		numeric.NewDecFromBigIntWithPrec(stakingBlockRewards, 18),
