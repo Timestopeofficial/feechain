@@ -78,8 +78,8 @@ func (c *stakingPrecompile) RequiredGas(
 				// charge per delegation to migrate
 				return evm.CalculateMigrationGas(evm.StateDB,
 					migrationMsg,
-					evm.ChainConfig().IsS3(evm.EpochNumber),
-					evm.ChainConfig().IsIstanbul(evm.EpochNumber),
+					true, // evm.ChainConfig().IsS3(evm.EpochNumber),
+					true, // evm.ChainConfig().IsIstanbul(evm.EpochNumber),
 				)
 			} else if encoded, err := rlp.EncodeToBytes(stakeMsg); err == nil {
 				payload = encoded
@@ -89,8 +89,8 @@ func (c *stakingPrecompile) RequiredGas(
 	if gas, err := IntrinsicGas(
 		payload,
 		false,                                   // contractCreation
-		evm.ChainConfig().IsS3(evm.EpochNumber), // homestead
-		evm.ChainConfig().IsIstanbul(evm.EpochNumber), // istanbul
+		true, // evm.ChainConfig().IsS3(evm.EpochNumber), // homestead
+		true, // evm.ChainConfig().IsIstanbul(evm.EpochNumber), // istanbul
 		false, // isValidatorCreation
 	); err != nil {
 		return 0, err // ErrOutOfGas occurs when gas payable > uint64

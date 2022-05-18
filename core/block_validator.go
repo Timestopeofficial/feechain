@@ -103,19 +103,21 @@ func (v *BlockValidator) ValidateState(block *types.Block, statedb *state.DB, re
 		return fmt.Errorf("invalid receipt root hash (remote: %x local: %x)", header.ReceiptHash(), receiptSha)
 	}
 
-	if v.config.AcceptsCrossTx(block.Epoch()) {
-		cxsSha := cxReceipts.ComputeMerkleRoot()
-		if cxsSha != header.OutgoingReceiptHash() {
-			legacySha := types.DeriveMultipleShardsSha(cxReceipts)
-			if legacySha != header.OutgoingReceiptHash() {
-				return fmt.Errorf("invalid cross shard receipt root hash (remote: %x local: %x, legacy: %x)", header.OutgoingReceiptHash(), cxsSha, legacySha)
-			}
+	// if v.config.AcceptsCrossTx(block.Epoch()) {
+	cxsSha := cxReceipts.ComputeMerkleRoot()
+	if cxsSha != header.OutgoingReceiptHash() {
+		legacySha := types.DeriveMultipleShardsSha(cxReceipts)
+		if legacySha != header.OutgoingReceiptHash() {
+			return fmt.Errorf("invalid cross shard receipt root hash (remote: %x local: %x, legacy: %x)", header.OutgoingReceiptHash(), cxsSha, legacySha)
 		}
 	}
+	// }
+	
 
 	// Validate the state root against the received state root and throw
 	// an error if they don't match.
-	if root := statedb.IntermediateRoot(v.config.IsS3(header.Epoch())); header.Root() != root {
+	if root := statedb.IntermediateRoot(true); header.Root() != root {
+	// if root := statedb.IntermediateRoot(v.config.IsS3(header.Epoch())); header.Root() != root {
 		dump, _ := rlp.EncodeToBytes(header)
 		const msg = "invalid merkle root (remote: %x local: %x, rlp dump %s)"
 		return fmt.Errorf(msg, header.Root(), root, hex.EncodeToString(dump))
@@ -189,9 +191,9 @@ func CalcGasLimit(parent *types.Block, gasFloor, gasCeil uint64) uint64 {
 
 // ValidateCXReceiptsProof checks whether the given CXReceiptsProof is consistency with itself
 func (v *BlockValidator) ValidateCXReceiptsProof(cxp *types.CXReceiptsProof) error {
-	if !v.config.AcceptsCrossTx(cxp.Header.Epoch()) {
-		return errors.New("[ValidateCXReceiptsProof] cross shard receipt received before cx fork")
-	}
+	// if !v.config.AcceptsCrossTx(cxp.Header.Epoch()) {
+	// 	return errors.New("[ValidateCXReceiptsProof] cross shard receipt received before cx fork")
+	// }
 
 	toShardID, err := cxp.GetToShardID()
 	if err != nil {

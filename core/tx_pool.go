@@ -341,12 +341,12 @@ func (pool *TxPool) loop() {
 		case ev := <-pool.chainHeadCh:
 			if ev.Block != nil {
 				pool.mu.Lock()
-				if pool.chainconfig.IsS3(ev.Block.Epoch()) {
+				// if pool.chainconfig.IsS3(ev.Block.Epoch()) {
 					pool.homestead = true
-				}
-				if pool.chainconfig.IsIstanbul(ev.Block.Epoch()) {
+				// }
+				// if pool.chainconfig.IsIstanbul(ev.Block.Epoch()) {
 					pool.istanbul = true
-				}
+				// }
 				pool.reset(head.Header(), ev.Block.Header())
 				head = ev.Block
 				pool.mu.Unlock()

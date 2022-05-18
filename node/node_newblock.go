@@ -164,12 +164,12 @@ func (node *Node) ProposeNewBlock(commitSigs chan []byte) (*types.Block, error) 
 	}
 
 	// Add VRF
-	if node.Blockchain().Config().IsVRF(header.Epoch()) {
+	// if node.Blockchain().Config().IsVRF(header.Epoch()) {
 		//generate a new VRF for the current block
 		if err := node.Consensus.GenerateVrfAndProof(header); err != nil {
 			return nil, err
 		}
-	}
+	// }
 
 	if !shard.Schedule.IsLastBlock(header.Number().Uint64()) {
 		// Prepare normal and staking transactions retrieved from transaction pool
@@ -189,9 +189,9 @@ func (node *Node) ProposeNewBlock(commitSigs chan []byte) (*types.Block, error) 
 					plainTxsPerAcc = append(plainTxsPerAcc, plainTx)
 				} else if stakingTx, ok := tx.(*staking.StakingTransaction); ok {
 					// Only process staking transactions after pre-staking epoch happened.
-					if node.Blockchain().Config().IsPreStaking(node.Worker.GetCurrentHeader().Epoch()) {
+					// if node.Blockchain().Config().IsPreStaking(node.Worker.GetCurrentHeader().Epoch()) {
 						pendingStakingTxs = append(pendingStakingTxs, stakingTx)
-					}
+					// }
 				} else {
 					utils.Logger().Err(types.ErrUnknownPoolTxType).
 						Msg("Failed to parse pending transactions")
@@ -222,8 +222,8 @@ func (node *Node) ProposeNewBlock(commitSigs chan []byte) (*types.Block, error) 
 		}
 	}
 
-	isBeaconchainInCrossLinkEra := node.NodeConfig.ShardID == shard.BeaconChainShardID &&
-		node.Blockchain().Config().IsCrossLink(node.Worker.GetCurrentHeader().Epoch())
+	isBeaconchainInCrossLinkEra := node.NodeConfig.ShardID == shard.BeaconChainShardID // &&
+		// node.Blockchain().Config().IsCrossLink(node.Worker.GetCurrentHeader().Epoch())
 
 	isBeaconchainInStakingEra := node.NodeConfig.ShardID == shard.BeaconChainShardID &&
 		node.Blockchain().Config().IsStaking(node.Worker.GetCurrentHeader().Epoch())
@@ -246,11 +246,11 @@ func (node *Node) ProposeNewBlock(commitSigs chan []byte) (*types.Block, error) 
 
 				// Crosslink is already verified before it's accepted to pending,
 				// no need to verify again in proposal.
-				if !node.Blockchain().Config().IsCrossLink(pending.Epoch()) {
-					utils.Logger().Debug().
-						AnErr("[ProposeNewBlock] pending crosslink that's before crosslink epoch", err)
-					continue
-				}
+				// if !node.Blockchain().Config().IsCrossLink(pending.Epoch()) {
+				// 	utils.Logger().Debug().
+				// 		AnErr("[ProposeNewBlock] pending crosslink that's before crosslink epoch", err)
+				// 	continue
+				// }
 
 				crossLinksToPropose = append(crossLinksToPropose, pending)
 				if len(crossLinksToPropose) > 15 {
@@ -312,9 +312,9 @@ func (node *Node) ProposeNewBlock(commitSigs chan []byte) (*types.Block, error) 
 }
 
 func (node *Node) proposeReceiptsProof() []*types.CXReceiptsProof {
-	if !node.Blockchain().Config().HasCrossTxFields(node.Worker.GetCurrentHeader().Epoch()) {
-		return []*types.CXReceiptsProof{}
-	}
+	// if !node.Blockchain().Config().HasCrossTxFields(node.Worker.GetCurrentHeader().Epoch()) {
+	// 	return []*types.CXReceiptsProof{}
+	// }
 
 	numProposed := 0
 	validReceiptsList := []*types.CXReceiptsProof{}

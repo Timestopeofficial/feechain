@@ -39,32 +39,32 @@ var (
 		ChainID:                    MainnetChainID,
 		EthCompatibleChainID:       EthMainnetShard0ChainID,
 		EthCompatibleShard0ChainID: EthMainnetShard0ChainID,
-		EthCompatibleEpoch:         big.NewInt(442), // Around Thursday Feb 4th 2020, 10AM PST
-		CrossTxEpoch:               big.NewInt(28),
-		CrossLinkEpoch:             big.NewInt(186),
-		AggregatedRewardEpoch:      big.NewInt(689), // Around Wed Sept 15th 2021 with 3.5s block time
-		StakingEpoch:               big.NewInt(186),
-		PreStakingEpoch:            big.NewInt(185),
-		QuickUnlockEpoch:           big.NewInt(191),
-		FiveSecondsEpoch:           big.NewInt(230),
-		TwoSecondsEpoch:            big.NewInt(366), // Around Tuesday Dec 8th 2020, 8AM PST
-		SixtyPercentEpoch:          big.NewInt(530), // Around Monday Apr 12th 2021, 22:30 UTC
-		RedelegationEpoch:          big.NewInt(290),
-		NoEarlyUnlockEpoch:         big.NewInt(530), // Around Monday Apr 12th 2021, 22:30 UTC
-		VRFEpoch:                   big.NewInt(631), // Around Wed July 7th 2021
-		PrevVRFEpoch:               big.NewInt(689), // Around Wed Sept 15th 2021 with 3.5s block time
-		MinDelegation100Epoch:      big.NewInt(631), // Around Wed July 7th 2021
-		MinCommissionRateEpoch:     big.NewInt(631), // Around Wed July 7th 2021
+		EthCompatibleEpoch:         big.NewInt(0), // => Ignore. Around Thursday Feb 4th 2020, 10AM PST
+		CrossTxEpoch:               big.NewInt(0), // => Ignore
+		CrossLinkEpoch:             big.NewInt(0), // => Ignore
+		AggregatedRewardEpoch:      big.NewInt(3), // => Ignore. Around Wed Sept 15th 2021 with 3.5s block time. From staking era
+		StakingEpoch:               big.NewInt(1),
+		PreStakingEpoch:            big.NewInt(0),
+		QuickUnlockEpoch:           big.NewInt(0), // => Ignore.
+		FiveSecondsEpoch:           EpochTBD,
+		TwoSecondsEpoch:            EpochTBD, 		 // Around Tuesday Dec 8th 2020, 8AM PST
+		SixtyPercentEpoch:          big.NewInt(0), // => Ignore. Around Monday Apr 12th 2021, 22:30 UTC
+		RedelegationEpoch:          big.NewInt(0), // => Ignore
+		NoEarlyUnlockEpoch:         big.NewInt(0), // => Ignore. Around Monday Apr 12th 2021, 22:30 UTC
+		VRFEpoch:                   big.NewInt(0), // => Ignore. Around Wed July 7th 2021
+		PrevVRFEpoch:               big.NewInt(0), // => Ignore. Around Wed Sept 15th 2021 with 3.5s block time
+		MinDelegation100Epoch:      big.NewInt(0), // => Ignore. Around Wed July 7th 2021 => ignore
+		MinCommissionRateEpoch:     big.NewInt(0), // => Ignore. Around Wed July 7th 2021
 		MinCommissionPromoPeriod:   big.NewInt(100),
-		EPoSBound35Epoch:           big.NewInt(631), // Around Wed July 7th 2021
-		EIP155Epoch:                big.NewInt(28),
-		S3Epoch:                    big.NewInt(28),
-		DataCopyFixEpoch:           big.NewInt(689), // Around Wed Sept 15th 2021 with 3.5s block time
-		IstanbulEpoch:              big.NewInt(314),
-		ReceiptLogEpoch:            big.NewInt(101),
-		SHA3Epoch:                  big.NewInt(725), // Around Mon Oct 11 2021, 19:00 UTC
-		HIP6And8Epoch:              big.NewInt(725), // Around Mon Oct 11 2021, 19:00 UTC
-		StakingPrecompileEpoch:     big.NewInt(871), // Around Tue Feb 11 2022
+		EPoSBound35Epoch:           big.NewInt(0), // => Ignore. Around Wed July 7th 2021
+		EIP155Epoch:                big.NewInt(0), // => Ignore.
+		S3Epoch:                    big.NewInt(0), // => Ignore.
+		DataCopyFixEpoch:           big.NewInt(0), // => Ignore. Around Wed Sept 15th 2021 with 3.5s block time
+		IstanbulEpoch:              big.NewInt(0), // => Ignore.
+		ReceiptLogEpoch:            big.NewInt(0), // => Ignore.
+		SHA3Epoch:                  big.NewInt(0), // => Ignore. Around Mon Oct 11 2021, 19:00 UTC
+		HIP6And8Epoch:              big.NewInt(0), // => Ignore. Around Mon Oct 11 2021, 19:00 UTC
+		StakingPrecompileEpoch:     big.NewInt(0), // => Ignore. Around Tue Feb 11 2022
 	}
 
 	// TestnetChainConfig contains the chain parameters to run a node on the harmony test network.
@@ -635,11 +635,11 @@ type Rules struct {
 
 // Rules ensures c's ChainID is not nil.
 func (c *ChainConfig) Rules(epoch *big.Int) Rules {
-	if c.IsStakingPrecompile(epoch) {
-		if !c.IsPreStaking(epoch) {
-			panic("Cannot have staking precompile epoch if not prestaking epoch")
-		}
-	}
+	// if c.IsStakingPrecompile(epoch) {
+	// 	if !c.IsPreStaking(epoch) {
+	// 		panic("Cannot have staking precompile epoch if not prestaking epoch")
+	// 	}
+	// }
 	chainID := c.ChainID
 	if chainID == nil {
 		chainID = new(big.Int)

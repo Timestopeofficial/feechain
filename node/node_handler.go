@@ -172,18 +172,19 @@ func (node *Node) BroadcastCrossLink() {
 		return
 	}
 
-	if node.IsRunningBeaconChain() ||
-		!node.Blockchain().Config().IsCrossLink(curBlock.Epoch()) {
+	if node.IsRunningBeaconChain() {
+	// if node.IsRunningBeaconChain() ||
+	// 	!node.Blockchain().Config().IsCrossLink(curBlock.Epoch()) {
 		// no need to broadcast crosslink if it's beacon chain or it's not crosslink epoch
 		return
 	}
 
 	// no point to broadcast the crosslink if we aren't even in the right epoch yet
-	if !node.Blockchain().Config().IsCrossLink(
-		node.Blockchain().CurrentHeader().Epoch(),
-	) {
-		return
-	}
+	// if !node.Blockchain().Config().IsCrossLink(
+	// 	node.Blockchain().CurrentHeader().Epoch(),
+	// ) {
+	// 	return
+	// }
 
 	utils.Logger().Info().Msgf(
 		"Construct and Broadcasting new crosslink to beacon chain groupID %s",
@@ -198,11 +199,13 @@ func (node *Node) BroadcastCrossLink() {
 	if err != nil {
 		utils.Logger().Debug().Err(err).Msg("[BroadcastCrossLink] ReadShardLastCrossLink Failed")
 		header := node.Blockchain().GetHeaderByNumber(curBlock.NumberU64() - 2)
-		if header != nil && node.Blockchain().Config().IsCrossLink(header.Epoch()) {
+		if header != nil {
+			// if header != nil && node.Blockchain().Config().IsCrossLink(header.Epoch()) {
 			headers = append(headers, header)
 		}
 		header = node.Blockchain().GetHeaderByNumber(curBlock.NumberU64() - 1)
-		if header != nil && node.Blockchain().Config().IsCrossLink(header.Epoch()) {
+		if header != nil {
+			// if header != nil && node.Blockchain().Config().IsCrossLink(header.Epoch()) {
 			headers = append(headers, header)
 		}
 		headers = append(headers, curBlock.Header())
@@ -225,7 +228,8 @@ func (node *Node) BroadcastCrossLink() {
 
 		for blockNum := latestBlockNum + 1; blockNum <= curBlock.NumberU64(); blockNum++ {
 			header := node.Blockchain().GetHeaderByNumber(blockNum)
-			if header != nil && node.Blockchain().Config().IsCrossLink(header.Epoch()) {
+			if header != nil {
+			// if header != nil && node.Blockchain().Config().IsCrossLink(header.Epoch()) {
 				headers = append(headers, header)
 				if len(headers) == batchSize {
 					break

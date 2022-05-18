@@ -214,12 +214,13 @@ func (st *StateTransition) TransitionDb() (ExecutionResult, error) {
 	}
 	msg := st.msg
 	sender := vm.AccountRef(msg.From())
-	homestead := st.evm.ChainConfig().IsS3(st.evm.EpochNumber) // s3 includes homestead
-	istanbul := st.evm.ChainConfig().IsIstanbul(st.evm.EpochNumber)
+	// homestead := st.evm.ChainConfig().IsS3(st.evm.EpochNumber) // s3 includes homestead
+	// istanbul := st.evm.ChainConfig().IsIstanbul(st.evm.EpochNumber)
 	contractCreation := msg.To() == nil
 
 	// Pay intrinsic gas
-	gas, err := vm.IntrinsicGas(st.data, contractCreation, homestead, istanbul, false)
+	// gas, err := vm.IntrinsicGas(st.data, contractCreation, homestead, istanbul, false)
+	gas, err := vm.IntrinsicGas(st.data, contractCreation, true, true, false)
 	if err != nil {
 		return ExecutionResult{}, err
 	}
@@ -297,11 +298,12 @@ func (st *StateTransition) StakingTransitionDb() (usedGas uint64, err error) {
 	msg := st.msg
 
 	sender := vm.AccountRef(msg.From())
-	homestead := st.evm.ChainConfig().IsS3(st.evm.EpochNumber) // s3 includes homestead
-	istanbul := st.evm.ChainConfig().IsIstanbul(st.evm.EpochNumber)
+	// homestead := st.evm.ChainConfig().IsS3(st.evm.EpochNumber) // s3 includes homestead
+	// istanbul := st.evm.ChainConfig().IsIstanbul(st.evm.EpochNumber)
 
 	// Pay intrinsic gas
-	gas, err := vm.IntrinsicGas(st.data, false, homestead, istanbul, msg.Type() == types.StakeCreateVal)
+	// gas, err := vm.IntrinsicGas(st.data, false, homestead, istanbul, msg.Type() == types.StakeCreateVal)
+	gas, err := vm.IntrinsicGas(st.data, false, true, true, msg.Type() == types.StakeCreateVal)
 
 	if err != nil {
 		return 0, err

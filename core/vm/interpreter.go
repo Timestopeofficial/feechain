@@ -103,14 +103,15 @@ func NewEVMInterpreter(evm *EVM, cfg Config) *EVMInterpreter {
 	// we'll set the default jump table.
 	if !cfg.JumpTable[STOP].valid {
 		var jt JumpTable
-		switch {
-		case evm.chainRules.IsIstanbul:
-			jt = istanbulInstructionSet
-		case evm.chainRules.IsS3:
-			jt = constantinopleInstructionSet
-		default:
-			jt = frontierInstructionSet
-		}
+		jt = istanbulInstructionSet
+		// switch {
+		// case evm.chainRules.IsIstanbul:
+		// 	jt = istanbulInstructionSet
+		// case evm.chainRules.IsS3:
+		// 	jt = constantinopleInstructionSet
+		// default:
+		// 	jt = frontierInstructionSet
+		// }
 		for i, eip := range cfg.ExtraEips {
 			if err := EnableEIP(eip, &jt); err != nil {
 				// Disable it, so caller can check if it's activated or not
@@ -217,7 +218,8 @@ func (in *EVMInterpreter) Run(contract *Contract, input []byte, readOnly bool) (
 			return nil, fmt.Errorf("stack limit reached %d (%d)", sLen, operation.maxStack)
 		}
 		// If the operation is valid, enforce and write restrictions
-		if in.readOnly && in.evm.chainRules.IsS3 {
+		if in.readOnly {
+		// if in.readOnly && in.evm.chainRules.IsS3 {
 			// If the interpreter is operating in readonly mode, make sure no
 			// state-modifying operation is performed. The 3rd stack item
 			// for a call operation is the value. Transferring value from one

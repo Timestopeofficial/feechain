@@ -356,7 +356,8 @@ func eposStakedCommittee(
 	}
 
 	// TODO(audit): make sure external validator BLS key are also not duplicate to Harmony's keys
-	completedEPoSRound, err := NewEPoSRound(epoch, stakerReader, stakerReader.Config().IsEPoSBound35(epoch))
+	completedEPoSRound, err := NewEPoSRound(epoch, stakerReader, true)
+	// completedEPoSRound, err := NewEPoSRound(epoch, stakerReader, stakerReader.Config().IsEPoSBound35(epoch))
 
 	if err != nil {
 		return nil, err

@@ -203,7 +203,8 @@ func GenerateChain(
 			}
 
 			// Write state changes to db
-			root, err := statedb.Commit(config.IsS3(b.header.Epoch()))
+			// root, err := statedb.Commit(config.IsS3(b.header.Epoch()))
+			root, err := statedb.Commit(true)
 			if err != nil {
 				panic(fmt.Sprintf("state write error: %v", err))
 			}
@@ -236,10 +237,11 @@ func makeHeader(chain consensus_engine.ChainReader, parent *types.Block, state *
 	}
 
 	return factory.NewHeader(parent.Epoch()).With().
-		Root(state.IntermediateRoot(chain.Config().IsS3(parent.Epoch()))).
+		// Root(state.IntermediateRoot(chain.Config().IsS3(parent.Epoch()))).
+		Root(state.IntermediateRoot(true)).
 		ParentHash(parent.Hash()).
 		Coinbase(parent.Coinbase()).
-		GasLimit(CalcGasLimit(parent, parent.GasLimit(), parent.GasLimit())).
+		GasLimit(parent.GasLimit()). // GasLimit(CalcGasLimit(parent, parent.GasLimit(), parent.GasLimit())).
 		Number(new(big.Int).Add(parent.Number(), common.Big1)).
 		Time(time).
 		Header()

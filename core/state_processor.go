@@ -211,17 +211,29 @@ func (p *StateProcessor) CacheProcessorResult(cacheKey interface{}, result *Proc
 func getTransactionType(
 	config *params.ChainConfig, header *block.Header, tx *types.Transaction,
 ) types.TransactionType {
-	if header.ShardID() == tx.ShardID() &&
-		(!config.AcceptsCrossTx(header.Epoch()) ||
-			tx.ShardID() == tx.ToShardID()) {
-		return types.SameShardTx
-	}
-	numShards := shard.Schedule.InstanceForEpoch(header.Epoch()).NumShards()
-	// Assuming here all the shards are consecutive from 0 to n-1, n is total number of shards
-	if tx.ShardID() != tx.ToShardID() &&
-		header.ShardID() == tx.ShardID() &&
-		tx.ToShardID() < numShards {
-		return types.SubtractionOnly
+	// if header.ShardID() == tx.ShardID() &&
+	// 	(!config.AcceptsCrossTx(header.Epoch()) ||
+	// 		tx.ShardID() == tx.ToShardID()) {
+	// 	return types.SameShardTx
+	// }
+	// numShards := shard.Schedule.InstanceForEpoch(header.Epoch()).NumShards()
+	// // Assuming here all the shards are consecutive from 0 to n-1, n is total number of shards
+	// if tx.ShardID() != tx.ToShardID() &&
+	// 	header.ShardID() == tx.ShardID() &&
+	// 	tx.ToShardID() < numShards {
+	// 	return types.SubtractionOnly
+	// }
+	// return types.InvalidTx
+	if header.ShardID() == tx.ShardID() {
+		if tx.ShardID() == tx.ToShardID() {
+			return types.SameShardTx
+		}
+		numShards := shard.Schedule.InstanceForEpoch(header.Epoch()).NumShards()
+		// Assuming here all the shards are consecutive from 0 to n-1, n is total number of shards
+		if tx.ShardID() != tx.ToShardID() && tx.ToShardID() < numShards {
+			return types.SubtractionOnly
+		}
+		return types.InvalidTx
 	}
 	return types.InvalidTx
 }
@@ -236,18 +248,18 @@ func ApplyTransaction(config *params.ChainConfig, bc ChainContext, author *commo
 		return nil, nil, nil, 0, errors.New("Invalid Transaction Type")
 	}
 
-	if txType != types.SameShardTx && !config.AcceptsCrossTx(header.Epoch()) {
-		return nil, nil, nil, 0, errors.Errorf(
-			"cannot handle cross-shard transaction until after epoch %v (now %v)",
-			config.CrossTxEpoch, header.Epoch(),
-		)
-	}
+	// if txType != types.SameShardTx && !config.AcceptsCrossTx(header.Epoch()) {
+	// 	return nil, nil, nil, 0, errors.Errorf(
+	// 		"cannot handle cross-shard transaction until after epoch %v (now %v)",
+	// 		config.CrossTxEpoch, header.Epoch(),
+	// 	)
+	// }
 
 	var signer types.Signer
 	if tx.IsEthCompatible() {
-		if !config.IsEthCompatible(header.Epoch()) {
-			return nil, nil, nil, 0, errors.New("ethereum compatible transactions not supported at current epoch")
-		}
+		// if !config.IsEthCompatible(header.Epoch()) {
+		// 	return nil, nil, nil, 0, errors.New("ethereum compatible transactions not supported at current epoch")
+		// }
 		signer = types.NewEIP155Signer(config.EthCompatibleChainID)
 	} else {
 		signer = types.MakeSigner(config, header.Epoch())
@@ -272,11 +284,11 @@ func ApplyTransaction(config *params.ChainConfig, bc ChainContext, author *commo
 	}
 	// Update the state with pending changes
 	var root []byte
-	if config.IsS3(header.Epoch()) {
+	// if config.IsS3(header.Epoch()) {
 		statedb.Finalise(true)
-	} else {
-		root = statedb.IntermediateRoot(config.IsS3(header.Epoch())).Bytes()
-	}
+	// } else {
+	// 	root = statedb.IntermediateRoot(config.IsS3(header.Epoch())).Bytes()
+	// }
 	*usedGas += result.UsedGas
 
 	failedExe := result.VMErr != nil
@@ -291,9 +303,9 @@ func ApplyTransaction(config *params.ChainConfig, bc ChainContext, author *commo
 	}
 
 	// Set the receipt logs and create a bloom for filtering
-	if config.IsReceiptLog(header.Epoch()) {
+	// if config.IsReceiptLog(header.Epoch()) {
 		receipt.Logs = statedb.GetLogs(tx.Hash())
-	}
+	// }
 	receipt.Bloom = types.CreateBloom(types.Receipts{receipt})
 
 	var cxReceipt *types.CXReceipt
@@ -336,20 +348,20 @@ func ApplyStakingTransaction(
 
 	// Update the state with pending changes
 	var root []byte
-	if config.IsS3(header.Epoch()) {
+	// if config.IsS3(header.Epoch()) {
 		statedb.Finalise(true)
-	} else {
-		root = statedb.IntermediateRoot(config.IsS3(header.Epoch())).Bytes()
-	}
+	// } else {
+	// 	root = statedb.IntermediateRoot(config.IsS3(header.Epoch())).Bytes()
+	// }
 	*usedGas += gas
 	receipt = types.NewReceipt(root, false, *usedGas)
 	receipt.TxHash = tx.Hash()
 	receipt.GasUsed = gas
 
-	if config.IsReceiptLog(header.Epoch()) {
+	// if config.IsReceiptLog(header.Epoch()) {
 		receipt.Logs = statedb.GetLogs(tx.Hash())
 		utils.Logger().Info().Interface("CollectReward", receipt.Logs)
-	}
+	// }
 
 	return receipt, gas, nil
 }
@@ -376,7 +388,8 @@ func ApplyIncomingReceipt(
 			db.CreateAccount(*cx.To)
 		}
 		db.AddBalance(*cx.To, cx.Amount)
-		db.IntermediateRoot(config.IsS3(header.Epoch()))
+		// db.IntermediateRoot(config.IsS3(header.Epoch()))
+		db.IntermediateRoot(true)
 	}
 	return nil
 }

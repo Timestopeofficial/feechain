@@ -106,7 +106,8 @@ func (s *BlockAPI) getSideEffectTransaction(
 		updateStartingOpIndex(ops)
 	}
 	// Handle undelegation payout
-	if s.hmy.IsCommitteeSelectionBlock(blk.Header()) && s.hmy.IsPreStakingEpoch(blk.Epoch()) {
+	// if s.hmy.IsCommitteeSelectionBlock(blk.Header()) && s.hmy.IsPreStakingEpoch(blk.Epoch()) {
+	if s.hmy.IsCommitteeSelectionBlock(blk.Header()) {
 		payouts, err := s.hmy.GetUndelegationPayouts(ctx, blk.Epoch())
 		if err != nil {
 			return nil, common.NewError(common.CatchAllError, map[string]interface{}{

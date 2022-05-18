@@ -153,19 +153,20 @@ func (e *engineImpl) VerifyVRF(
 		)
 	}
 
-	if bc.Config().IsVRF(header.Epoch()) && len(header.Vrf()) != vrfBeta+vrfProof {
+	if len(header.Vrf()) != vrfBeta+vrfProof {
+	// if bc.Config().IsVRF(header.Epoch()) && len(header.Vrf()) != vrfBeta+vrfProof {
 		return errors.Errorf(
 			"[VerifyVRF] invalid vrf data format or no vrf proposed %x", header.Vrf(),
 		)
 	}
-	if !bc.Config().IsVRF(header.Epoch()) {
-		if len(header.Vrf()) != 0 {
-			return errors.Errorf(
-				"[VerifyVRF] vrf data present in pre-vrf epoch %x", header.Vrf(),
-			)
-		}
-		return nil
-	}
+	// if !bc.Config().IsVRF(header.Epoch()) {
+	// 	if len(header.Vrf()) != 0 {
+	// 		return errors.Errorf(
+	// 			"[VerifyVRF] vrf data present in pre-vrf epoch %x", header.Vrf(),
+	// 		)
+	// 	}
+	// 	return nil
+	// }
 
 	leaderPubKey, err := GetLeaderPubKeyFromCoinbase(bc, header)
 
@@ -344,7 +345,8 @@ func (e *engineImpl) Finalize(
 	header.SetViewID(new(big.Int).SetUint64(viewID()))
 
 	// Finalize the state root
-	header.SetRoot(state.IntermediateRoot(chain.Config().IsS3(header.Epoch())))
+	// header.SetRoot(state.IntermediateRoot(chain.Config().IsS3(header.Epoch())))
+	header.SetRoot(state.IntermediateRoot(true))
 	return types.NewBlock(header, txs, receipts, outcxs, incxs, stks), payout, nil
 }
 
@@ -365,7 +367,7 @@ func payoutUndelegations(
 	}
 	// Payout undelegated/unlocked tokens
 	lockPeriod := GetLockPeriodInEpoch(chain, header.Epoch())
-	noEarlyUnlock := chain.Config().IsNoEarlyUnlock(header.Epoch())
+	// noEarlyUnlock := chain.Config().IsNoEarlyUnlock(header.Epoch())
 	for _, validator := range validators {
 		wrapper, err := state.ValidatorWrapper(validator, true, false)
 		if err != nil {
@@ -376,8 +378,11 @@ func payoutUndelegations(
 		for i := range wrapper.Delegations {
 			delegation := &wrapper.Delegations[i]
 			totalWithdraw := delegation.RemoveUnlockedUndelegations(
-				header.Epoch(), wrapper.LastEpochInCommittee, lockPeriod, noEarlyUnlock,
+				header.Epoch(), lockPeriod,
 			)
+			// totalWithdraw := delegation.RemoveUnlockedUndelegations(
+			// 	header.Epoch(), wrapper.LastEpochInCommittee, lockPeriod, noEarlyUnlock,
+			// )
 			if totalWithdraw.Sign() != 0 {
 				state.AddBalance(delegation.DelegatorAddress, totalWithdraw)
 			}
@@ -398,8 +403,9 @@ func payoutUndelegations(
 // which can only occur on beacon chain and if epoch > pre-staking epoch.
 func IsCommitteeSelectionBlock(chain engine.ChainReader, header *block.Header) bool {
 	isBeaconChain := header.ShardID() == shard.BeaconChainShardID
-	inPreStakingEra := chain.Config().IsPreStaking(header.Epoch())
-	return isBeaconChain && header.IsLastBlockInEpoch() && inPreStakingEra
+	// inPreStakingEra := chain.Config().IsPreStaking(header.Epoch())
+	// return isBeaconChain && header.IsLastBlockInEpoch() && inPreStakingEra
+	return isBeaconChain && header.IsLastBlockInEpoch()
 }
 
 func setElectionEpochAndMinFee(header *block.Header, state *state.DB, config *params.ChainConfig) error {
@@ -418,7 +424,7 @@ func setElectionEpochAndMinFee(header *block.Header, state *state.DB, config *pa
 		// Set last epoch in committee
 		wrapper.LastEpochInCommittee = newShardState.Epoch
 
-		if config.IsMinCommissionRate(newShardState.Epoch) {
+		// if config.IsMinCommissionRate(newShardState.Epoch) {
 			// Set first election epoch
 			state.SetValidatorFirstElectionEpoch(addr, newShardState.Epoch)
 
@@ -428,7 +434,7 @@ func setElectionEpochAndMinFee(header *block.Header, state *state.DB, config *pa
 			); err != nil {
 				return err
 			}
-		}
+		// }
 	}
 	return nil
 }
@@ -547,9 +553,9 @@ func (e *engineImpl) VerifyCrossLink(chain engine.ChainReader, cl types.CrossLin
 	if cl.BlockNum() <= 1 {
 		return errors.New("crossLink BlockNumber should greater than 1")
 	}
-	if !chain.Config().IsCrossLink(cl.Epoch()) {
-		return errors.Errorf("not cross-link epoch: %v", cl.Epoch())
-	}
+	// if !chain.Config().IsCrossLink(cl.Epoch()) {
+	// 	return errors.Errorf("not cross-link epoch: %v", cl.Epoch())
+	// }
 
 	pas := payloadArgsFromCrossLink(cl)
 	sas := sigArgs{cl.Signature(), cl.Bitmap()}
@@ -744,11 +750,12 @@ func needRecalculateStateShard(chain engine.ChainReader, epoch *big.Int, targetS
 
 // GetLockPeriodInEpoch returns the delegation lock period for the given chain
 func GetLockPeriodInEpoch(chain engine.ChainReader, epoch *big.Int) int {
-	lockPeriod := staking.LockPeriodInEpoch
-	if chain.Config().IsRedelegation(epoch) {
-		lockPeriod = staking.LockPeriodInEpoch
-	} else if chain.Config().IsQuickUnlock(epoch) {
-		lockPeriod = staking.LockPeriodInEpochV2
-	}
-	return lockPeriod
+	// lockPeriod := staking.LockPeriodInEpoch
+	// if chain.Config().IsRedelegation(epoch) {
+	// 	lockPeriod = staking.LockPeriodInEpoch
+	// } else if chain.Config().IsQuickUnlock(epoch) {
+	// 	lockPeriod = staking.LockPeriodInEpochV2
+	// }
+	// return lockPeriod
+	return staking.LockPeriodInEpoch
 }

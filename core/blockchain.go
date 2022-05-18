@@ -1195,7 +1195,8 @@ func (bc *BlockChain) WriteBlockWithState(
 	}
 
 	// Commit state object changes to in-memory trie
-	root, err := state.Commit(bc.chainConfig.IsS3(block.Epoch()))
+	// root, err := state.Commit(bc.chainConfig.IsS3(block.Epoch()))
+	root, err := state.Commit(true)
 	if err != nil {
 		return NonStatTy, err
 	}

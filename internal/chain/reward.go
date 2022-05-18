@@ -7,7 +7,7 @@ import (
 	"sort"
 	"time"
 
-	"github.com/harmony-one/harmony/internal/params"
+	// "github.com/harmony-one/harmony/internal/params"
 	lru "github.com/hashicorp/golang-lru"
 
 	"github.com/harmony-one/harmony/numeric"
@@ -160,29 +160,29 @@ func AccumulateRewardsAndCountSigs(
 		defaultReward := stakingReward.StakedBlocks
 
 		// the block reward is adjusted accordingly based on 5s and 3s block time forks
-		if bc.Config().ChainID == params.TestnetChainID && bc.Config().FiveSecondsEpoch.Cmp(big.NewInt(16500)) == 0 {
-			// Testnet:
-			// This is testnet requiring the one-off forking logic
-			if blockNum > 634644 {
-				defaultReward = stakingReward.FiveSecStakedBlocks
-				if blockNum > 636507 {
-					defaultReward = stakingReward.StakedBlocks
-					if blockNum > 639341 {
-						defaultReward = stakingReward.FiveSecStakedBlocks
-					}
-				}
-			}
-			if bc.Config().IsTwoSeconds(header.Epoch()) {
-				defaultReward = stakingReward.TwoSecStakedBlocks
-			}
-		} else {
-			// Mainnet (other nets):
-			if bc.Config().IsTwoSeconds(header.Epoch()) {
-				defaultReward = stakingReward.TwoSecStakedBlocks
-			} else if bc.Config().IsFiveSeconds(header.Epoch()) {
-				defaultReward = stakingReward.FiveSecStakedBlocks
-			}
-		}
+		// if bc.Config().ChainID == params.TestnetChainID && bc.Config().FiveSecondsEpoch.Cmp(big.NewInt(16500)) == 0 {
+		// 	// Testnet:
+		// 	// This is testnet requiring the one-off forking logic
+		// 	if blockNum > 634644 {
+		// 		defaultReward = stakingReward.FiveSecStakedBlocks
+		// 		if blockNum > 636507 {
+		// 			defaultReward = stakingReward.StakedBlocks
+		// 			if blockNum > 639341 {
+		// 				defaultReward = stakingReward.FiveSecStakedBlocks
+		// 			}
+		// 		}
+		// 	}
+		// 	if bc.Config().IsTwoSeconds(header.Epoch()) {
+		// 		defaultReward = stakingReward.TwoSecStakedBlocks
+		// 	}
+		// } else {
+		// 	// Mainnet (other nets):
+		// 	if bc.Config().IsTwoSeconds(header.Epoch()) {
+		// 		defaultReward = stakingReward.TwoSecStakedBlocks
+		// 	} else if bc.Config().IsFiveSeconds(header.Epoch()) {
+		// 		defaultReward = stakingReward.FiveSecStakedBlocks
+		// 	}
+		// }
 
 		// Following is commented because the new econ-model has a flat-rate block reward
 		// of 28 ONE per block assuming 4 shards and 8s block time:
@@ -209,21 +209,21 @@ func AccumulateRewardsAndCountSigs(
 		}
 
 		// Handle rewards for shardchain
-		if bc.Config().IsAggregatedRewardEpoch(header.Epoch()) {
+		// if bc.Config().IsAggregatedRewardEpoch(header.Epoch()) {
 			// Block here until the commit sigs are ready or timeout.
 			// sigsReady signal indicates that the commit sigs are already populated in the header object.
-			if err := waitForCommitSigs(sigsReady); err != nil {
-				return network.EmptyPayout, err
-			}
-
-			// Only do reward distribution at the 63th block in the modulus
-			if blockNum%RewardFrequency != RewardFrequency-1 {
-				return network.EmptyPayout, nil
-			}
-			return distributeRewardAfterAggregateEpoch(bc, state, header, beaconChain, defaultReward)
-		} else {
-			return distributeRewardBeforeAggregateEpoch(bc, state, header, beaconChain, defaultReward, sigsReady)
+		if err := waitForCommitSigs(sigsReady); err != nil {
+			return network.EmptyPayout, err
 		}
+
+		// Only do reward distribution at the 63th block in the modulus
+		if blockNum%RewardFrequency != RewardFrequency-1 {
+			return network.EmptyPayout, nil
+		}
+		return distributeRewardAfterAggregateEpoch(bc, state, header, beaconChain, defaultReward)
+		// } else {
+		// 	return distributeRewardBeforeAggregateEpoch(bc, state, header, beaconChain, defaultReward, sigsReady)
+		// }
 	}
 
 	// Before staking

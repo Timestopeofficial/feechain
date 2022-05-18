@@ -43,30 +43,30 @@ func (bc *BlockChain) CommitOffChainData(
 	isNewEpoch := block.IsLastBlockInEpoch()
 	// Cross-shard txns
 	epoch := block.Header().Epoch()
-	if bc.chainConfig.HasCrossTxFields(block.Epoch()) {
-		shardingConfig := shard.Schedule.InstanceForEpoch(epoch)
-		shardNum := int(shardingConfig.NumShards())
-		for i := 0; i < shardNum; i++ {
-			if i == int(block.ShardID()) {
-				continue
-			}
-
-			shardReceipts := types.CXReceipts(cxReceipts).GetToShardReceipts(uint32(i))
-			if err := rawdb.WriteCXReceipts(
-				batch, uint32(i), block.NumberU64(), block.Hash(), shardReceipts,
-			); err != nil {
-				utils.Logger().Error().Err(err).
-					Interface("shardReceipts", shardReceipts).
-					Int("toShardID", i).
-					Msg("WriteCXReceipts cannot write into database")
-				return NonStatTy, err
-			}
+	// if bc.chainConfig.HasCrossTxFields(block.Epoch()) {
+	shardingConfig := shard.Schedule.InstanceForEpoch(epoch)
+	shardNum := int(shardingConfig.NumShards())
+	for i := 0; i < shardNum; i++ {
+		if i == int(block.ShardID()) {
+			continue
 		}
-		// Mark incomingReceipts in the block as spent
-		if err := bc.WriteCXReceiptsProofSpent(batch, block.IncomingReceipts()); err != nil {
+
+		shardReceipts := types.CXReceipts(cxReceipts).GetToShardReceipts(uint32(i))
+		if err := rawdb.WriteCXReceipts(
+			batch, uint32(i), block.NumberU64(), block.Hash(), shardReceipts,
+		); err != nil {
+			utils.Logger().Error().Err(err).
+				Interface("shardReceipts", shardReceipts).
+				Int("toShardID", i).
+				Msg("WriteCXReceipts cannot write into database")
 			return NonStatTy, err
 		}
 	}
+	// Mark incomingReceipts in the block as spent
+	if err := bc.WriteCXReceiptsProofSpent(batch, block.IncomingReceipts()); err != nil {
+		return NonStatTy, err
+	}
+	// }
 
 	// VRF + VDF
 	// check non zero VRF field in header and add to local db
@@ -140,7 +140,7 @@ func (bc *BlockChain) CommitOffChainData(
 
 	// Writing beacon chain cross links
 	if isBeaconChain &&
-		bc.chainConfig.IsCrossLink(block.Epoch()) &&
+		// bc.chainConfig.IsCrossLink(block.Epoch()) &&
 		len(header.CrossLinks()) > 0 {
 		crossLinks := &types.CrossLinks{}
 		if err := rlp.DecodeBytes(
@@ -186,7 +186,8 @@ func (bc *BlockChain) CommitOffChainData(
 		utils.Logger().Debug().Msgf(msg, len(*crossLinks), num)
 	}
 
-	if isBeaconChain && bc.Config().IsCrossLink(bc.CurrentBlock().Epoch()) {
+	// if isBeaconChain && bc.Config().IsCrossLink(bc.CurrentBlock().Epoch()) {
+	if isBeaconChain {
 		// Roll up latest crosslinks
 		for i, c := uint32(0), shard.Schedule.InstanceForEpoch(
 			epoch,

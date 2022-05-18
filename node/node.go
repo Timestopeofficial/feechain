@@ -211,16 +211,16 @@ func (node *Node) addPendingTransactions(newTxs types.Transactions) []error {
 	}
 	poolTxs := types.PoolTransactions{}
 	errs := []error{}
-	acceptCx := node.Blockchain().Config().AcceptsCrossTx(node.Blockchain().CurrentHeader().Epoch())
+	// acceptCx := node.Blockchain().Config().AcceptsCrossTx(node.Blockchain().CurrentHeader().Epoch())
 	for _, tx := range newTxs {
-		if tx.ShardID() != tx.ToShardID() && !acceptCx {
-			errs = append(errs, errors.WithMessage(errInvalidEpoch, "cross-shard tx not accepted yet"))
-			continue
-		}
-		if tx.IsEthCompatible() && !node.Blockchain().Config().IsEthCompatible(node.Blockchain().CurrentBlock().Epoch()) {
-			errs = append(errs, errors.WithMessage(errInvalidEpoch, "ethereum tx not accepted yet"))
-			continue
-		}
+		// if tx.ShardID() != tx.ToShardID() && !acceptCx {
+		// 	errs = append(errs, errors.WithMessage(errInvalidEpoch, "cross-shard tx not accepted yet"))
+		// 	continue
+		// }
+		// if tx.IsEthCompatible() && !node.Blockchain().Config().IsEthCompatible(node.Blockchain().CurrentBlock().Epoch()) {
+		// 	errs = append(errs, errors.WithMessage(errInvalidEpoch, "ethereum tx not accepted yet"))
+		// 	continue
+		// }
 		poolTxs = append(poolTxs, tx)
 	}
 	errs = append(errs, node.TxPool.AddRemotes(poolTxs)...)
@@ -238,7 +238,7 @@ func (node *Node) addPendingTransactions(newTxs types.Transactions) []error {
 // Add new staking transactions to the pending staking transaction list.
 func (node *Node) addPendingStakingTransactions(newStakingTxs staking.StakingTransactions) []error {
 	if node.IsRunningBeaconChain() {
-		if node.Blockchain().Config().IsPreStaking(node.Blockchain().CurrentHeader().Epoch()) {
+		// if node.Blockchain().Config().IsPreStaking(node.Blockchain().CurrentHeader().Epoch()) {
 			poolTxs := types.PoolTransactions{}
 			for _, tx := range newStakingTxs {
 				poolTxs = append(poolTxs, tx)
@@ -251,10 +251,10 @@ func (node *Node) addPendingStakingTransactions(newStakingTxs staking.StakingTra
 				Int("totalQueued", queueCount).
 				Msg("Got more staking transactions")
 			return errs
-		}
-		return []error{
-			errors.WithMessage(errInvalidEpoch, "staking txs not accepted yet"),
-		}
+		// }
+		// return []error{
+		// 	errors.WithMessage(errInvalidEpoch, "staking txs not accepted yet"),
+		// }
 	}
 	return []error{
 		errors.WithMessage(errInvalidShard, fmt.Sprintf("txs only valid on shard %v", shard.BeaconChainShardID)),
@@ -343,8 +343,9 @@ func (node *Node) AddPendingReceipts(receipts *types.CXReceiptsProof) {
 		return
 	}
 
-	if e := receipts.Header.Epoch(); blockNum == 0 ||
-		!node.Blockchain().Config().AcceptsCrossTx(e) {
+	// if e := receipts.Header.Epoch(); blockNum == 0 ||
+	// !node.Blockchain().Config().AcceptsCrossTx(e) {
+	if e := receipts.Header.Epoch(); blockNum == 0 {
 		utils.Logger().Info().
 			Uint64("incoming-epoch", e.Uint64()).
 			Msg("Incoming receipt had meaningless epoch")

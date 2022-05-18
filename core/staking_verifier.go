@@ -171,7 +171,8 @@ func VerifyAndEditValidatorFromMsg(
 		return nil, errCommissionRateChangeTooHigh
 	}
 
-	if chainContext.Config().IsMinCommissionRate(epoch) && newRate.LT(availability.MinCommissionRate) {
+	if newRate.LT(availability.MinCommissionRate) {
+	// if chainContext.Config().IsMinCommissionRate(epoch) && newRate.LT(availability.MinCommissionRate) {
 		firstEpoch := stateDB.GetValidatorFirstElectionEpoch(msg.ValidatorAddress)
 		promoPeriod := chainContext.Config().MinCommissionPromoPeriod.Int64()
 		if firstEpoch.Uint64() != 0 && big.NewInt(0).Sub(epoch, firstEpoch).Int64() >= promoPeriod {
@@ -230,13 +231,14 @@ func VerifyAndDelegateFromMsg(
 		return nil, nil, nil, errNegativeAmount
 	}
 	if msg.Amount.Cmp(minimumDelegation) < 0 {
-		if chainConfig.IsMinDelegation100(epoch) {
-			if msg.Amount.Cmp(minimumDelegationV2) < 0 {
-				return nil, nil, nil, errDelegationTooSmallV2
-			}
-		} else {
-			return nil, nil, nil, errDelegationTooSmall
-		}
+		// if chainConfig.IsMinDelegation100(epoch) {
+		// 	if msg.Amount.Cmp(minimumDelegationV2) < 0 {
+		// 		return nil, nil, nil, errDelegationTooSmallV2
+		// 	}
+		// } else {
+		// 	return nil, nil, nil, errDelegationTooSmall
+		// }
+		return nil, nil, nil, errDelegationTooSmall
 	}
 
 	updatedValidatorWrappers := []*staking.ValidatorWrapper{}
@@ -244,7 +246,7 @@ func VerifyAndDelegateFromMsg(
 	fromLockedTokens := map[common.Address]*big.Int{}
 
 	var delegateeWrapper *staking.ValidatorWrapper
-	if chainConfig.IsRedelegation(epoch) {
+	// if chainConfig.IsRedelegation(epoch) {
 		// Check if we can use tokens in undelegation to delegate (redelegate)
 		for i := range delegations {
 			delegationIndex := &delegations[i]
@@ -296,7 +298,7 @@ func VerifyAndDelegateFromMsg(
 				fromLockedTokens[delegationIndex.ValidatorAddress] = big.NewInt(0).Sub(startBalance, delegateBalance)
 			}
 		}
-	}
+	// }
 
 	if delegateeWrapper == nil {
 		var err error

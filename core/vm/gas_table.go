@@ -101,7 +101,7 @@ func gasSStore(evm *EVM, contract *Contract, stack *Stack, mem *Memory, memorySi
 	// The legacy gas metering only takes into consideration the current state
 	// Legacy rules should be applied if we are in Petersburg (removal of EIP-1283)
 	// OR Constantinople is not active
-	if evm.chainRules.IsS3 {
+	// if evm.chainRules.IsS3 {
 		// This checks for 3 scenario's and calculates gas accordingly:
 		//
 		// 1. From a zero-value address to a non-zero value         (NEW VALUE)
@@ -116,7 +116,7 @@ func gasSStore(evm *EVM, contract *Contract, stack *Stack, mem *Memory, memorySi
 		default: // non 0 => non 0 (or 0 => 0)
 			return params.SstoreResetGas, nil
 		}
-	}
+	// }
 	// The new gas metering is based on net gas costs (EIP-1283):
 	//
 	// 1. If current value equals new value (this is a no-op), 200 gas is deducted.
@@ -331,13 +331,13 @@ func gasCall(evm *EVM, contract *Contract, stack *Stack, mem *Memory, memorySize
 		transfersValue = stack.Back(2).Sign() != 0
 		address        = common.BigToAddress(stack.Back(1))
 	)
-	if evm.chainRules.IsS3 {
+	// if evm.chainRules.IsS3 {
 		if transfersValue && evm.StateDB.Empty(address) {
 			gas += params.CallNewAccountGas
 		}
-	} else if !evm.StateDB.Exist(address) {
-		gas += params.CallNewAccountGas
-	}
+	// } else if !evm.StateDB.Exist(address) {
+	// 	gas += params.CallNewAccountGas
+	// }
 	if transfersValue {
 		gas += params.CallValueTransferGas
 	}
@@ -350,7 +350,8 @@ func gasCall(evm *EVM, contract *Contract, stack *Stack, mem *Memory, memorySize
 		return 0, errGasUintOverflow
 	}
 
-	evm.callGasTemp, err = callGas(evm.chainRules.IsS3, contract.Gas, gas, stack.Back(0))
+	// evm.callGasTemp, err = callGas(evm.chainRules.IsS3, contract.Gas, gas, stack.Back(0))
+	evm.callGasTemp, err = callGas(true, contract.Gas, gas, stack.Back(0))
 	if err != nil {
 		return 0, err
 	}
@@ -375,7 +376,8 @@ func gasCallCode(evm *EVM, contract *Contract, stack *Stack, mem *Memory, memory
 	if gas, overflow = math.SafeAdd(gas, memoryGas); overflow {
 		return 0, errGasUintOverflow
 	}
-	evm.callGasTemp, err = callGas(evm.chainRules.IsS3, contract.Gas, gas, stack.Back(0))
+	// evm.callGasTemp, err = callGas(evm.chainRules.IsS3, contract.Gas, gas, stack.Back(0))
+	evm.callGasTemp, err = callGas(true, contract.Gas, gas, stack.Back(0))
 	if err != nil {
 		return 0, err
 	}
@@ -390,7 +392,8 @@ func gasDelegateCall(evm *EVM, contract *Contract, stack *Stack, mem *Memory, me
 	if err != nil {
 		return 0, err
 	}
-	evm.callGasTemp, err = callGas(evm.chainRules.IsS3, contract.Gas, gas, stack.Back(0))
+	// evm.callGasTemp, err = callGas(evm.chainRules.IsS3, contract.Gas, gas, stack.Back(0))
+	evm.callGasTemp, err = callGas(true, contract.Gas, gas, stack.Back(0))
 	if err != nil {
 		return 0, err
 	}
@@ -406,7 +409,8 @@ func gasStaticCall(evm *EVM, contract *Contract, stack *Stack, mem *Memory, memo
 	if err != nil {
 		return 0, err
 	}
-	evm.callGasTemp, err = callGas(evm.chainRules.IsS3, contract.Gas, gas, stack.Back(0))
+	// evm.callGasTemp, err = callGas(evm.chainRules.IsS3, contract.Gas, gas, stack.Back(0))
+	evm.callGasTemp, err = callGas(true, contract.Gas, gas, stack.Back(0))
 	if err != nil {
 		return 0, err
 	}
@@ -420,19 +424,19 @@ func gasStaticCall(evm *EVM, contract *Contract, stack *Stack, mem *Memory, memo
 func gasSelfdestruct(evm *EVM, contract *Contract, stack *Stack, mem *Memory, memorySize uint64) (uint64, error) {
 	var gas uint64
 	// EIP150 homestead gas reprice fork:
-	if evm.chainRules.IsS3 {
+	// if evm.chainRules.IsS3 {
 		gas = params.SelfdestructGasEIP150
 		var address = common.BigToAddress(stack.Back(0))
 
-		if evm.chainRules.IsS3 {
+		// if evm.chainRules.IsS3 {
 			// if empty and transfers value
 			if evm.StateDB.Empty(address) && evm.StateDB.GetBalance(contract.Address()).Sign() != 0 {
 				gas += params.CreateBySelfdestructGas
 			}
-		} else if !evm.StateDB.Exist(address) {
-			gas += params.CreateBySelfdestructGas
-		}
-	}
+		// } else if !evm.StateDB.Exist(address) {
+		// 	gas += params.CreateBySelfdestructGas
+		// }
+	// }
 
 	if !evm.StateDB.HasSuicided(contract.Address()) {
 		evm.StateDB.AddRefund(params.SelfdestructRefundGas)

@@ -89,11 +89,11 @@ func (w *Worker) CommitSortedTransactions(
 		from, _ := types.Sender(signer, tx)
 		// Check whether the tx is replay protected. If we're not in the EIP155 hf
 		// phase, start ignoring the sender until we do.
-		if tx.Protected() && !w.config.IsEIP155(w.current.header.Epoch()) {
-			utils.Logger().Info().Str("hash", tx.Hash().Hex()).Str("eip155Epoch", w.config.EIP155Epoch.String()).Msg("Ignoring reply protected transaction")
-			txs.Pop()
-			continue
-		}
+		// if tx.Protected() && !w.config.IsEIP155(w.current.header.Epoch()) {
+		// 	utils.Logger().Info().Str("hash", tx.Hash().Hex()).Str("eip155Epoch", w.config.EIP155Epoch.String()).Msg("Ignoring reply protected transaction")
+		// 	txs.Pop()
+		// 	continue
+		// }
 
 		if tx.ShardID() != w.chain.ShardID() {
 			txs.Shift()
@@ -158,10 +158,10 @@ func (w *Worker) CommitTransactions(
 			}
 			// Check whether the tx is replay protected. If we're not in the EIP155 hf
 			// phase, start ignoring the sender until we do.
-			if tx.Protected() && !w.config.IsEIP155(w.current.header.Epoch()) {
-				utils.Logger().Info().Str("hash", tx.Hash().Hex()).Str("eip155Epoch", w.config.EIP155Epoch.String()).Msg("Ignoring reply protected transaction")
-				continue
-			}
+			// if tx.Protected() && !w.config.IsEIP155(w.current.header.Epoch()) {
+			// 	utils.Logger().Info().Str("hash", tx.Hash().Hex()).Str("eip155Epoch", w.config.EIP155Epoch.String()).Msg("Ignoring reply protected transaction")
+			// 	continue
+			// }
 
 			// Start executing the transaction
 			w.current.state.Prepare(tx.Hash(), common.Hash{}, len(w.current.txs)+len(w.current.stakingTxs))
@@ -503,9 +503,9 @@ func (w *Worker) FinalizeNewBlock(
 	// Put shard state into header
 	if shardState != nil && len(shardState.Shards) != 0 {
 		//we store shardstatehash in header only before prestaking epoch (header v0,v1,v2)
-		if !w.config.IsPreStaking(w.current.header.Epoch()) {
-			w.current.header.SetShardStateHash(shardState.Hash())
-		}
+		// if !w.config.IsPreStaking(w.current.header.Epoch()) {
+		// 	w.current.header.SetShardStateHash(shardState.Hash())
+		// }
 		isStaking := false
 		if shardState.Epoch != nil && w.config.IsStaking(shardState.Epoch) {
 			isStaking = true

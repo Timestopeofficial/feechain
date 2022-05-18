@@ -135,14 +135,14 @@ func (hmy *Harmony) IsStakingEpoch(epoch *big.Int) bool {
 }
 
 // IsPreStakingEpoch ...
-func (hmy *Harmony) IsPreStakingEpoch(epoch *big.Int) bool {
-	return hmy.BlockChain.Config().IsPreStaking(epoch)
-}
+// func (hmy *Harmony) IsPreStakingEpoch(epoch *big.Int) bool {
+// 	return hmy.BlockChain.Config().IsPreStaking(epoch)
+// }
 
 // IsNoEarlyUnlockEpoch ...
-func (hmy *Harmony) IsNoEarlyUnlockEpoch(epoch *big.Int) bool {
-	return hmy.BlockChain.Config().IsNoEarlyUnlock(epoch)
-}
+// func (hmy *Harmony) IsNoEarlyUnlockEpoch(epoch *big.Int) bool {
+// 	return hmy.BlockChain.Config().IsNoEarlyUnlock(epoch)
+// }
 
 // IsCommitteeSelectionBlock checks if the given block is the committee selection block
 func (hmy *Harmony) IsCommitteeSelectionBlock(header *block.Header) bool {
@@ -443,7 +443,8 @@ func (hmy *Harmony) GetMedianRawStakeSnapshot() (
 		func() (interface{}, error) {
 			// Compute for next epoch
 			epoch := big.NewInt(0).Add(hmy.CurrentBlock().Epoch(), big.NewInt(1))
-			return committee.NewEPoSRound(epoch, hmy.BlockChain, hmy.BlockChain.Config().IsEPoSBound35(epoch))
+			return committee.NewEPoSRound(epoch, hmy.BlockChain, true)
+			// return committee.NewEPoSRound(epoch, hmy.BlockChain, hmy.BlockChain.Config().IsEPoSBound35(epoch))
 		},
 	)
 	if err != nil {
@@ -551,9 +552,9 @@ func (u *UndelegationPayouts) SetPayoutByDelegatorAddrAndValidatorAddr(
 func (hmy *Harmony) GetUndelegationPayouts(
 	ctx context.Context, epoch *big.Int,
 ) (*UndelegationPayouts, error) {
-	if !hmy.IsPreStakingEpoch(epoch) {
-		return nil, fmt.Errorf("not pre-staking epoch or later")
-	}
+	// if !hmy.IsPreStakingEpoch(epoch) {
+	// 	return nil, fmt.Errorf("not pre-staking epoch or later")
+	// }
 
 	payouts, ok := hmy.undelegationPayoutsCache.Get(epoch.Uint64())
 	if ok {
@@ -574,9 +575,10 @@ func (hmy *Harmony) GetUndelegationPayouts(
 		if err != nil || wrapper == nil {
 			continue // Not a validator at this epoch or unable to fetch validator info because of pruned state.
 		}
-		noEarlyUnlock := hmy.IsNoEarlyUnlockEpoch(epoch)
+		// noEarlyUnlock := hmy.IsNoEarlyUnlockEpoch(epoch)
 		for _, delegation := range wrapper.Delegations {
-			withdraw := delegation.RemoveUnlockedUndelegations(epoch, wrapper.LastEpochInCommittee, lockingPeriod, noEarlyUnlock)
+			// withdraw := delegation.RemoveUnlockedUndelegations(epoch, wrapper.LastEpochInCommittee, lockingPeriod, noEarlyUnlock)
+			withdraw := delegation.RemoveUnlockedUndelegations(epoch, lockingPeriod)
 			if withdraw.Cmp(bigZero) == 1 {
 				undelegationPayouts.SetPayoutByDelegatorAddrAndValidatorAddr(validator, delegation.DelegatorAddress, withdraw)
 			}
