@@ -10,7 +10,7 @@ import (
 	"github.com/harmony-one/harmony/internal/utils"
 )
 
-const genesisString = "https://harmony.one 'Open Consensus for 10B' 2019.06.01 $ONE"
+const genesisString = "Time is the ultimate currency. 2022.28.06"
 
 // DeployAccount is the account used in genesis
 type DeployAccount struct {

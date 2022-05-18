@@ -56,7 +56,7 @@ const (
 	// GenesisEpoch is the number of the genesis epoch.
 	GenesisEpoch = 0
 	// GenesisONEToken is the initial total number of ONE in the genesis block for mainnet.
-	GenesisONEToken = 12600000000
+	GenesisONEToken = 30000000000
 	// ContractDeployerInitFund is the initial fund for the contract deployer account in testnet/devnet.
 	ContractDeployerInitFund = 10000000000
 	// InitFreeFund is the initial fund for permissioned accounts for testnet/devnet/
@@ -102,7 +102,7 @@ func NewGenesisSpec(netType nodeconfig.NetworkType, shardID uint32) *Genesis {
 	case nodeconfig.Mainnet:
 		chainConfig = *params.MainnetChainConfig
 		if shardID == 0 {
-			foundationAddress := common.HexToAddress("0xE25ABC3f7C3d5fB7FB81EAFd421FF1621A61107c")
+			foundationAddress := common.HexToAddress("0xe67d6a979fdf74b56b1506312fddb3e254f67b16")
 			genesisAlloc[foundationAddress] = GenesisAccount{Balance: GenesisFund}
 		}
 	case nodeconfig.Pangaea:
@@ -144,8 +144,8 @@ func NewGenesisSpec(netType nodeconfig.NetworkType, shardID uint32) *Genesis {
 		Alloc:     genesisAlloc,
 		ShardID:   shardID,
 		GasLimit:  gasLimit,
-		Timestamp: 1561734000, // GMT: Friday, June 28, 2019 3:00:00 PM. PST: Friday, June 28, 2019 8:00:00 AM
-		ExtraData: []byte("Harmony for One and All. Open Consensus for 10B."),
+		Timestamp: 1656374400, // GMT: Tue Jun 28 2022 00:00:00 GMT+0000
+		ExtraData: []byte("Time is the ultimate currency."),
 	}
 }
 
