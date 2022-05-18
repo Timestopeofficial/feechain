@@ -91,10 +91,10 @@ var (
 	totalPreStakingNetworkRewardsInAtto = map[shardingconfig.NetworkID][]*big.Int{
 		shardingconfig.MainNet: {
 			// Below are all of the last blocks of pre-staking era for mainnet.
-			getPreStakingRewardsFromBlockNumber(shardingconfig.MainNet, big.NewInt(3375103)),
-			getPreStakingRewardsFromBlockNumber(shardingconfig.MainNet, big.NewInt(3286737)),
-			getPreStakingRewardsFromBlockNumber(shardingconfig.MainNet, big.NewInt(3326153)),
-			getPreStakingRewardsFromBlockNumber(shardingconfig.MainNet, big.NewInt(3313572)),
+			getPreStakingRewardsFromBlockNumber(shardingconfig.MainNet, big.NewInt(8640)),
+			getPreStakingRewardsFromBlockNumber(shardingconfig.MainNet, big.NewInt(8640)),
+			getPreStakingRewardsFromBlockNumber(shardingconfig.MainNet, big.NewInt(8640)),
+			getPreStakingRewardsFromBlockNumber(shardingconfig.MainNet, big.NewInt(8640)),
 		},
 		shardingconfig.TestNet: {
 			// Below are all of the placeholders 'last blocks' of pre-staking era for testnet.
