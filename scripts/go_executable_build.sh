@@ -3,7 +3,7 @@
 export GO111MODULE=on
 
 declare -A SRC
-SRC[harmony]=./cmd/harmony
+SRC[feechain]=./cmd/harmony
 SRC[bootnode]=./cmd/bootnode
 
 BINDIR=bin
@@ -124,14 +124,14 @@ function build_only
             fi
          fi
          if [ "$(uname -s)" == "Linux" ]; then
-            if [ $bin = harmony ]; then
+            if [ $bin = feechain ]; then
                $BINDIR/$bin version || $BINDIR/$bin version
             else
                $BINDIR/$bin --version || $BINDIR/$bin version
             fi
          fi
          if [ "$(uname -s)" == "Darwin" -a "$GOOS" == "darwin" -a -e $BINDIR/$bin ]; then
-            if [ $bin = harmony ]; then
+            if [ $bin = feechain ]; then
                $BINDIR/$bin version || $BINDIR/$bin version
             else
                $BINDIR/$bin --version || $BINDIR/$bin version
@@ -286,6 +286,6 @@ case "$ACTION" in
    "build") build_only ;;
    "upload") upload ;;
    "release") release ;;
-   "harmony"|"bootnode") build_only $ACTION ;;
+   "feechain"|"bootnode") build_only $ACTION ;;
    *) usage ;;
 esac
