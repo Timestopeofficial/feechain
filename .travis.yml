@@ -1,0 +1,36 @@
+os: linux
+dist: bionic
+language: go
+go:
+  - 1.16
+go_import_path: github.com/harmony-one/harmony
+cache:
+  directories:
+    - docker_images
+env:
+  - TEST="make"
+  - TEST="bash ./scripts/travis_go_checker.sh"
+  - TEST="bash ./scripts/travis_rpc_checker.sh"
+  - TEST="bash ./scripts/travis_rosetta_checker.sh"
+install:
+  # default working directory with source code is automatically set to
+  #   /home/travis/gopath/src/github.com/harmony-one/harmony
+  # https://docs.travis-ci.com/user/languages/go/#go-import-path
+  - git clone https://github.com/harmony-one/mcl.git $HOME/gopath/src/github.com/harmony-one/mcl
+  - git clone https://github.com/harmony-one/bls.git $HOME/gopath/src/github.com/harmony-one/bls
+  - (cd $HOME/gopath/src/github.com/harmony-one/mcl; make -j4)
+  - (cd $HOME/gopath/src/github.com/harmony-one/bls; make BLS_SWAP_G=1 -j4)
+  - go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.26
+  - go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.1
+  - make go-get
+  - scripts/install_build_tools.sh
+script:
+  - ${TEST}
+after_success:
+  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+  - ./send.sh success $WEBHOOK_URL
+after_failure:
+  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+  - ./send.sh failure $WEBHOOK_URL

@@ -1,0 +1,96 @@
+# IdeaIDE
+.idea
+
+#VsIDE
+.vscode
+
+# Executables
+*.pyc
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+bin/
+
+# Mac
+.DS_Store
+
+# Log
+*.log
+log-*
+
+# gcloud
+gcloud.txt
+
+# Wallet
+*.swp
+
+# Cscope files
+cscope.*
+
+# local runtime logs
+tmp_log
+
+# RLP encoding
+*.rlp
+**/*.rlp
+
+# Others
+*.png
+
+# beacon chain data
+bc_config.json
+
+# leveldb local storage
+db/
+
+# harmony node keystore
+.hmykey
+
+# staking keystore
+.stakingkey
+
+# vendor directory
+vendor
+
+# node_modules
+node_modules/
+
+# txgen node keystore
+.txgenkey
+
+# go mod summary file
+# go.sum
+
+# bnkey
+test/.bnkey
+
+# exported keys
+.hmy/*.key
+
+# blspass
+blspass.txt
+
+# local test db
+db-127.0.0.1-*
+
+# dht storage
+.dht
+.dht-*
+.tern-port
+
+# testdata
+.testdata
+coverage.txt
+
+# testdata directory
+harmony_db_*
+explorer_storage_*
+
+# local blskeys for testing
+.hmy/blskeys
+
+# pprof profiles
+profiles/*.pb.gz
