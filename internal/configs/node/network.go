@@ -2,7 +2,8 @@ package nodeconfig
 
 var (
 	mainnetBootNodes = []string{
-		"/dnsaddr/bootstrap.t.hmny.io",
+		"/ip4/107.155.65.131/tcp/28175/p2p/QmYAppojcNmbVu6Wb2CvQRwKns1TuKAP1S7KxpBxf8NS3F",
+		"/ip4/89.233.108.44/tcp/28175/p2p/QmZKsSuz714uDhLcNLCurPLG9E1R8UBRJ9KaGXCBzK9jhe",
 	}
 
 	testnetBootNodes = []string{
@@ -26,7 +27,7 @@ var (
 )
 
 const (
-	mainnetDNSZone   = "t.hmny.io"
+	mainnetDNSZone   = "b.timestope.net"
 	testnetDNSZone   = "b.hmny.io"
 	pangaeaDNSZone   = "os.hmny.io"
 	partnerDNSZone   = "ps.hmny.io"
@@ -39,24 +40,24 @@ const (
 	// DefaultPublicListenIP is the IP used for public hosting
 	DefaultPublicListenIP = "0.0.0.0"
 	// DefaultP2PPort is the key to be used for p2p communication
-	DefaultP2PPort = 9000
+	DefaultP2PPort = 17000
 	// DefaultLegacyDNSPort is the default legacy DNS port. The actual port used is DNSPort - 3000. This is a
 	// very bad design. Refactored to DefaultDNSPort
-	DefaultLegacyDNSPort = 9000
+	DefaultLegacyDNSPort = 17000
 	// DefaultDNSPort is the default DNS port for both remote node and local server.
-	DefaultDNSPort = 6000
-	// DefaultRPCPort is the default rpc port. The actual port used is 9000+500
-	DefaultRPCPort = 9500
-	// DefaultAuthRPCPort is the default rpc auth port. The actual port used is 9000+501
-	DefaultAuthRPCPort = 9501
-	// DefaultRosettaPort is the default rosetta port. The actual port used is 9000+700
-	DefaultRosettaPort = 9700
+	DefaultDNSPort = 14000
+	// DefaultRPCPort is the default rpc port. The actual port used is 17000+500
+	DefaultRPCPort = 17500
+	// DefaultAuthRPCPort is the default rpc auth port. The actual port used is 17000+501
+	DefaultAuthRPCPort = 17501
+	// DefaultRosettaPort is the default rosetta port. The actual port used is 17000+700
+	DefaultRosettaPort = 17700
 	// DefaultWSPort is the default port for web socket endpoint. The actual port used is
-	DefaultWSPort = 9800
+	DefaultWSPort = 17800
 	// DefaultAuthWSPort is the default port for web socket auth endpoint. The actual port used is
-	DefaultAuthWSPort = 9801
-	// DefaultPrometheusPort is the default prometheus port. The actual port used is 9000+900
-	DefaultPrometheusPort = 9900
+	DefaultAuthWSPort = 17801
+	// DefaultPrometheusPort is the default prometheus port. The actual port used is 17000+900
+	DefaultPrometheusPort = 17900
 	// DefaultP2PConcurrency is the default P2P concurrency, 0 means is set the default value of P2P Discovery, the actual value is 10
 	DefaultP2PConcurrency = 0
 	DefaultMaxConnPerIP   = 10

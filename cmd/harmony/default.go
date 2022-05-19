@@ -26,7 +26,7 @@ var defaultConfig = harmonyconfig.HarmonyConfig{
 	P2P: harmonyconfig.P2pConfig{
 		Port:            nodeconfig.DefaultP2PPort,
 		IP:              nodeconfig.DefaultPublicListenIP,
-		KeyFile:         "./.hmykey",
+		KeyFile:         "./.fchkey",
 		DiscConcurrency: nodeconfig.DefaultP2PConcurrency,
 		MaxConnsPerIP:   nodeconfig.DefaultMaxConnPerIP,
 	},
@@ -50,7 +50,7 @@ var defaultConfig = harmonyconfig.HarmonyConfig{
 		RequestsPerSecond: nodeconfig.DefaultRPCRateLimit,
 	},
 	BLSKeys: harmonyconfig.BlsConfig{
-		KeyDir:   "./.hmy/blskeys",
+		KeyDir:   "./.fch/blskeys",
 		KeyFiles: []string{},
 		MaxKeys:  10,
 
@@ -63,7 +63,7 @@ var defaultConfig = harmonyconfig.HarmonyConfig{
 		KMSConfigFile:    "",
 	},
 	TxPool: harmonyconfig.TxPoolConfig{
-		BlacklistFile:  "./.hmy/blacklist.txt",
+		BlacklistFile:  "./.fch/blacklist.txt",
 		RosettaFixFile: "",
 		AccountSlots:   16,
 	},
@@ -77,8 +77,8 @@ var defaultConfig = harmonyconfig.HarmonyConfig{
 		ProfileDebugValues: []int{0},
 	},
 	Log: harmonyconfig.LogConfig{
-		Folder:       "./latest",
-		FileName:     "harmony.log",
+		Folder:       "./logs",
+		FileName:     "feechain.log",
 		RotateSize:   100,
 		RotateCount:  0,
 		RotateMaxAge: 0,
@@ -115,7 +115,7 @@ var defaultRevertConfig = harmonyconfig.RevertConfig{
 
 var defaultLogContext = harmonyconfig.LogContext{
 	IP:   "127.0.0.1",
-	Port: 9000,
+	Port: 17000,
 }
 
 var defaultConsensusConfig = harmonyconfig.ConsensusConfig{
@@ -126,7 +126,7 @@ var defaultConsensusConfig = harmonyconfig.ConsensusConfig{
 var defaultPrometheusConfig = harmonyconfig.PrometheusConfig{
 	Enabled:    true,
 	IP:         "0.0.0.0",
-	Port:       9900,
+	Port:       17900,
 	EnablePush: false,
 	Gateway:    "http://208.87.132.52:28168",
 }
@@ -135,9 +135,9 @@ var (
 	defaultMainnetSyncConfig = harmonyconfig.SyncConfig{
 		Enabled:        false,
 		Downloader:     false,
-		Concurrency:    6,
-		MinPeers:       6,
-		InitStreams:    8,
+		Concurrency:    4,
+		MinPeers:       4,
+		InitStreams:    4,
 		DiscSoftLowCap: 8,
 		DiscHardLowCap: 6,
 		DiscHighCap:    128,
