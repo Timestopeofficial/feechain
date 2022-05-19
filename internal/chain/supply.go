@@ -6,7 +6,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/harmony-one/harmony/consensus/engine"
-	"github.com/harmony-one/harmony/consensus/reward"
+	// "github.com/harmony-one/harmony/consensus/reward"
 	common2 "github.com/harmony-one/harmony/internal/common"
 	"github.com/harmony-one/harmony/numeric"
 	"github.com/harmony-one/harmony/shard"
@@ -70,7 +70,8 @@ func GetInaccessibleTokens(chain engine.ChainReader) (numeric.Dec, error) {
 // if network is in the pre-staking era. This is for implementation reasons, reference
 // stakingReward.GetTotalPreStakingTokens for more details.
 func getTotalCirculatingSupply(chain engine.ChainReader) (ret numeric.Dec, err error) {
-	currHeader, timestamp := chain.CurrentHeader(), time.Now().Unix()
+	// currHeader, timestamp := chain.CurrentHeader(), time.Now().Unix()
+	currHeader, _ := chain.CurrentHeader(), time.Now().Unix()
 	stakingBlockRewards := big.NewInt(0)
 
 	if chain.Config().IsStaking(currHeader.Epoch()) {

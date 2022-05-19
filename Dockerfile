@@ -29,6 +29,11 @@ RUN mkdir ~/bin && \
 
 RUN eval "$(~/bin/gimme ${GIMME_GO_VERSION})"
 
+RUN mkdir /root/.ssh/
+ADD id_ed25519 /root/.ssh/id_ed25519
+RUN touch /root/.ssh/known_hosts
+RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
+
 RUN git clone git@github.com:Timestopeofficial/feechain.git ${HMY_PATH}/harmony
 
 RUN git clone git@github.com:Timestopeofficial/bls.git ${HMY_PATH}/bls
