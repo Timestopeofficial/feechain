@@ -367,7 +367,7 @@ func setupNodeAndRun(hc harmonyconfig.HarmonyConfig) {
 		}
 	}
 
-	startMsg := "==== New Harmony Node ===="
+	startMsg := "==== New Feechain Node ===="
 	if hc.General.NodeType == nodeTypeExplorer {
 		startMsg = "==== New Explorer Node ===="
 	}
