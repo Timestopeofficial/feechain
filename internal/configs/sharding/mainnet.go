@@ -11,8 +11,8 @@ import (
 )
 
 const (
-	mainnetEpochBlock1 = 8640
-	blocksPerEpoch     = 8640
+	mainnetEpochBlock1 = 28800
+	blocksPerEpoch     = 28800
 
 	mainnetVdfDifficulty = 50000 // This takes about 100s to finish the vdf
 

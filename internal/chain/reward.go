@@ -34,7 +34,7 @@ const (
 	// AsyncBlockProposalTimeout is the timeout which will abort the async block proposal.
 	AsyncBlockProposalTimeout = 9 * time.Second
 	// RewardFrequency the number of blocks between each aggregated reward distribution
-	RewardFrequency = 10
+	RewardFrequency = 45
 )
 
 type slotPayable struct {
