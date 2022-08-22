@@ -296,7 +296,7 @@ func (w *Worker) UpdateCurrent() error {
 	header := w.factory.NewHeader(epoch).With().
 		ParentHash(parent.Hash()).
 		Number(num.Add(num, common.Big1)).
-		GasLimit(w.gasFloor). // GasLimit(core.CalcGasLimit(parent, w.gasFloor, w.gasCeil)).
+		GasLimit(core.CalcGasLimit(parent, w.gasFloor, w.gasCeil)).
 		Time(big.NewInt(timestamp)).
 		ShardID(w.chain.ShardID()).
 		Header()
@@ -568,8 +568,8 @@ func New(
 		chain:   chain,
 		engine:  engine,
 	}
-	worker.gasFloor = 400000000
-	worker.gasCeil = 440000000
+	worker.gasFloor = 80000000
+	worker.gasCeil = 120000000
 
 	parent := worker.chain.CurrentBlock()
 	num := parent.Number()
