@@ -10,22 +10,22 @@ import (
 
 // Well-known chain IDs.
 var (
-	MainnetChainID            = big.NewInt(1)
-	TestnetChainID            = big.NewInt(2)
-	PangaeaChainID            = big.NewInt(3)
-	PartnerChainID            = big.NewInt(4)
-	StressnetChainID          = big.NewInt(5)
-	TestChainID               = big.NewInt(99)  // not a real network
-	AllProtocolChangesChainID = big.NewInt(100) // not a real network
+	MainnetChainID            = big.NewInt(101)
+	TestnetChainID            = big.NewInt(102)
+	PangaeaChainID            = big.NewInt(103)
+	PartnerChainID            = big.NewInt(104)
+	StressnetChainID          = big.NewInt(105)
+	TestChainID               = big.NewInt(199)  // not a real network
+	AllProtocolChangesChainID = big.NewInt(200) // not a real network
 
 	// EthMainnetShard0ChainID to be reserved unique chain ID for eth compatible chains.
-	EthMainnetShard0ChainID            = big.NewInt(1666600000)
-	EthTestnetShard0ChainID            = big.NewInt(1666700000)
-	EthPangaeaShard0ChainID            = big.NewInt(1666800000)
-	EthPartnerShard0ChainID            = big.NewInt(1666900000)
-	EthStressnetShard0ChainID          = big.NewInt(1667000000)
-	EthTestShard0ChainID               = big.NewInt(1667100000) // not a real network
-	EthAllProtocolChangesShard0ChainID = big.NewInt(1667200000) // not a real network
+	EthMainnetShard0ChainID            = big.NewInt(1682841000)
+	EthTestnetShard0ChainID            = big.NewInt(1682842000)
+	EthPangaeaShard0ChainID            = big.NewInt(1682843000)
+	EthPartnerShard0ChainID            = big.NewInt(1682844000)
+	EthStressnetShard0ChainID          = big.NewInt(1682845000)
+	EthTestShard0ChainID               = big.NewInt(1682846000) // not a real network
+	EthAllProtocolChangesShard0ChainID = big.NewInt(1682847000) // not a real network
 )
 
 // EpochTBD is a large, “not anytime soon” epoch.  It used as a placeholder
