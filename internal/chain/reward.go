@@ -32,7 +32,7 @@ import (
 // timeout constant
 const (
 	// AsyncBlockProposalTimeout is the timeout which will abort the async block proposal.
-	AsyncBlockProposalTimeout = 12 * time.Second
+	AsyncBlockProposalTimeout = 9 * time.Second
 	// RewardFrequency the number of blocks between each aggregated reward distribution
 	RewardFrequency = 10
 )

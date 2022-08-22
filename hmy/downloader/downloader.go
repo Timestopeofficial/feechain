@@ -156,7 +156,7 @@ func (d *Downloader) waitForBootFinish() {
 	}
 	trigger()
 
-	t := time.NewTicker(13 * time.Second)
+	t := time.NewTicker(10 * time.Second)
 	defer t.Stop()
 	for {
 		d.logger.Info().Msg("waiting for initial bootstrap discovery")
@@ -178,7 +178,7 @@ func (d *Downloader) waitForBootFinish() {
 }
 
 func (d *Downloader) loop() {
-	ticker := time.NewTicker(13 * time.Second)
+	ticker := time.NewTicker(10 * time.Second)
 	defer ticker.Stop()
 	initSync := true
 	trigger := func() {
