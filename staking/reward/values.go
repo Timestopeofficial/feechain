@@ -14,12 +14,12 @@ import (
 
 var (
 	// PreStakedBlocks is the block reward, to be split evenly among block signers in pre-staking era.
-	// 33 FEE per block
-	PreStakedBlocks = new(big.Int).Mul(big.NewInt(33), big.NewInt(denominations.One))
+	// 99 FEE per block
+	PreStakedBlocks = new(big.Int).Mul(big.NewInt(99), big.NewInt(denominations.One))
 	// StakedBlocks is the flat-rate block reward for epos staking launch.
-	// 33 FEE per block.
+	// 99 FEE per block.
 	StakedBlocks = numeric.NewDecFromBigInt(new(big.Int).Mul(
-		big.NewInt(33), big.NewInt(denominations.One),
+		big.NewInt(99), big.NewInt(denominations.One),
 	))
 	// FiveSecStakedBlocks is the flat-rate block reward after epoch 230.
 	// 17.5 ONE per block
