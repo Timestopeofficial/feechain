@@ -7,7 +7,6 @@ import (
 	"github.com/harmony-one/harmony/api/service/blockproposal"
 	"github.com/harmony-one/harmony/api/service/consensus"
 	"github.com/harmony-one/harmony/api/service/explorer"
-	"github.com/harmony-one/harmony/api/service/version"
 )
 
 // RegisterValidatorServices register the validator services.
@@ -53,8 +52,4 @@ func (node *Node) networkInfoDHTPath() string {
 		node.SelfPeer.Port,
 		node.chainConfig.ChainID,
 	)
-}
-
-func (node *Node) RegisterCheckVersionService() {
-	node.serviceManager.Register(service.CheckVersion, version.New(node.CheckVersion));
 }
