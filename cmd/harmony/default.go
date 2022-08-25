@@ -128,7 +128,7 @@ var defaultPrometheusConfig = harmonyconfig.PrometheusConfig{
 	IP:         "0.0.0.0",
 	Port:       17900,
 	EnablePush: false,
-	Gateway:    "http://208.87.132.52:28168",
+	Gateway:    "https://gateway.timestope.net",
 }
 
 var (
