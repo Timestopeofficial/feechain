@@ -113,7 +113,7 @@ func getDefaultNetworkConfig(nt nodeconfig.NetworkType) harmonyconfig.NetworkCon
 
 func parseNetworkType(nt string) nodeconfig.NetworkType {
 	switch nt {
-	case "mainnet":
+	case "asada":
 		return nodeconfig.Mainnet
 	case "testnet":
 		return nodeconfig.Testnet

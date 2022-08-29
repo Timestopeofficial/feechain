@@ -24,13 +24,13 @@ EOT
 }
 
 CLEAN=false
-FOLDER=mainnet.min
+FOLDER=asada.min
 CONFIG=/etc/harmony/rclone.conf
 
 while getopts ":hca" opt; do
    case $opt in
       c) CLEAN=true ;;
-      a) FOLDER=mainnet.archival ;;
+      a) FOLDER=asada.archival ;;
       *) usage ;;
    esac
 done

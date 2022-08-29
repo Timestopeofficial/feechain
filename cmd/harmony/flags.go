@@ -375,8 +375,8 @@ var (
 	networkTypeFlag = cli.StringFlag{
 		Name:      "network",
 		Shorthand: "n",
-		DefValue:  "mainnet",
-		Usage:     "network to join (mainnet, testnet, pangaea, localnet, partner, stressnet, devnet)",
+		DefValue:  "asada",
+		Usage:     "network to join (asada, testnet, pangaea, localnet, partner, stressnet, devnet)",
 	}
 	bootNodeFlag = cli.StringSliceFlag{
 		Name:  "bootnodes",
@@ -389,7 +389,7 @@ var (
 	}
 	legacyNetworkTypeFlag = cli.StringFlag{
 		Name:       "network_type",
-		Usage:      "network to join (mainnet, testnet, pangaea, localnet, partner, stressnet, devnet)",
+		Usage:      "network to join (asada, testnet, pangaea, localnet, partner, stressnet, devnet)",
 		Deprecated: "use --network",
 	}
 )
@@ -1503,8 +1503,8 @@ func applyPrometheusFlags(cmd *cobra.Command, config *harmonyconfig.HarmonyConfi
 	if config.Prometheus == nil {
 		cfg := getDefaultPrometheusConfigCopy()
 		config.Prometheus = &cfg
-		// enable pushgateway for mainnet nodes by default
-		if config.Network.NetworkType == "mainnet" {
+		// enable pushgateway for asada nodes by default
+		if config.Network.NetworkType == "asada" {
 			config.Prometheus.EnablePush = true
 		}
 	}

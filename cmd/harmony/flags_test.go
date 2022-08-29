@@ -42,7 +42,7 @@ func TestHarmonyFlags(t *testing.T) {
 					DataDir:    "./",
 				},
 				Network: harmonyconfig.NetworkConfig{
-					NetworkType: "mainnet",
+					NetworkType: "asada",
 					BootNodes: []string{
 						"/ip4/100.26.90.187/tcp/9874/p2p/Qmdfjtk6hPoyrH1zVD9PEH4zfWLo38dP2mDvvKXfh3tnEv",
 						"/ip4/54.213.43.194/tcp/9874/p2p/QmZJJx6AdaoEkGLrYG4JeLCKeCKDjnFz2wfHNHxAqFSGA9",
@@ -1158,12 +1158,12 @@ func TestDNSSyncFlags(t *testing.T) {
 	}{
 		{
 			args:      []string{},
-			network:   "mainnet",
+			network:   "asada",
 			expConfig: getDefaultDNSSyncConfig(nodeconfig.Mainnet),
 		},
 		{
 			args:      []string{"--sync.legacy.server", "--sync.legacy.client"},
-			network:   "mainnet",
+			network:   "asada",
 			expConfig: getDefaultDNSSyncConfig(nodeconfig.Mainnet),
 		},
 		{
@@ -1178,7 +1178,7 @@ func TestDNSSyncFlags(t *testing.T) {
 		},
 		{
 			args:      []string{"--dns.server", "--dns.client"},
-			network:   "mainnet",
+			network:   "asada",
 			expConfig: getDefaultDNSSyncConfig(nodeconfig.Mainnet),
 		},
 	}
@@ -1216,7 +1216,7 @@ func TestSyncFlags(t *testing.T) {
 				"--sync.disc.hard-low-cap", "10", "--sync.disc.hi-cap", "10",
 				"--sync.disc.batch", "10",
 			},
-			network: "mainnet",
+			network: "asada",
 			expConfig: func() harmonyconfig.SyncConfig {
 				cfgSync := defaultMainnetSyncConfig
 				cfgSync.Enabled = true

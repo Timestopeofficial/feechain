@@ -18,7 +18,7 @@ func TestProtocol_Match(t *testing.T) {
 		{"h123456", false},
 		{"harmony/sync/unitest/0/0.9.9", false},
 		{"harmony/epoch/unitest/0/1.0.1", false},
-		{"harmony/sync/mainnet/0/1.0.1", false},
+		{"harmony/sync/asada/0/1.0.1", false},
 		{"harmony/sync/unitest/1/1.0.1", false},
 	}
 

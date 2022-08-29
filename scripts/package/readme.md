@@ -120,7 +120,7 @@ to setup the node as an explorer node w/o blskey setup.
 
 # Setup new validator
 Please copy your blskey to `/home/harmony/.hmy/blskeys` directory, and start the node.
-The default configuration is for validators on mainnet. No need to run `harmony-setup.sh` script.
+The default configuration is for validators on asada. No need to run `harmony-setup.sh` script.
 
 # Start/stop node
 * `systemctl start harmony` to start node

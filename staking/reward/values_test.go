@@ -29,7 +29,7 @@ func TestGetPreStakingRewardsFromBlockNumber(t *testing.T) {
 	refMainnetRewards, _ := new(big.Int).SetString("319237464000000000000000000", 10)
 	mainnetRewards := getTotalPreStakingNetworkRewards(shardingconfig.MainNet)
 	if refMainnetRewards.Cmp(mainnetRewards) != 0 {
-		t.Errorf("Expected mainnet rewards to be %v NOT %v", refMainnetRewards, mainnetRewards)
+		t.Errorf("Expected asada rewards to be %v NOT %v", refMainnetRewards, mainnetRewards)
 	}
 
 	refTestnetRewards, _ := new(big.Int).SetString("7104000000000000000000", 10)

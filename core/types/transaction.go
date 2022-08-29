@@ -504,7 +504,7 @@ func (tx *Transaction) Copy() *Transaction {
 }
 
 // SenderAddress returns the address of transaction sender
-// Note that mainnet has unprotected transactions prior to Epoch 28
+// Note that asada has unprotected transactions prior to Epoch 28
 func (tx *Transaction) SenderAddress() (common.Address, error) {
 	var signer Signer
 	if !tx.Protected() {

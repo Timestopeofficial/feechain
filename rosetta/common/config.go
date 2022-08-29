@@ -104,7 +104,7 @@ func GetNetwork(shardID uint32) (*types.NetworkIdentifier, error) {
 
 func getNetworkName() string {
 	if shard.Schedule.GetNetworkID() == shardingconfig.MainNet {
-		return "Mainnet"
+		return "Asada"
 	}
 	return "Testnet"
 }
