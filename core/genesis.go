@@ -18,19 +18,16 @@ package core
 
 import (
 	"bytes"
-	"crypto/ecdsa"
 	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"math/big"
 	"os"
-	"strings"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethdb"
 	"github.com/ethereum/go-ethereum/rlp"
 	blockfactory "github.com/harmony-one/harmony/block/factory"
@@ -55,7 +52,7 @@ var errGenesisNoConfig = errors.New("genesis has no chain configuration")
 const (
 	// GenesisEpoch is the number of the genesis epoch.
 	GenesisEpoch = 0
-	// GenesisONEToken is the initial total number of ONE in the genesis block for mainnet.
+	// GenesisONEToken is the initial total number of ONE in the genesis block for asada.
 	GenesisONEToken = 30000000000
 	// ContractDeployerInitFund is the initial fund for the contract deployer account in testnet/devnet.
 	ContractDeployerInitFund = 10000000000
@@ -64,7 +61,7 @@ const (
 )
 
 var (
-	// GenesisFund is the initial total number of ONE (in atto) in the genesis block for mainnet.
+	// GenesisFund is the initial total number of ONE (in atto) in the genesis block for asada.
 	GenesisFund = new(big.Int).Mul(big.NewInt(GenesisONEToken), big.NewInt(denominations.One))
 )
 
@@ -115,15 +112,16 @@ func NewGenesisSpec(netType nodeconfig.NetworkType, shardID uint32) *Genesis {
 		chainConfig = *params.TestChainConfig
 	}
 
-	// All non-mainnet chains get test accounts
+	// All non-asada chains get test accounts
 	if netType != nodeconfig.Mainnet {
 		gasLimit = params.TestGenesisGasLimit
 		// Smart contract deployer account used to deploy initial smart contract
-		contractDeployerKey, _ := ecdsa.GenerateKey(
-			crypto.S256(),
-			strings.NewReader("Test contract key string stream that is fixed so that generated test key are deterministic every time"),
-		)
-		contractDeployerAddress := crypto.PubkeyToAddress(contractDeployerKey.PublicKey)
+		// contractDeployerKey, _ := ecdsa.GenerateKey(
+		// 	crypto.S256(),
+		// 	strings.NewReader("Test contract key string stream that is fixed so that generated test key are deterministic every time"),
+		// )
+		// contractDeployerAddress := crypto.PubkeyToAddress(contractDeployerKey.PublicKey)
+		contractDeployerAddress := common.HexToAddress("0xe67d6a979fdf74b56b1506312fddb3e254f67b16")
 		contractDeployerFunds := big.NewInt(ContractDeployerInitFund)
 		contractDeployerFunds = contractDeployerFunds.Mul(
 			contractDeployerFunds, big.NewInt(denominations.One),

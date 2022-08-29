@@ -7,7 +7,8 @@ var (
 	}
 
 	testnetBootNodes = []string{
-		"/dnsaddr/bootstrap.b.hmny.io",
+		"/ip4/107.155.65.131/tcp/28175/p2p/QmYAppojcNmbVu6Wb2CvQRwKns1TuKAP1S7KxpBxf8NS3F",
+		"/ip4/89.233.108.44/tcp/28175/p2p/QmZKsSuz714uDhLcNLCurPLG9E1R8UBRJ9KaGXCBzK9jhe",
 	}
 
 	pangaeaBootNodes = []string{
@@ -16,11 +17,13 @@ var (
 	}
 
 	partnerBootNodes = []string{
-		"/dnsaddr/bootstrap.ps.hmny.io",
+		"/ip4/107.155.65.131/tcp/28175/p2p/QmYAppojcNmbVu6Wb2CvQRwKns1TuKAP1S7KxpBxf8NS3F",
+		"/ip4/89.233.108.44/tcp/28175/p2p/QmZKsSuz714uDhLcNLCurPLG9E1R8UBRJ9KaGXCBzK9jhe",
 	}
 
 	stressBootNodes = []string{
-		"/dnsaddr/bootstrap.stn.hmny.io",
+		"/ip4/107.155.65.131/tcp/28175/p2p/QmYAppojcNmbVu6Wb2CvQRwKns1TuKAP1S7KxpBxf8NS3F",
+		"/ip4/89.233.108.44/tcp/28175/p2p/QmZKsSuz714uDhLcNLCurPLG9E1R8UBRJ9KaGXCBzK9jhe",
 	}
 
 	devnetBootNodes = []string{}
@@ -28,10 +31,10 @@ var (
 
 const (
 	mainnetDNSZone   = "b.timestope.net"
-	testnetDNSZone   = "b.hmny.io"
-	pangaeaDNSZone   = "os.hmny.io"
-	partnerDNSZone   = "ps.hmny.io"
-	stressnetDNSZone = "stn.hmny.io"
+	testnetDNSZone   = "t.timestope.net"
+	pangaeaDNSZone   = "p.timestope.net"
+	partnerDNSZone   = "pa.timestope.net"
+	stressnetDNSZone = "st.timestope.net"
 )
 
 const (

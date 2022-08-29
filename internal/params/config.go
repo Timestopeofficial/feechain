@@ -39,32 +39,32 @@ var (
 		ChainID:                    MainnetChainID,
 		EthCompatibleChainID:       EthMainnetShard0ChainID,
 		EthCompatibleShard0ChainID: EthMainnetShard0ChainID,
-		EthCompatibleEpoch:         big.NewInt(0), // => Ignore. Around Thursday Feb 4th 2020, 10AM PST
+		EthCompatibleEpoch:         big.NewInt(0), // => Ignore
 		CrossTxEpoch:               big.NewInt(0), // => Ignore
 		CrossLinkEpoch:             big.NewInt(0), // => Ignore
-		AggregatedRewardEpoch:      big.NewInt(3), // => Ignore. Around Wed Sept 15th 2021 with 3.5s block time. From staking era
+		AggregatedRewardEpoch:      big.NewInt(3), // => Ignore
 		StakingEpoch:               big.NewInt(1),
 		PreStakingEpoch:            big.NewInt(0),
 		QuickUnlockEpoch:           big.NewInt(0), // => Ignore.
 		FiveSecondsEpoch:           EpochTBD,
-		TwoSecondsEpoch:            EpochTBD, 		 // Around Tuesday Dec 8th 2020, 8AM PST
-		SixtyPercentEpoch:          big.NewInt(0), // => Ignore. Around Monday Apr 12th 2021, 22:30 UTC
+		TwoSecondsEpoch:            EpochTBD, 		 
+		SixtyPercentEpoch:          big.NewInt(0), // => Ignore.
 		RedelegationEpoch:          big.NewInt(0), // => Ignore
-		NoEarlyUnlockEpoch:         big.NewInt(0), // => Ignore. Around Monday Apr 12th 2021, 22:30 UTC
-		VRFEpoch:                   big.NewInt(0), // => Ignore. Around Wed July 7th 2021
-		PrevVRFEpoch:               big.NewInt(0), // => Ignore. Around Wed Sept 15th 2021 with 3.5s block time
-		MinDelegation100Epoch:      big.NewInt(0), // => Ignore. Around Wed July 7th 2021 => ignore
-		MinCommissionRateEpoch:     big.NewInt(0), // => Ignore. Around Wed July 7th 2021
+		NoEarlyUnlockEpoch:         big.NewInt(0), // => Ignore.
+		VRFEpoch:                   big.NewInt(0), // => Ignore.
+		PrevVRFEpoch:               big.NewInt(0), // => Ignore.
+		MinDelegation100Epoch:      big.NewInt(0), // => Ignore.
+		MinCommissionRateEpoch:     big.NewInt(0), // => Ignore.
 		MinCommissionPromoPeriod:   big.NewInt(100),
-		EPoSBound35Epoch:           big.NewInt(0), // => Ignore. Around Wed July 7th 2021
+		EPoSBound35Epoch:           big.NewInt(0), // => Ignore.
 		EIP155Epoch:                big.NewInt(0), // => Ignore.
 		S3Epoch:                    big.NewInt(0), // => Ignore.
-		DataCopyFixEpoch:           big.NewInt(0), // => Ignore. Around Wed Sept 15th 2021 with 3.5s block time
+		DataCopyFixEpoch:           big.NewInt(0), // => Ignore.
 		IstanbulEpoch:              big.NewInt(0), // => Ignore.
 		ReceiptLogEpoch:            big.NewInt(0), // => Ignore.
-		SHA3Epoch:                  big.NewInt(0), // => Ignore. Around Mon Oct 11 2021, 19:00 UTC
-		HIP6And8Epoch:              big.NewInt(0), // => Ignore. Around Mon Oct 11 2021, 19:00 UTC
-		StakingPrecompileEpoch:     big.NewInt(0), // => Ignore. Around Tue Feb 11 2022
+		SHA3Epoch:                  big.NewInt(0), // => Ignore.
+		HIP6And8Epoch:              big.NewInt(0), // => Ignore.
+		StakingPrecompileEpoch:     big.NewInt(0), // => Ignore.
 	}
 
 	// TestnetChainConfig contains the chain parameters to run a node on the harmony test network.
@@ -72,32 +72,32 @@ var (
 		ChainID:                    TestnetChainID,
 		EthCompatibleChainID:       EthTestnetShard0ChainID,
 		EthCompatibleShard0ChainID: EthTestnetShard0ChainID,
-		EthCompatibleEpoch:         big.NewInt(73290),
-		CrossTxEpoch:               big.NewInt(0),
-		CrossLinkEpoch:             big.NewInt(2),
-		AggregatedRewardEpoch:      big.NewInt(74275),
-		StakingEpoch:               big.NewInt(2),
-		PreStakingEpoch:            big.NewInt(1),
-		QuickUnlockEpoch:           big.NewInt(0),
-		FiveSecondsEpoch:           big.NewInt(16500),
-		TwoSecondsEpoch:            big.NewInt(73000),
-		SixtyPercentEpoch:          big.NewInt(73282),
-		RedelegationEpoch:          big.NewInt(36500),
-		NoEarlyUnlockEpoch:         big.NewInt(73580),
-		VRFEpoch:                   big.NewInt(73880),
-		PrevVRFEpoch:               big.NewInt(74384),
-		MinDelegation100Epoch:      big.NewInt(73880),
-		MinCommissionRateEpoch:     big.NewInt(73880),
-		MinCommissionPromoPeriod:   big.NewInt(10),
-		EPoSBound35Epoch:           big.NewInt(73880),
-		EIP155Epoch:                big.NewInt(0),
-		S3Epoch:                    big.NewInt(0),
-		DataCopyFixEpoch:           big.NewInt(74412),
-		IstanbulEpoch:              big.NewInt(43800),
-		ReceiptLogEpoch:            big.NewInt(0),
-		SHA3Epoch:                  big.NewInt(74570),
-		HIP6And8Epoch:              big.NewInt(74570),
-		StakingPrecompileEpoch:     big.NewInt(75175),
+		EthCompatibleEpoch:         big.NewInt(0), // => Ignore
+		CrossTxEpoch:               big.NewInt(0), // => Ignore
+		CrossLinkEpoch:             big.NewInt(0), // => Ignore
+		AggregatedRewardEpoch:      big.NewInt(3), // => Ignore
+		StakingEpoch:               big.NewInt(1),
+		PreStakingEpoch:            big.NewInt(0),
+		QuickUnlockEpoch:           big.NewInt(0), // => Ignore.
+		FiveSecondsEpoch:           EpochTBD,
+		TwoSecondsEpoch:            EpochTBD, 		 
+		SixtyPercentEpoch:          big.NewInt(0), // => Ignore.
+		RedelegationEpoch:          big.NewInt(0), // => Ignore
+		NoEarlyUnlockEpoch:         big.NewInt(0), // => Ignore.
+		VRFEpoch:                   big.NewInt(0), // => Ignore.
+		PrevVRFEpoch:               big.NewInt(0), // => Ignore.
+		MinDelegation100Epoch:      big.NewInt(0), // => Ignore.
+		MinCommissionRateEpoch:     big.NewInt(0), // => Ignore.
+		MinCommissionPromoPeriod:   big.NewInt(100),
+		EPoSBound35Epoch:           big.NewInt(0), // => Ignore.
+		EIP155Epoch:                big.NewInt(0), // => Ignore.
+		S3Epoch:                    big.NewInt(0), // => Ignore.
+		DataCopyFixEpoch:           big.NewInt(0), // => Ignore.
+		IstanbulEpoch:              big.NewInt(0), // => Ignore.
+		ReceiptLogEpoch:            big.NewInt(0), // => Ignore.
+		SHA3Epoch:                  big.NewInt(0), // => Ignore.
+		HIP6And8Epoch:              big.NewInt(0), // => Ignore.
+		StakingPrecompileEpoch:     big.NewInt(0), // => Ignore.
 	}
 
 	// PangaeaChainConfig contains the chain parameters for the Pangaea network.
@@ -400,7 +400,7 @@ type ChainConfig struct {
 	// EIP155 hard fork epoch (include EIP158 too)
 	EIP155Epoch *big.Int `json:"eip155-epoch,omitempty"`
 
-	// S3 epoch is the first epoch containing S3 mainnet and all ethereum update up to Constantinople
+	// S3 epoch is the first epoch containing S3 asada and all ethereum update up to Constantinople
 	S3Epoch *big.Int `json:"s3-epoch,omitempty"`
 
 	// DataCopyFix epoch is the first epoch containing fix for evm datacopy bug.
