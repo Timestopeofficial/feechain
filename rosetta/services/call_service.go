@@ -15,21 +15,21 @@ import (
 )
 
 var CallMethod = []string{
-	"hmyv2_call",
-	"hmyv2_getCode",
-	"hmyv2_getStorageAt",
-	"hmyv2_getDelegationsByDelegator",
-	"hmyv2_getDelegationsByDelegatorByBlockNumber",
-	"hmyv2_getDelegationsByValidator",
-	"hmyv2_getAllValidatorAddresses",
-	"hmyv2_getAllValidatorInformation",
-	"hmyv2_getAllValidatorInformationByBlockNumber",
-	"hmyv2_getElectedValidatorAddresses",
-	"hmyv2_getValidatorInformation",
-	"hmyv2_getCurrentUtilityMetrics",
-	"hmyv2_getMedianRawStakeSnapshot",
-	"hmyv2_getStakingNetworkInfo",
-	"hmyv2_getSuperCommittees",
+	"fchv2_call",
+	"fchv2_getCode",
+	"fchv2_getStorageAt",
+	"fchv2_getDelegationsByDelegator",
+	"fchv2_getDelegationsByDelegatorByBlockNumber",
+	"fchv2_getDelegationsByValidator",
+	"fchv2_getAllValidatorAddresses",
+	"fchv2_getAllValidatorInformation",
+	"fchv2_getAllValidatorInformationByBlockNumber",
+	"fchv2_getElectedValidatorAddresses",
+	"fchv2_getValidatorInformation",
+	"fchv2_getCurrentUtilityMetrics",
+	"fchv2_getMedianRawStakeSnapshot",
+	"fchv2_getStakingNetworkInfo",
+	"fchv2_getSuperCommittees",
 }
 
 type CallAPIService struct {
@@ -44,35 +44,35 @@ func (c *CallAPIService) Call(
 	ctx context.Context, request *types.CallRequest,
 ) (*types.CallResponse, *types.Error) {
 	switch request.Method {
-	case "hmyv2_call":
+	case "fchv2_call":
 		return c.call(ctx, request)
-	case "hmyv2_getCode":
+	case "fchv2_getCode":
 		return c.getCode(ctx, request)
-	case "hmyv2_getStorageAt":
+	case "fchv2_getStorageAt":
 		return c.getStorageAt(ctx, request)
-	case "hmyv2_getDelegationsByDelegator":
+	case "fchv2_getDelegationsByDelegator":
 		return c.getDelegationsByDelegator(ctx, request)
-	case "hmyv2_getDelegationsByDelegatorByBlockNumber":
+	case "fchv2_getDelegationsByDelegatorByBlockNumber":
 		return c.getDelegationsByDelegatorByBlockNumber(ctx, request)
-	case "hmyv2_getDelegationsByValidator":
+	case "fchv2_getDelegationsByValidator":
 		return c.getDelegationsByValidator(ctx, request)
-	case "hmyv2_getAllValidatorAddresses":
+	case "fchv2_getAllValidatorAddresses":
 		return c.getAllValidatorAddresses(ctx)
-	case "hmyv2_getAllValidatorInformation":
+	case "fchv2_getAllValidatorInformation":
 		return c.getAllValidatorInformation(ctx, request)
-	case "hmyv2_getAllValidatorInformationByBlockNumber":
+	case "fchv2_getAllValidatorInformationByBlockNumber":
 		return c.getAllValidatorInformationByBlockNumber(ctx, request)
-	case "hmyv2_getElectedValidatorAddresses":
+	case "fchv2_getElectedValidatorAddresses":
 		return c.getElectedValidatorAddresses(ctx)
-	case "hmyv2_getValidatorInformation":
+	case "fchv2_getValidatorInformation":
 		return c.getValidatorInformation(ctx, request)
-	case "hmyv2_getCurrentUtilityMetrics":
+	case "fchv2_getCurrentUtilityMetrics":
 		return c.getCurrentUtilityMetrics()
-	case "hmyv2_getMedianRawStakeSnapshot":
+	case "fchv2_getMedianRawStakeSnapshot":
 		return c.getMedianRawStakeSnapshot()
-	case "hmyv2_getStakingNetworkInfo":
+	case "fchv2_getStakingNetworkInfo":
 		return c.getStakingNetworkInfo(ctx)
-	case "hmyv2_getSuperCommittees":
+	case "fchv2_getSuperCommittees":
 		return c.getSuperCommittees()
 	}
 

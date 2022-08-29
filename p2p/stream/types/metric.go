@@ -19,7 +19,7 @@ func init() {
 var (
 	bytesReadCounter = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "stream",
 			Name:      "bytes_read",
 			Help:      "total bytes read from stream",
@@ -28,7 +28,7 @@ var (
 
 	bytesWriteCounter = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "stream",
 			Name:      "bytes_write",
 			Help:      "total bytes write to stream",
@@ -37,7 +37,7 @@ var (
 
 	msgReadCounter = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "stream",
 			Name:      "msg_read",
 			Help:      "number of messages read from stream",
@@ -46,7 +46,7 @@ var (
 
 	msgWriteCounter = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "stream",
 			Name:      "msg_write",
 			Help:      "number of messages write to stream",
@@ -55,7 +55,7 @@ var (
 
 	msgReadFailedCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "stream",
 			Name:      "msg_read_failed",
 			Help:      "number of messages failed reading from stream",
@@ -65,7 +65,7 @@ var (
 
 	msgWriteFailedCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "stream",
 			Name:      "msg_write_failed",
 			Help:      "number of messages failed writing to stream",

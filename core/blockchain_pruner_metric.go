@@ -19,7 +19,7 @@ func init() {
 var (
 	deletedValidatorSnapshot = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "blockchain_pruner",
 			Name:      "deleted_validator_snapshot",
 			Help:      "number of deleted validator snapshot count",
@@ -28,7 +28,7 @@ var (
 
 	skipValidatorSnapshot = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "stream",
 			Name:      "skip_validator_snapshot",
 			Help:      "number of skip validator snapshot count",
@@ -37,7 +37,7 @@ var (
 
 	deletedBlockCount = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "blockchain_pruner",
 			Name:      "deleted_block_count",
 			Help:      "number of deleted block count",
@@ -46,7 +46,7 @@ var (
 
 	prunerMaxBlock = prometheus.NewGauge(
 		prometheus.GaugeOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "stream",
 			Name:      "pruner_max_block",
 			Help:      "number of largest pruner block",
@@ -55,7 +55,7 @@ var (
 
 	deletedBlockCountUsedTime = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "blockchain_pruner",
 			Name:      "deleted_block_count_used_time",
 			Help:      "sum of deleted block used time in ms",
@@ -64,7 +64,7 @@ var (
 
 	compactBlockCountUsedTime = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "blockchain_pruner",
 			Name:      "compact_block_count_used_time",
 			Help:      "sum of compact block time in ms",

@@ -15,7 +15,7 @@ func init() {
 var (
 	serverRequestCounter = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "stream",
 			Name:      "num_server_request",
 			Help:      "number of incoming requests as server",
@@ -24,7 +24,7 @@ var (
 
 	serverRequestDelayDuration = prometheus.NewHistogram(
 		prometheus.HistogramOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "stream",
 			Name:      "server_request_delay",
 			Help:      "delay in seconds of incoming requests of server",

@@ -614,7 +614,7 @@ func init() {
 var (
 	dnsServerRequestCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "dns_server",
 			Name:      "request_count",
 			Help:      "request count for each dns request",

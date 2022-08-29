@@ -18,7 +18,7 @@ type PublicLegacyService struct {
 // NewPublicLegacyAPI creates a new API for the RPC interface
 func NewPublicLegacyAPI(hmy *hmy.Harmony, namespace string) rpc.API {
 	if namespace == "" {
-		namespace = "hmyv2"
+		namespace = "fchv2"
 	}
 
 	return rpc.API{

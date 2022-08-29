@@ -12,7 +12,7 @@ var (
 	// consensusCounterVec is used to keep track of consensus reached
 	consensusCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "consensus",
 			Name:      "bingo",
 			Help:      "counter of consensus",
@@ -24,7 +24,7 @@ var (
 	// consensusVCCounterVec is used to keep track of number of view change
 	consensusVCCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "consensus",
 			Name:      "viewchange",
 			Help:      "counter of view chagne",
@@ -36,7 +36,7 @@ var (
 	// consensusSyncCounterVec is used to keep track of consensus syncing state
 	consensusSyncCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "consensus",
 			Name:      "sync",
 			Help:      "counter of blockchain syncing state",
@@ -48,7 +48,7 @@ var (
 	// consensusGaugeVec is used to keep track of gauge number of the consensus
 	consensusGaugeVec = prometheus.NewGaugeVec(
 		prometheus.GaugeOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "consensus",
 			Name:      "signatures",
 			Help:      "number of signatures or commits",
@@ -60,7 +60,7 @@ var (
 	// consensusPubkeyVec is used to keep track of bls pubkeys
 	consensusPubkeyVec = prometheus.NewGaugeVec(
 		prometheus.GaugeOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "consensus",
 			Name:      "blskeys",
 			Help:      "list of bls pubkey",
@@ -74,7 +74,7 @@ var (
 	// 800, 1000, 1250, 1562, 1953, 2441, 3051, 3814, 4768, 5960, inf
 	consensusFinalityHistogram = prometheus.NewHistogram(
 		prometheus.HistogramOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "consensus",
 			Name:      "finality",
 			Help:      "the latency of the finality",

@@ -16,7 +16,7 @@ func init() {
 var (
 	requestCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "rpc2",
 			Name:      "request_count",
 			Help:      "counters for each RPC method",
@@ -26,7 +26,7 @@ var (
 
 	requestErroredCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "rpc2",
 			Name:      "err_count",
 			Help:      "counters of errored RPC method",
@@ -36,7 +36,7 @@ var (
 
 	requestDurationHistVec = prometheus.NewHistogramVec(
 		prometheus.HistogramOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "rpc2",
 			Name:      "delay_histogram",
 			Help:      "delays histogram in seconds",

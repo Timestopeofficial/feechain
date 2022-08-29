@@ -12,7 +12,7 @@ var (
 	// info into the metrics api
 	nodeStringCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "node",
 			Name:      "metadata",
 			Help:      "a list of node metadata",
@@ -22,7 +22,7 @@ var (
 	// nodeP2PMessageCounterVec is used to keep track of all p2p messages received
 	nodeP2PMessageCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "p2p",
 			Name:      "message",
 			Help:      "number of p2p messages",
@@ -34,7 +34,7 @@ var (
 	// nodeConsensusMessageCounterVec is used to keep track of consensus p2p messages received
 	nodeConsensusMessageCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "p2p",
 			Name:      "consensus_msg",
 			Help:      "number of consensus messages",
@@ -47,7 +47,7 @@ var (
 	// nodeNodeMessageCounterVec is used to keep track of node p2p messages received
 	nodeNodeMessageCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "p2p",
 			Name:      "node_msg",
 			Help:      "number of node messages",
@@ -60,7 +60,7 @@ var (
 	// nodeCrossLinkMessageCounterVec is used to keep track of node new/invalid/duplicate crosslink messages received
 	nodeCrossLinkMessageCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "p2p",
 			Name:      "crosslink_msg",
 			Help:      "number of crosslink messages",

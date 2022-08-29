@@ -98,7 +98,7 @@ func (node *Node) APIs(harmony *hmy.Harmony) []rpc.API {
 		hmy_rpc.NewPublicNetAPI(node.host, harmony.ChainID, hmy_rpc.V2),
 		hmy_rpc.NewPublicNetAPI(node.host, harmony.ChainID, hmy_rpc.Eth),
 		hmy_rpc.NewPublicWeb3API(),
-		filters.NewPublicFilterAPI(harmony, false, "hmy"),
+		filters.NewPublicFilterAPI(harmony, false, "fch"),
 		filters.NewPublicFilterAPI(harmony, false, "eth"),
 	}
 }

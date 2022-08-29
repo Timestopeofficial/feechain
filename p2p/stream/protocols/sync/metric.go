@@ -17,7 +17,7 @@ func init() {
 var (
 	numClientRequestCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "stream_sync",
 			Name:      "client_request",
 			Help:      "number of outgoing requests as a client",
@@ -27,7 +27,7 @@ var (
 
 	failedClientRequestCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "stream_sync",
 			Name:      "failed_client_request",
 			Help:      "failed outgoing request as a client",
@@ -37,7 +37,7 @@ var (
 
 	clientRequestDurationVec = prometheus.NewHistogramVec(
 		prometheus.HistogramOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "stream_sync",
 			Name:      "client_request_delay",
 			Help:      "delay in seconds to do sync requests as a client",
@@ -49,7 +49,7 @@ var (
 
 	serverRequestCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "stream_sync",
 			Name:      "server_request",
 			Help:      "number of incoming request as a server",

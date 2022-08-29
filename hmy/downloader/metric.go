@@ -22,7 +22,7 @@ func init() {
 var (
 	consensusTriggeredDownloadCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "downloader",
 			Name:      "consensus_trigger",
 			Help:      "number of times consensus triggered download task",
@@ -32,7 +32,7 @@ var (
 
 	longRangeSyncedBlockCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "downloader",
 			Name:      "num_blocks_synced_long_range",
 			Help:      "number of blocks synced in long range sync",
@@ -42,7 +42,7 @@ var (
 
 	longRangeFailInsertedBlockCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "downloader",
 			Name:      "num_blocks_failed_long_range",
 			Help:      "number of blocks failed to insert into change in long range sync",
@@ -52,7 +52,7 @@ var (
 
 	numShortRangeCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "downloader",
 			Name:      "num_short_range",
 			Help:      "number of short range sync is triggered",
@@ -62,7 +62,7 @@ var (
 
 	numFailedDownloadCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "downloader",
 			Name:      "failed_download",
 			Help:      "number of downloading is failed",
@@ -72,7 +72,7 @@ var (
 
 	numBlocksInsertedShortRangeHistogramVec = prometheus.NewHistogramVec(
 		prometheus.HistogramOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "downloader",
 			Name:      "num_blocks_inserted_short_range",
 			Help:      "number of blocks inserted for each short range sync",
@@ -84,7 +84,7 @@ var (
 
 	numBlocksInsertedBeaconHelperCounter = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "downloader",
 			Name:      "num_blocks_inserted_beacon_helper",
 			Help:      "number of blocks inserted from beacon helper",

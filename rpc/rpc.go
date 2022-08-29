@@ -44,9 +44,9 @@ const (
 
 var (
 	// HTTPModules ..
-	HTTPModules = []string{"hmy", "hmyv2", "eth", "debug", "trace", netNamespace, netV1Namespace, netV2Namespace, web3Namespace, "explorer"}
+	HTTPModules = []string{"fch", "fchv2", "eth", "debug", "trace", netNamespace, netV1Namespace, netV2Namespace, web3Namespace, "explorer"}
 	// WSModules ..
-	WSModules = []string{"hmy", "hmyv2", "eth", "debug", "trace", netNamespace, netV1Namespace, netV2Namespace, web3Namespace, "web3"}
+	WSModules = []string{"fch", "fchv2", "eth", "debug", "trace", netNamespace, netV1Namespace, netV2Namespace, web3Namespace, "web3"}
 
 	httpListener     net.Listener
 	httpHandler      *rpc.Server
@@ -164,9 +164,9 @@ func getAPIs(hmy *hmy.Harmony, debugEnable bool, rateLimiterEnable bool, ratelim
 		NewPublicTraceAPI(hmy, Debug), // Debug version means geth trace rpc
 		NewPublicTraceAPI(hmy, Trace), // Trace version means parity trace rpc
 		// Legacy methods (subject to removal)
-		v1.NewPublicLegacyAPI(hmy, "hmy"),
+		v1.NewPublicLegacyAPI(hmy, "fch"),
 		eth.NewPublicEthService(hmy, "eth"),
-		v2.NewPublicLegacyAPI(hmy, "hmyv2"),
+		v2.NewPublicLegacyAPI(hmy, "fchv2"),
 	}
 
 	publicDebugAPIs := []rpc.API{

@@ -149,7 +149,7 @@ func init() {
 var (
 	rpcRateLimitCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "rpc",
 			Name:      "over_ratelimit",
 			Help:      "number of times triggered rpc rate limit",
@@ -159,7 +159,7 @@ var (
 
 	rpcQueryInfoCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "rpc",
 			Name:      "query_info",
 			Help:      "different types of RPC query information",
@@ -169,7 +169,7 @@ var (
 
 	rpcRequestDurationVec = prometheus.NewHistogramVec(
 		prometheus.HistogramOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "rpc",
 			Name:      "request_delay_histogram",
 			Help:      "delay in seconds to do rpc requests",
@@ -180,7 +180,7 @@ var (
 	)
 
 	rpcRequestDurationGaugeVec = prometheus.NewGaugeVec(prometheus.GaugeOpts{
-		Namespace: "hmy",
+		Namespace: "fch",
 		Subsystem: "rpc",
 		Name:      "request_delay_gauge",
 		Help:      "delay in seconds to do rpc requests",

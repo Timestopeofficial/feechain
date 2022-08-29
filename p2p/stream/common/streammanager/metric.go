@@ -19,7 +19,7 @@ func init() {
 var (
 	discoverCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "stream",
 			Name:      "discover",
 			Help:      "number of intentions to actively discover peers",
@@ -29,7 +29,7 @@ var (
 
 	discoveredPeersCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "stream",
 			Name:      "discover_peers",
 			Help:      "number of peers discovered and connect actively",
@@ -39,7 +39,7 @@ var (
 
 	addedStreamsCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "stream",
 			Name:      "added_streams",
 			Help:      "number of streams added in stream manager",
@@ -49,7 +49,7 @@ var (
 
 	removedStreamsCounterVec = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "stream",
 			Name:      "removed_streams",
 			Help:      "number of streams removed in stream manager",
@@ -59,7 +59,7 @@ var (
 
 	setupStreamDuration = prometheus.NewHistogramVec(
 		prometheus.HistogramOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "stream",
 			Name:      "setup_stream_duration",
 			Help:      "duration in seconds of setting up connection to a discovered peer",
@@ -71,7 +71,7 @@ var (
 
 	numStreamsGaugeVec = prometheus.NewGaugeVec(
 		prometheus.GaugeOpts{
-			Namespace: "hmy",
+			Namespace: "fch",
 			Subsystem: "stream",
 			Name:      "num_streams",
 			Help:      "number of connected streams",
