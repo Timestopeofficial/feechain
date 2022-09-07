@@ -48,7 +48,7 @@ func (ms mainnetSchedule) IsLastBlock(blockNum uint64) bool {
 }
 
 func (ms mainnetSchedule) EpochLastBlock(epochNum uint64) uint64 {
-		return ms.BlocksPerEpoch() * epochNum - 1
+		return ms.BlocksPerEpoch() * (epochNum + 1) - 1
 }
 
 func (ms mainnetSchedule) VdfDifficulty() int {
