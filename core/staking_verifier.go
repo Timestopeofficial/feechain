@@ -202,14 +202,14 @@ func VerifyAndEditValidatorFromMsg(
 	return wrapper, nil
 }
 
-const oneThousand = 1000
+const oneHundredThousand = 100000
 // const oneHundred = 100
 
 var (
 	oneAsBigInt             = big.NewInt(denominations.One)
-	minimumDelegation       = new(big.Int).Mul(oneAsBigInt, big.NewInt(oneThousand))
+	minimumDelegation       = new(big.Int).Mul(oneAsBigInt, big.NewInt(oneHundredThousand))
 	// minimumDelegationV2     = new(big.Int).Mul(oneAsBigInt, big.NewInt(oneHundred))
-	errDelegationTooSmall   = errors.New("minimum delegation amount for a delegator has to be greater than or equal to 1000 ONE")
+	errDelegationTooSmall   = errors.New("minimum delegation amount for a delegator has to be greater than or equal to 100000 FEE")
 	// errDelegationTooSmallV2 = errors.New("minimum delegation amount for a delegator has to be greater than or equal to 100 ONE")
 )
 
