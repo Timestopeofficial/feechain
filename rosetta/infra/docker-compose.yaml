@@ -10,7 +10,7 @@ services:
       - "8080:9700"
     environment:
       - "MODE=online"
-      - "NETWORK=asada-22816573"
+      - "NETWORK=asadal-22816573"
     volumes:
       - "./data:/root/data/"
     labels:
@@ -24,6 +24,6 @@ services:
       - "8081:9700"
     environment:
       - "MODE=offline"
-      - "NETWORK=asada"
+      - "NETWORK=asadal"
     labels:
       service_group: rosetta

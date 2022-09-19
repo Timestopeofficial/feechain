@@ -71,7 +71,7 @@ Version = "1.0.4"
   DNSPort = 9000
   DNSZone = "t.hmny.io"
   LegacySyncing = false
-  NetworkType = "asada"
+  NetworkType = "asadal"
 
 [P2P]
   KeyFile = "./.hmykey"
@@ -147,13 +147,13 @@ func TestPersistConfig(t *testing.T) {
 		config harmonyconfig.HarmonyConfig
 	}{
 		{
-			config: makeTestConfig("asada", nil),
+			config: makeTestConfig("asadal", nil),
 		},
 		{
 			config: makeTestConfig("devnet", nil),
 		},
 		{
-			config: makeTestConfig("asada", func(cfg *harmonyconfig.HarmonyConfig) {
+			config: makeTestConfig("asadal", func(cfg *harmonyconfig.HarmonyConfig) {
 				consensus := getDefaultConsensusConfigCopy()
 				cfg.Consensus = &consensus
 

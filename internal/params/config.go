@@ -400,7 +400,7 @@ type ChainConfig struct {
 	// EIP155 hard fork epoch (include EIP158 too)
 	EIP155Epoch *big.Int `json:"eip155-epoch,omitempty"`
 
-	// S3 epoch is the first epoch containing S3 asada and all ethereum update up to Constantinople
+	// S3 epoch is the first epoch containing S3 asadal and all ethereum update up to Constantinople
 	S3Epoch *big.Int `json:"s3-epoch,omitempty"`
 
 	// DataCopyFix epoch is the first epoch containing fix for evm datacopy bug.

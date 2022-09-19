@@ -60,7 +60,7 @@ func (ps pangaeaSchedule) GetNetworkID() NetworkID {
 	return Pangaea
 }
 
-// GetShardingStructure is the sharding structure for asada.
+// GetShardingStructure is the sharding structure for asadal.
 func (ps pangaeaSchedule) GetShardingStructure(numShard, shardID int) []map[string]interface{} {
 	return genShardingStructure(numShard, shardID, PangaeaHTTPPattern, PangaeaWSPattern)
 }

@@ -216,8 +216,8 @@ function release
 
    OS=$(uname -s)
    REL=$FOLDER
-   if [ "$REL" = "asada" ]; then
-      echo "DO NOT release asada binary"
+   if [ "$REL" = "asadal" ]; then
+      echo "DO NOT release asadal binary"
       exit 1
    fi
 

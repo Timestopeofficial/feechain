@@ -15,13 +15,13 @@ const (
 
 	mainnetVdfDifficulty = 50000 // This takes about 100s to finish the vdf
 
-	// MainNetHTTPPattern is the http pattern for asada.
+	// MainNetHTTPPattern is the http pattern for asadal.
 	MainNetHTTPPattern = "https://api.s%d.b.timestope.net"
-	// MainNetWSPattern is the websocket pattern for asada.
+	// MainNetWSPattern is the websocket pattern for asadal.
 	MainNetWSPattern = "wss://ws.s%d.b.timestope.net"
 )
 
-// MainnetSchedule is the asada sharding configuration schedule.
+// MainnetSchedule is the asadal sharding configuration schedule.
 var MainnetSchedule mainnetSchedule
 
 type mainnetSchedule struct{}
@@ -59,7 +59,7 @@ func (ms mainnetSchedule) GetNetworkID() NetworkID {
 	return MainNet
 }
 
-// GetShardingStructure is the sharding structure for asada.
+// GetShardingStructure is the sharding structure for asadal.
 func (ms mainnetSchedule) GetShardingStructure(numShard, shardID int) []map[string]interface{} {
 	return genShardingStructure(numShard, shardID, MainNetHTTPPattern, MainNetWSPattern)
 }

@@ -87,7 +87,7 @@ keydir=/harmony/.hmy
 args=(
       -log_folder "/harmony/log"
       -node_type "validator"
-      -network_type "asada"
+      -network_type "asadal"
       -bootnodes "$NODE_BN_MNET"
       -ip "$PUB_IP"
       -port "$NODE_PORT"

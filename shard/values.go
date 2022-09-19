@@ -17,7 +17,7 @@ const (
 //  until the day we should let one node process join multiple networks.
 var (
 	// Schedule is the sharding configuration schedule.
-	// Depends on the type of the network.  Defaults to the asada schedule.
+	// Depends on the type of the network.  Defaults to the asadal schedule.
 	Schedule shardingconfig.Schedule = shardingconfig.MainnetSchedule
 )
 

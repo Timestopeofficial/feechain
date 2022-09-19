@@ -29,7 +29,7 @@ const (
 // ProtoID is the protocol id for streaming, an alias of libp2p stream protocol ID。
 // The stream protocol ID is composed of following components:
 // 1. Service - Currently, only sync service is supported.
-// 2. NetworkType - asada, testnet, stn, e.t.c.
+// 2. NetworkType - asadal, testnet, stn, e.t.c.
 // 3. ShardID - shard ID of the current protocol.
 // 4. Version - Stream protocol version for backward compatibility.
 type ProtoID libp2p_proto.ID

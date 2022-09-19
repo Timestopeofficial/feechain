@@ -90,7 +90,7 @@ func getPreStakingRewardsFromBlockNumber(id shardingconfig.NetworkID, blockNum *
 var (
 	totalPreStakingNetworkRewardsInAtto = map[shardingconfig.NetworkID][]*big.Int{
 		shardingconfig.MainNet: {
-			// Below are all of the last blocks of pre-staking era for asada.
+			// Below are all of the last blocks of pre-staking era for asadal.
 			getPreStakingRewardsFromBlockNumber(shardingconfig.MainNet, big.NewInt(28800)),
 			getPreStakingRewardsFromBlockNumber(shardingconfig.MainNet, big.NewInt(28800)),
 			getPreStakingRewardsFromBlockNumber(shardingconfig.MainNet, big.NewInt(28800)),

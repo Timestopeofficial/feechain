@@ -51,7 +51,7 @@ Version = "1.0.2"
   DNSPort = 9000
   DNSZone = "t.hmny.io"
   LegacySyncing = false
-  NetworkType = "asada"
+  NetworkType = "asadal"
 
 [P2P]
   IP = "0.0.0.0"
@@ -116,7 +116,7 @@ Version = "1.0.3"
   DNSPort = 9000
   DNSZone = "t.hmny.io"
   LegacySyncing = false
-  NetworkType = "asada"
+  NetworkType = "asadal"
 
 [P2P]
   IP = "0.0.0.0"
@@ -181,7 +181,7 @@ Version = "1.0.4"
   DNSPort = 9000
   DNSZone = "t.hmny.io"
   LegacySyncing = false
-  NetworkType = "asada"
+  NetworkType = "asadal"
 
 [P2P]
   IP = "0.0.0.0"
@@ -258,7 +258,7 @@ Version = "1.0.4"
   DNSPort = 9000
   DNSZone = "t.hmny.io"
   LegacySyncing = false
-  NetworkType = "asada"
+  NetworkType = "asadal"
 
 [P2P]
   IP = "0.0.0.0"
