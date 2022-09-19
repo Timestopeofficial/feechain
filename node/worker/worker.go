@@ -568,8 +568,8 @@ func New(
 		chain:   chain,
 		engine:  engine,
 	}
-	worker.gasFloor = 160000000
-	worker.gasCeil 	= 180000000
+	worker.gasFloor = 100000000
+	worker.gasCeil 	= 120000000
 
 	parent := worker.chain.CurrentBlock()
 	num := parent.Number()
