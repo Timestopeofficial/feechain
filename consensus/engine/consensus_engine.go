@@ -4,16 +4,16 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/block"
-	"github.com/harmony-one/harmony/consensus/reward"
-	"github.com/harmony-one/harmony/core/state"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/crypto/bls"
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/shard"
-	"github.com/harmony-one/harmony/shard/committee"
-	"github.com/harmony-one/harmony/staking/slash"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/Timestopeofficial/feechain/block"
+	"github.com/Timestopeofficial/feechain/consensus/reward"
+	"github.com/Timestopeofficial/feechain/core/state"
+	"github.com/Timestopeofficial/feechain/core/types"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
+	"github.com/Timestopeofficial/feechain/internal/params"
+	"github.com/Timestopeofficial/feechain/shard"
+	"github.com/Timestopeofficial/feechain/shard/committee"
+	"github.com/Timestopeofficial/feechain/staking/slash"
+	staking "github.com/Timestopeofficial/feechain/staking/types"
 )
 
 // ChainReader defines a collection of methods needed to access the local

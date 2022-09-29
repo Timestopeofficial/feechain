@@ -1,17 +1,17 @@
 [Unit]
-Description=harmony validator node service
+Description=feechain validator node service
 After=network.target
 
 [Service]
 Type=simple
 Restart=on-failure
 RestartSec=1
-User=harmony
-Group=harmony
+User=feechain
+Group=feechain
 WorkingDirectory=~
-ExecStart=/usr/sbin/harmony -c /etc/harmony/harmony.conf
+ExecStart=/usr/sbin/feechain -c /etc/feechain/feechain.conf
 StandardError=syslog
-SyslogIdentifier=harmony
+SyslogIdentifier=feechain
 StartLimitInterval=0
 LimitNOFILE=65536
 LimitNPROC=65536

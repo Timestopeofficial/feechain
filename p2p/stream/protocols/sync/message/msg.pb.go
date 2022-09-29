@@ -909,31 +909,31 @@ func file_msg_proto_rawDescGZIP() []byte {
 
 var file_msg_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_msg_proto_goTypes = []interface{}{
-	(*Message)(nil),                   // 0: harmony.stream.sync.message.Message
-	(*Request)(nil),                   // 1: harmony.stream.sync.message.Request
-	(*GetBlockNumberRequest)(nil),     // 2: harmony.stream.sync.message.GetBlockNumberRequest
-	(*GetBlockHashesRequest)(nil),     // 3: harmony.stream.sync.message.GetBlockHashesRequest
-	(*GetBlocksByNumRequest)(nil),     // 4: harmony.stream.sync.message.GetBlocksByNumRequest
-	(*GetBlocksByHashesRequest)(nil),  // 5: harmony.stream.sync.message.GetBlocksByHashesRequest
-	(*Response)(nil),                  // 6: harmony.stream.sync.message.Response
-	(*ErrorResponse)(nil),             // 7: harmony.stream.sync.message.ErrorResponse
-	(*GetBlockNumberResponse)(nil),    // 8: harmony.stream.sync.message.GetBlockNumberResponse
-	(*GetBlockHashesResponse)(nil),    // 9: harmony.stream.sync.message.GetBlockHashesResponse
-	(*GetBlocksByNumResponse)(nil),    // 10: harmony.stream.sync.message.GetBlocksByNumResponse
-	(*GetBlocksByHashesResponse)(nil), // 11: harmony.stream.sync.message.GetBlocksByHashesResponse
+	(*Message)(nil),                   // 0: feechain.stream.sync.message.Message
+	(*Request)(nil),                   // 1: feechain.stream.sync.message.Request
+	(*GetBlockNumberRequest)(nil),     // 2: feechain.stream.sync.message.GetBlockNumberRequest
+	(*GetBlockHashesRequest)(nil),     // 3: feechain.stream.sync.message.GetBlockHashesRequest
+	(*GetBlocksByNumRequest)(nil),     // 4: feechain.stream.sync.message.GetBlocksByNumRequest
+	(*GetBlocksByHashesRequest)(nil),  // 5: feechain.stream.sync.message.GetBlocksByHashesRequest
+	(*Response)(nil),                  // 6: feechain.stream.sync.message.Response
+	(*ErrorResponse)(nil),             // 7: feechain.stream.sync.message.ErrorResponse
+	(*GetBlockNumberResponse)(nil),    // 8: feechain.stream.sync.message.GetBlockNumberResponse
+	(*GetBlockHashesResponse)(nil),    // 9: feechain.stream.sync.message.GetBlockHashesResponse
+	(*GetBlocksByNumResponse)(nil),    // 10: feechain.stream.sync.message.GetBlocksByNumResponse
+	(*GetBlocksByHashesResponse)(nil), // 11: feechain.stream.sync.message.GetBlocksByHashesResponse
 }
 var file_msg_proto_depIdxs = []int32{
-	1,  // 0: harmony.stream.sync.message.Message.req:type_name -> harmony.stream.sync.message.Request
-	6,  // 1: harmony.stream.sync.message.Message.resp:type_name -> harmony.stream.sync.message.Response
-	2,  // 2: harmony.stream.sync.message.Request.get_block_number_request:type_name -> harmony.stream.sync.message.GetBlockNumberRequest
-	3,  // 3: harmony.stream.sync.message.Request.get_block_hashes_request:type_name -> harmony.stream.sync.message.GetBlockHashesRequest
-	4,  // 4: harmony.stream.sync.message.Request.get_blocks_by_num_request:type_name -> harmony.stream.sync.message.GetBlocksByNumRequest
-	5,  // 5: harmony.stream.sync.message.Request.get_blocks_by_hashes_request:type_name -> harmony.stream.sync.message.GetBlocksByHashesRequest
-	7,  // 6: harmony.stream.sync.message.Response.error_response:type_name -> harmony.stream.sync.message.ErrorResponse
-	8,  // 7: harmony.stream.sync.message.Response.get_block_number_response:type_name -> harmony.stream.sync.message.GetBlockNumberResponse
-	9,  // 8: harmony.stream.sync.message.Response.get_block_hashes_response:type_name -> harmony.stream.sync.message.GetBlockHashesResponse
-	10, // 9: harmony.stream.sync.message.Response.get_blocks_by_num_response:type_name -> harmony.stream.sync.message.GetBlocksByNumResponse
-	11, // 10: harmony.stream.sync.message.Response.get_blocks_by_hashes_response:type_name -> harmony.stream.sync.message.GetBlocksByHashesResponse
+	1,  // 0: feechain.stream.sync.message.Message.req:type_name -> feechain.stream.sync.message.Request
+	6,  // 1: feechain.stream.sync.message.Message.resp:type_name -> feechain.stream.sync.message.Response
+	2,  // 2: feechain.stream.sync.message.Request.get_block_number_request:type_name -> feechain.stream.sync.message.GetBlockNumberRequest
+	3,  // 3: feechain.stream.sync.message.Request.get_block_hashes_request:type_name -> feechain.stream.sync.message.GetBlockHashesRequest
+	4,  // 4: feechain.stream.sync.message.Request.get_blocks_by_num_request:type_name -> feechain.stream.sync.message.GetBlocksByNumRequest
+	5,  // 5: feechain.stream.sync.message.Request.get_blocks_by_hashes_request:type_name -> feechain.stream.sync.message.GetBlocksByHashesRequest
+	7,  // 6: feechain.stream.sync.message.Response.error_response:type_name -> feechain.stream.sync.message.ErrorResponse
+	8,  // 7: feechain.stream.sync.message.Response.get_block_number_response:type_name -> feechain.stream.sync.message.GetBlockNumberResponse
+	9,  // 8: feechain.stream.sync.message.Response.get_block_hashes_response:type_name -> feechain.stream.sync.message.GetBlockHashesResponse
+	10, // 9: feechain.stream.sync.message.Response.get_blocks_by_num_response:type_name -> feechain.stream.sync.message.GetBlocksByNumResponse
+	11, // 10: feechain.stream.sync.message.Response.get_blocks_by_hashes_response:type_name -> feechain.stream.sync.message.GetBlocksByHashesResponse
 	11, // [11:11] is the sub-list for method output_type
 	11, // [11:11] is the sub-list for method input_type
 	11, // [11:11] is the sub-list for extension type_name

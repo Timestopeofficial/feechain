@@ -7,8 +7,8 @@ import (
 
 	"github.com/btcsuite/btcutil/bech32"
 	ethCommon "github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/bls/ffi/go/bls"
-	"github.com/harmony-one/harmony/internal/common"
+	"github.com/Timestopeofficial/bls/ffi/go/bls"
+	"github.com/Timestopeofficial/feechain/internal/common"
 )
 
 func TestString(t *testing.T) {

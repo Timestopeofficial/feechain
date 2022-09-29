@@ -5,7 +5,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/harmony-one/harmony/internal/utils"
+	"github.com/Timestopeofficial/feechain/internal/utils"
 )
 
 var defaultFix *LocalFix

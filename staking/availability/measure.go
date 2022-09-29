@@ -3,15 +3,15 @@ package availability
 import (
 	"math/big"
 
-	"github.com/harmony-one/harmony/core/state"
+	"github.com/Timestopeofficial/feechain/core/state"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/crypto/bls"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/shard"
-	"github.com/harmony-one/harmony/staking/effective"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
+	"github.com/Timestopeofficial/feechain/internal/utils"
+	"github.com/Timestopeofficial/feechain/numeric"
+	"github.com/Timestopeofficial/feechain/shard"
+	"github.com/Timestopeofficial/feechain/staking/effective"
+	staking "github.com/Timestopeofficial/feechain/staking/types"
 	"github.com/pkg/errors"
 )
 
@@ -90,7 +90,7 @@ func bumpCount(
 		for i := range subset.committee {
 			addr := subset.committee[i].EcdsaAddress
 			// NOTE if the signer address is not part of the staked addrs,
-			// then it must be a harmony operated node running,
+			// then it must be a feechain operated node running,
 			// hence keep on going
 			if _, isAddrForStaked := stakedAddrSet[addr]; !isAddrForStaked {
 				continue

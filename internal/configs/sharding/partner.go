@@ -3,10 +3,10 @@ package shardingconfig
 import (
 	"math/big"
 
-	"github.com/harmony-one/harmony/numeric"
+	"github.com/Timestopeofficial/feechain/numeric"
 
-	"github.com/harmony-one/harmony/internal/genesis"
-	"github.com/harmony-one/harmony/internal/params"
+	"github.com/Timestopeofficial/feechain/internal/genesis"
+	"github.com/Timestopeofficial/feechain/internal/params"
 )
 
 // PartnerSchedule is the long-running public partner sharding

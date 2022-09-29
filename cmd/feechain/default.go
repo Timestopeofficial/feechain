@@ -1,8 +1,8 @@
 package main
 
 import (
-	harmonyconfig "github.com/harmony-one/harmony/internal/configs/harmony"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
+	harmonyconfig "github.com/Timestopeofficial/feechain/internal/configs/harmony"
+	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
 )
 
 const tomlConfigVersion = "2.5.1" // bump from 2.5.0 for AccountSlots

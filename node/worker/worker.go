@@ -7,29 +7,29 @@ import (
 	"sort"
 	"time"
 
-	"github.com/harmony-one/harmony/consensus/reward"
+	"github.com/Timestopeofficial/feechain/consensus/reward"
 
-	"github.com/harmony-one/harmony/consensus"
+	"github.com/Timestopeofficial/feechain/consensus"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
 
-	"github.com/harmony-one/harmony/crypto/hash"
+	"github.com/Timestopeofficial/feechain/crypto/hash"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/harmony/block"
-	blockfactory "github.com/harmony-one/harmony/block/factory"
-	consensus_engine "github.com/harmony-one/harmony/consensus/engine"
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/core/state"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/core/vm"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/shard"
-	"github.com/harmony-one/harmony/staking/slash"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/Timestopeofficial/feechain/block"
+	blockfactory "github.com/Timestopeofficial/feechain/block/factory"
+	consensus_engine "github.com/Timestopeofficial/feechain/consensus/engine"
+	"github.com/Timestopeofficial/feechain/core"
+	"github.com/Timestopeofficial/feechain/core/state"
+	"github.com/Timestopeofficial/feechain/core/types"
+	"github.com/Timestopeofficial/feechain/core/vm"
+	common2 "github.com/Timestopeofficial/feechain/internal/common"
+	"github.com/Timestopeofficial/feechain/internal/params"
+	"github.com/Timestopeofficial/feechain/internal/utils"
+	"github.com/Timestopeofficial/feechain/shard"
+	"github.com/Timestopeofficial/feechain/staking/slash"
+	staking "github.com/Timestopeofficial/feechain/staking/types"
 	"github.com/pkg/errors"
 )
 
@@ -143,7 +143,7 @@ func (w *Worker) CommitTransactions(
 		w.current.gasPool = new(core.GasPool).AddGas(w.current.header.GasLimit())
 	}
 
-	// HARMONY TXNS
+	// FEECHAIN TXNS
 	normalTxns := types.NewTransactionsByPriceAndNonce(w.current.signer, w.current.ethSigner, pendingNormal)
 
 	w.CommitSortedTransactions(normalTxns, coinbase)

@@ -3,7 +3,7 @@ package discovery
 import (
 	"github.com/pkg/errors"
 
-	p2ptypes "github.com/harmony-one/harmony/p2p/types"
+	p2ptypes "github.com/Timestopeofficial/feechain/p2p/types"
 	badger "github.com/ipfs/go-ds-badger"
 	libp2p_dht "github.com/libp2p/go-libp2p-kad-dht"
 )

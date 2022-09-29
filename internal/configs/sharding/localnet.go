@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/numeric"
+	"github.com/Timestopeofficial/feechain/internal/params"
+	"github.com/Timestopeofficial/feechain/numeric"
 
-	"github.com/harmony-one/harmony/internal/genesis"
+	"github.com/Timestopeofficial/feechain/internal/genesis"
 )
 
 // LocalnetSchedule is the local testnet sharding
@@ -141,7 +141,7 @@ var (
 	localnetReshardingEpoch = []*big.Int{
 		big.NewInt(0), big.NewInt(localnetV1Epoch), params.LocalnetChainConfig.StakingEpoch, params.LocalnetChainConfig.TwoSecondsEpoch,
 	}
-	// Number of shards, how many slots on each , how many slots owned by Harmony
+	// Number of shards, how many slots on each , how many slots owned by Feechain
 	localnetV0   = MustNewInstance(2, 7, 5, numeric.OneDec(), genesis.LocalHarmonyAccounts, genesis.LocalFnAccounts, localnetReshardingEpoch, LocalnetSchedule.BlocksPerEpochOld())
 	localnetV1   = MustNewInstance(2, 8, 5, numeric.OneDec(), genesis.LocalHarmonyAccountsV1, genesis.LocalFnAccountsV1, localnetReshardingEpoch, LocalnetSchedule.BlocksPerEpochOld())
 	localnetV2   = MustNewInstance(2, 9, 6, numeric.MustNewDecFromStr("0.68"), genesis.LocalHarmonyAccountsV2, genesis.LocalFnAccountsV2, localnetReshardingEpoch, LocalnetSchedule.BlocksPerEpochOld())

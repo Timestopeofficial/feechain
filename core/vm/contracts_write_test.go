@@ -8,8 +8,8 @@ import (
 	"testing"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/internal/params"
-	stakingTypes "github.com/harmony-one/harmony/staking/types"
+	"github.com/Timestopeofficial/feechain/internal/params"
+	stakingTypes "github.com/Timestopeofficial/feechain/staking/types"
 )
 
 type writeCapablePrecompileTest struct {

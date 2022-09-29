@@ -25,9 +25,9 @@ import (
 
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/core/state"
-	"github.com/harmony-one/harmony/core/vm"
-	"github.com/harmony-one/harmony/internal/params"
+	"github.com/Timestopeofficial/feechain/core/state"
+	"github.com/Timestopeofficial/feechain/core/vm"
+	"github.com/Timestopeofficial/feechain/internal/params"
 )
 
 func TestDefaults(t *testing.T) {

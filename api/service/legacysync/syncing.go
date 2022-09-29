@@ -13,21 +13,21 @@ import (
 
 	"github.com/ethereum/go-ethereum/common/math"
 
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
+	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
 
 	"github.com/Workiva/go-datastructures/queue"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/harmony/api/service/legacysync/downloader"
-	pb "github.com/harmony-one/harmony/api/service/legacysync/downloader/proto"
-	"github.com/harmony-one/harmony/consensus"
-	"github.com/harmony-one/harmony/consensus/engine"
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/internal/chain"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/node/worker"
-	"github.com/harmony-one/harmony/p2p"
+	"github.com/Timestopeofficial/feechain/api/service/legacysync/downloader"
+	pb "github.com/Timestopeofficial/feechain/api/service/legacysync/downloader/proto"
+	"github.com/Timestopeofficial/feechain/consensus"
+	"github.com/Timestopeofficial/feechain/consensus/engine"
+	"github.com/Timestopeofficial/feechain/core"
+	"github.com/Timestopeofficial/feechain/core/types"
+	"github.com/Timestopeofficial/feechain/internal/chain"
+	"github.com/Timestopeofficial/feechain/internal/utils"
+	"github.com/Timestopeofficial/feechain/node/worker"
+	"github.com/Timestopeofficial/feechain/p2p"
 	"github.com/pkg/errors"
 )
 
@@ -1162,7 +1162,7 @@ const (
 
 	// syncStatusExpirationNonValidator is the expiration of sync cache for non-validators.
 	// Compared with non-validator, the sync check is not as strict as validator nodes.
-	// TODO: add this field to harmony config
+	// TODO: add this field to feechain config
 	syncStatusExpirationNonValidator = 12 * time.Second
 )
 

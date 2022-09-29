@@ -16,13 +16,13 @@ import (
 //     >  go test -bench=. -benchmem
 //     goos: darwin
 //     goarch: amd64
-//     pkg: github.com/harmony-one/harmony/crypto/hash
+//     pkg: github.com/Timestopeofficial/feechain/crypto/hash
 //     BenchmarkFromRLP_MultiThreaded-12                4841481               263 ns/op             560 B/op          5 allocs/op
 //     BenchmarkFromRLPNoPool_MultiThreaded-12          3665227               344 ns/op            1008 B/op          6 allocs/op
 //     BenchmarkFromRLP_SingleThreaded-12               1303647               909 ns/op             560 B/op          5 allocs/op
 //     BenchmarkFromRLPNoPool_SingleThreaded-12         1296238               920 ns/op            1008 B/op          6 allocs/op
 //     PASS
-//     ok      github.com/harmony-one/harmony/crypto/hash      7.441s
+//     ok      github.com/Timestopeofficial/feechain/crypto/hash      7.441s
 //
 // We can see that FromRLP with sync pool implementation has better memory and CPU performance over
 // the implementation without sync pool. This is because the sync pool implementation will reuse
@@ -67,7 +67,7 @@ func fromRLPNoPool(x interface{}) (h common.Hash) {
 }
 
 var testObj = testStruct{
-	field1: "harmony",
+	field1: "feechain",
 	field2: 1024,
 }
 

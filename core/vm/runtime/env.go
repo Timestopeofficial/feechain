@@ -18,8 +18,8 @@ package runtime
 
 import (
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/core/vm"
+	"github.com/Timestopeofficial/feechain/core"
+	"github.com/Timestopeofficial/feechain/core/vm"
 )
 
 // NewEnv ...

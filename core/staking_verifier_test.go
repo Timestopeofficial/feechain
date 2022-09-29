@@ -7,23 +7,23 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/harmony-one/harmony/internal/params"
+	"github.com/Timestopeofficial/feechain/internal/params"
 
 	"github.com/ethereum/go-ethereum/core/rawdb"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/block"
-	consensus_engine "github.com/harmony-one/harmony/consensus/engine"
-	"github.com/harmony-one/harmony/core/state"
-	"github.com/harmony-one/harmony/core/vm"
-	"github.com/harmony-one/harmony/crypto/hash"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/shard"
-	"github.com/harmony-one/harmony/staking/effective"
-	staking "github.com/harmony-one/harmony/staking/types"
-	staketest "github.com/harmony-one/harmony/staking/types/test"
+	"github.com/Timestopeofficial/feechain/block"
+	consensus_engine "github.com/Timestopeofficial/feechain/consensus/engine"
+	"github.com/Timestopeofficial/feechain/core/state"
+	"github.com/Timestopeofficial/feechain/core/vm"
+	"github.com/Timestopeofficial/feechain/crypto/hash"
+	"github.com/Timestopeofficial/feechain/numeric"
+	"github.com/Timestopeofficial/feechain/shard"
+	"github.com/Timestopeofficial/feechain/staking/effective"
+	staking "github.com/Timestopeofficial/feechain/staking/types"
+	staketest "github.com/Timestopeofficial/feechain/staking/types/test"
 )
 
 const (
@@ -1796,11 +1796,11 @@ func (chain *fakeErrChainContext) ReadValidatorSnapshot(common.Address) (*stakin
 }
 
 func makeIdentityStr(item interface{}) string {
-	return fmt.Sprintf("harmony-one-%v", item)
+	return fmt.Sprintf("feechain-fee-%v", item)
 }
 
 func makeTestAddr(item interface{}) common.Address {
-	s := fmt.Sprintf("harmony-one-%v", item)
+	s := fmt.Sprintf("feechain-fee-%v", item)
 	return common.BytesToAddress([]byte(s))
 }
 

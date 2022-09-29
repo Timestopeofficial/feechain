@@ -7,7 +7,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	sttypes "github.com/harmony-one/harmony/p2p/stream/types"
+	sttypes "github.com/Timestopeofficial/feechain/p2p/stream/types"
 	"github.com/libp2p/go-libp2p-core/network"
 	libp2p_peer "github.com/libp2p/go-libp2p-core/peer"
 	"github.com/libp2p/go-libp2p-core/protocol"
@@ -17,7 +17,7 @@ var _ StreamManager = &streamManager{}
 
 var (
 	myPeerID    = makePeerID(0)
-	testProtoID = sttypes.ProtoID("harmony/sync/unitest/0/1.0.0")
+	testProtoID = sttypes.ProtoID("feechain/sync/unitest/0/1.0.0")
 )
 
 const (

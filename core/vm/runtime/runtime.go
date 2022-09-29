@@ -24,9 +24,9 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/rawdb"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/harmony-one/harmony/core/state"
-	"github.com/harmony-one/harmony/core/vm"
-	"github.com/harmony-one/harmony/internal/params"
+	"github.com/Timestopeofficial/feechain/core/state"
+	"github.com/Timestopeofficial/feechain/core/vm"
+	"github.com/Timestopeofficial/feechain/internal/params"
 )
 
 // Config is a basic type specifying certain configuration flags for running

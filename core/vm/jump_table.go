@@ -19,7 +19,7 @@ package vm
 import (
 	"errors"
 
-	"github.com/harmony-one/harmony/internal/params"
+	"github.com/Timestopeofficial/feechain/internal/params"
 )
 
 type (

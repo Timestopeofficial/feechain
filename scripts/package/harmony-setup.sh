@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ME=$(basename "$0")
-CONFIG=/etc/harmony/harmony.conf
+CONFIG=/etc/feechain/feechain.conf
 VER=v1.0
 
 function usage() {
@@ -77,4 +77,4 @@ esac
 
 setup_config_file
 
-echo "Please run 'sudo systemctl restart harmony' to reload the configuration"
+echo "Please run 'sudo systemctl restart feechain' to reload the configuration"

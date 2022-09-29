@@ -10,18 +10,18 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/rlp"
-	blockif "github.com/harmony-one/harmony/block/interface"
-	v0 "github.com/harmony-one/harmony/block/v0"
-	v1 "github.com/harmony-one/harmony/block/v1"
-	v2 "github.com/harmony-one/harmony/block/v2"
-	v3 "github.com/harmony-one/harmony/block/v3"
-	"github.com/harmony-one/harmony/crypto/hash"
+	blockif "github.com/Timestopeofficial/feechain/block/interface"
+	v0 "github.com/Timestopeofficial/feechain/block/v0"
+	v1 "github.com/Timestopeofficial/feechain/block/v1"
+	v2 "github.com/Timestopeofficial/feechain/block/v2"
+	v3 "github.com/Timestopeofficial/feechain/block/v3"
+	"github.com/Timestopeofficial/feechain/crypto/hash"
 	"github.com/harmony-one/taggedrlp"
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog"
 )
 
-// Header represents a block header in the Harmony blockchain.
+// Header represents a block header in the Feechain blockchain.
 type Header struct {
 	blockif.Header
 }

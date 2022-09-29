@@ -3,10 +3,10 @@ package quorum
 import (
 	"math/big"
 
-	"github.com/harmony-one/harmony/consensus/votepower"
-	bls_cosi "github.com/harmony-one/harmony/crypto/bls"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/shard"
+	"github.com/Timestopeofficial/feechain/consensus/votepower"
+	bls_cosi "github.com/Timestopeofficial/feechain/crypto/bls"
+	"github.com/Timestopeofficial/feechain/numeric"
+	"github.com/Timestopeofficial/feechain/shard"
 	"github.com/pkg/errors"
 )
 

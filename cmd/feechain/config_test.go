@@ -8,9 +8,9 @@ import (
 	"reflect"
 	"testing"
 
-	harmonyconfig "github.com/harmony-one/harmony/internal/configs/harmony"
+	harmonyconfig "github.com/Timestopeofficial/feechain/internal/configs/harmony"
 
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
+	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
 )
 
 type testCfgOpt func(config *harmonyconfig.HarmonyConfig)
@@ -59,7 +59,7 @@ Version = "1.0.4"
   Port = 9500
 
 [Log]
-  FileName = "harmony.log"
+  FileName = "feechain.log"
   Folder = "./latest"
   RotateSize = 100
   RotateCount = 0

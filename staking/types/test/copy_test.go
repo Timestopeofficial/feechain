@@ -7,12 +7,12 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/staking/effective"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/Timestopeofficial/feechain/numeric"
+	"github.com/Timestopeofficial/feechain/staking/effective"
+	staking "github.com/Timestopeofficial/feechain/staking/types"
 )
 
 var (
@@ -78,7 +78,7 @@ func makeNonZeroValidator() staking.Validator {
 	d := staking.Description{
 		Name:     "Wayne",
 		Identity: "wen",
-		Website:  "harmony.one.wen",
+		Website:  "timestope.com.wen",
 		Details:  "best",
 	}
 	v := staking.Validator{

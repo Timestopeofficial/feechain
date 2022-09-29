@@ -10,20 +10,20 @@ import (
 
 	"github.com/ethereum/go-ethereum/core/rawdb"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	blockfactory "github.com/harmony-one/harmony/block/factory"
-	consensus_sig "github.com/harmony-one/harmony/consensus/signature"
-	"github.com/harmony-one/harmony/consensus/votepower"
-	"github.com/harmony-one/harmony/core/state"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/shard"
-	"github.com/harmony-one/harmony/staking/effective"
-	staking "github.com/harmony-one/harmony/staking/types"
+	bls_core "github.com/Timestopeofficial/bls/ffi/go/bls"
+	blockfactory "github.com/Timestopeofficial/feechain/block/factory"
+	consensus_sig "github.com/Timestopeofficial/feechain/consensus/signature"
+	"github.com/Timestopeofficial/feechain/consensus/votepower"
+	"github.com/Timestopeofficial/feechain/core/state"
+	"github.com/Timestopeofficial/feechain/core/types"
+	"github.com/Timestopeofficial/feechain/internal/params"
+	"github.com/Timestopeofficial/feechain/numeric"
+	"github.com/Timestopeofficial/feechain/shard"
+	"github.com/Timestopeofficial/feechain/staking/effective"
+	staking "github.com/Timestopeofficial/feechain/staking/types"
 )
 
 var (
@@ -784,7 +784,7 @@ func makeVoteData(kp blsKeyPair, block *types.Block) Vote {
 }
 
 func makeTestAddress(item interface{}) common.Address {
-	s := fmt.Sprintf("harmony.one.%v", item)
+	s := fmt.Sprintf("timestope.net.%v", item)
 	return common.BytesToAddress([]byte(s))
 }
 

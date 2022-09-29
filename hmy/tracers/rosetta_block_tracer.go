@@ -19,7 +19,7 @@ package tracers
 import (
 	"math/big"
 
-	"github.com/harmony-one/harmony/core/vm"
+	"github.com/Timestopeofficial/feechain/core/vm"
 )
 
 type RosettaLogItem struct {

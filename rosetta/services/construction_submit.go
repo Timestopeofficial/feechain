@@ -5,9 +5,9 @@ import (
 	"fmt"
 
 	"github.com/coinbase/rosetta-sdk-go/types"
-	hmyTypes "github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/rosetta/common"
-	stakingTypes "github.com/harmony-one/harmony/staking/types"
+	hmyTypes "github.com/Timestopeofficial/feechain/core/types"
+	"github.com/Timestopeofficial/feechain/rosetta/common"
+	stakingTypes "github.com/Timestopeofficial/feechain/staking/types"
 	"github.com/pkg/errors"
 )
 

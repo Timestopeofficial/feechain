@@ -12,7 +12,7 @@ import (
 	"testing"
 
 	"github.com/ethereum/go-ethereum/common"
-	common2 "github.com/harmony-one/harmony/internal/common"
+	common2 "github.com/Timestopeofficial/feechain/internal/common"
 
 	"github.com/syndtr/goleveldb/leveldb"
 )
@@ -92,7 +92,7 @@ func prepareTestLvlDB(db database) error {
 
 func tempTestDir(t *testing.T, index int) string {
 	tempDir := os.TempDir()
-	testDir := path.Join(tempDir, "harmony", "explorer_db", t.Name(), strconv.Itoa(index))
+	testDir := path.Join(tempDir, "feechain", "explorer_db", t.Name(), strconv.Itoa(index))
 	os.RemoveAll(testDir)
 	return testDir
 }

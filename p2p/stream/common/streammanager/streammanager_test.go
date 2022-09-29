@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	sttypes "github.com/harmony-one/harmony/p2p/stream/types"
+	sttypes "github.com/Timestopeofficial/feechain/p2p/stream/types"
 	libp2p_peer "github.com/libp2p/go-libp2p-core/peer"
 )
 
@@ -209,7 +209,7 @@ func TestStreamSet_numStreamsWithMinProtoID(t *testing.T) {
 		pid1    = testProtoID
 		numPid1 = 5
 
-		pid2    = sttypes.ProtoID("harmony/sync/unitest/0/1.0.1")
+		pid2    = sttypes.ProtoID("feechain/sync/unitest/0/1.0.1")
 		numPid2 = 10
 	)
 

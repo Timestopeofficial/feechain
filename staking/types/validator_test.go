@@ -6,14 +6,14 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/crypto/hash"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/internal/genesis"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/staking/effective"
+	"github.com/Timestopeofficial/feechain/crypto/hash"
+	common2 "github.com/Timestopeofficial/feechain/internal/common"
+	"github.com/Timestopeofficial/feechain/internal/genesis"
+	"github.com/Timestopeofficial/feechain/numeric"
+	"github.com/Timestopeofficial/feechain/staking/effective"
 	"github.com/pkg/errors"
 )
 
@@ -47,17 +47,17 @@ var (
 var (
 	validDescription = Description{
 		Name:            "Jacky Wang",
-		Identity:        "jacky@harmony.one",
-		Website:         "harmony.one/jacky",
-		SecurityContact: "jacky@harmony.one",
+		Identity:        "jacky@timestope.com",
+		Website:         "timestope.com/jacky",
+		SecurityContact: "jacky@timestope.com",
 		Details:         "Details of jacky",
 	}
 
 	invalidDescription = Description{
 		Name:            "thisisaverylonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglongname",
-		Identity:        "jacky@harmony.one",
-		Website:         "harmony.one/jacky",
-		SecurityContact: "jacky@harmony.one",
+		Identity:        "jacky@timestope.com",
+		Website:         "timestope.com/jacky",
+		SecurityContact: "jacky@timestope.com",
 		Details:         "Details of jacky",
 	}
 
@@ -262,22 +262,22 @@ func TestUpdateDescription(t *testing.T) {
 			raw: Description{
 				Name:            "Wayne",
 				Identity:        "wen",
-				Website:         "harmony.one.wen",
+				Website:         "timestope.com.wen",
 				SecurityContact: "wenSecurity",
 				Details:         "wenDetails",
 			},
 			update: Description{
 				Name:            "Jacky",
 				Identity:        "jw",
-				Website:         "harmony.one/jacky",
-				SecurityContact: "jacky@harmony.one",
+				Website:         "timestope.com/jacky",
+				SecurityContact: "jacky@timestope.com",
 				Details:         "Details of Jacky",
 			},
 			expect: Description{
 				Name:            "Jacky",
 				Identity:        "jw",
-				Website:         "harmony.one/jacky",
-				SecurityContact: "jacky@harmony.one",
+				Website:         "timestope.com/jacky",
+				SecurityContact: "jacky@timestope.com",
 				Details:         "Details of Jacky",
 			},
 		},
@@ -285,7 +285,7 @@ func TestUpdateDescription(t *testing.T) {
 			raw: Description{
 				Name:            "Wayne",
 				Identity:        "wen",
-				Website:         "harmony.one.wen",
+				Website:         "timestope.com.wen",
 				SecurityContact: "wenSecurity",
 				Details:         "wenDetails",
 			},
@@ -293,7 +293,7 @@ func TestUpdateDescription(t *testing.T) {
 			expect: Description{
 				Name:            "Wayne",
 				Identity:        "wen",
-				Website:         "harmony.one.wen",
+				Website:         "timestope.com.wen",
 				SecurityContact: "wenSecurity",
 				Details:         "wenDetails",
 			},
@@ -302,7 +302,7 @@ func TestUpdateDescription(t *testing.T) {
 			raw: Description{
 				Name:            "Wayne",
 				Identity:        "wen",
-				Website:         "harmony.one.wen",
+				Website:         "timestope.com.wen",
 				SecurityContact: "wenSecurity",
 				Details:         "wenDetails",
 			},
@@ -312,7 +312,7 @@ func TestUpdateDescription(t *testing.T) {
 			expect: Description{
 				Name:            "Wayne",
 				Identity:        "wen",
-				Website:         "harmony.one.wen",
+				Website:         "timestope.com.wen",
 				SecurityContact: "wenSecurity",
 				Details:         "new details",
 			},
@@ -321,7 +321,7 @@ func TestUpdateDescription(t *testing.T) {
 			raw: Description{
 				Name:            "Wayne",
 				Identity:        "wen",
-				Website:         "harmony.one.wen",
+				Website:         "timestope.com.wen",
 				SecurityContact: "wenSecurity",
 				Details:         "wenDetails",
 			},
@@ -353,9 +353,9 @@ func TestDescription_EnsureLength(t *testing.T) {
 		{
 			desc: Description{
 				Name:            "Jacky Wang",
-				Identity:        "jacky@harmony.one",
-				Website:         "harmony.one/jacky",
-				SecurityContact: "jacky@harmony.one",
+				Identity:        "jacky@timestope.com",
+				Website:         "timestope.com/jacky",
+				SecurityContact: "jacky@timestope.com",
 				Details:         "Details of jacky",
 			},
 			expErr: nil,
@@ -367,9 +367,9 @@ func TestDescription_EnsureLength(t *testing.T) {
 		{
 			desc: Description{
 				Name:            "thisisaverylonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglongname",
-				Identity:        "jacky@harmony.one",
-				Website:         "harmony.one/jacky",
-				SecurityContact: "jacky@harmony.one",
+				Identity:        "jacky@timestope.com",
+				Website:         "timestope.com/jacky",
+				SecurityContact: "jacky@timestope.com",
 				Details:         "Details of jacky",
 			},
 			expErr: errors.New("exceed maximum name length"),
@@ -378,8 +378,8 @@ func TestDescription_EnsureLength(t *testing.T) {
 			desc: Description{
 				Name:            "Jacky Wang",
 				Identity:        "thisisaverylonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglongidentity",
-				Website:         "harmony.one/jacky",
-				SecurityContact: "jacky@harmony.one",
+				Website:         "timestope.com/jacky",
+				SecurityContact: "jacky@timestope.com",
 				Details:         "Details of jacky",
 			},
 			expErr: errors.New("exceed Maximum Length identity"),
@@ -387,9 +387,9 @@ func TestDescription_EnsureLength(t *testing.T) {
 		{
 			desc: Description{
 				Name:            "Jacky Wang",
-				Identity:        "jacky@harmony.one",
+				Identity:        "jacky@timestope.com",
 				Website:         "thisisaverylonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglongwebsite",
-				SecurityContact: "jacky@harmony.one",
+				SecurityContact: "jacky@timestope.com",
 				Details:         "Details of jacky",
 			},
 			expErr: errors.New("exceed Maximum Length website"),
@@ -397,8 +397,8 @@ func TestDescription_EnsureLength(t *testing.T) {
 		{
 			desc: Description{
 				Name:            "Jacky Wang",
-				Identity:        "jacky@harmony.one",
-				Website:         "harmony.one/jacky",
+				Identity:        "jacky@timestope.com",
+				Website:         "timestope.com/jacky",
 				SecurityContact: "thisisaverylonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglongcontact",
 				Details:         "Details of jacky",
 			},
@@ -407,9 +407,9 @@ func TestDescription_EnsureLength(t *testing.T) {
 		{
 			desc: Description{
 				Name:            "Jacky Wang",
-				Identity:        "jacky@harmony.one",
-				Website:         "harmony.one/jacky",
-				SecurityContact: "jacky@harmony.one",
+				Identity:        "jacky@timestope.com",
+				Website:         "timestope.com/jacky",
+				SecurityContact: "jacky@timestope.com",
 				Details:         "thisisaverylonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglongdetail",
 			},
 			expErr: errors.New("exceed Maximum Length for details"),
@@ -533,9 +533,9 @@ func TestUpdateValidatorFromEditMsg(t *testing.T) {
 			// update Description.Name
 			editValidator: EditValidator{
 				ValidatorAddress: validatorAddr,
-				Description:      Description{Name: "jacky@harmony.one"},
+				Description:      Description{Name: "jacky@timestope.com"},
 			},
-			editExpValidator: func(v *Validator) { v.Name = "jacky@harmony.one" },
+			editExpValidator: func(v *Validator) { v.Name = "jacky@timestope.com" },
 		},
 		{
 			// Update CommissionRate
@@ -741,7 +741,7 @@ func makeValidValidator() Validator {
 	d := Description{
 		Name:     "Wayne",
 		Identity: "wen",
-		Website:  "harmony.one.wen",
+		Website:  "timestope.com.wen",
 		Details:  "best",
 	}
 	v := Validator{

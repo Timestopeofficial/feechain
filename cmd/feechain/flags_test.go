@@ -6,12 +6,12 @@ import (
 	"strings"
 	"testing"
 
-	harmonyconfig "github.com/harmony-one/harmony/internal/configs/harmony"
+	harmonyconfig "github.com/Timestopeofficial/feechain/internal/configs/harmony"
 
 	"github.com/spf13/cobra"
 
-	"github.com/harmony-one/harmony/internal/cli"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
+	"github.com/Timestopeofficial/feechain/internal/cli"
+	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
 )
 
 var (
@@ -138,7 +138,7 @@ func TestHarmonyFlags(t *testing.T) {
 					IP:         "0.0.0.0",
 					Port:       9900,
 					EnablePush: true,
-					Gateway:    "https://gateway.harmony.one",
+					Gateway:    "https://gateway.timestope.net",
 				},
 				Sync: defaultMainnetSyncConfig,
 				ShardData: harmonyconfig.ShardDataConfig{
@@ -940,11 +940,11 @@ func TestLogFlags(t *testing.T) {
 		},
 		{
 			args: []string{"--log.dir", "latest_log", "--log.max-size", "10", "--log.rotate-count", "3",
-				"--log.rotate-max-age", "0", "--log.name", "harmony.log", "--log.verb", "5",
+				"--log.rotate-max-age", "0", "--log.name", "feechain.log", "--log.verb", "5",
 				"--log.verbose-prints", "config"},
 			expConfig: harmonyconfig.LogConfig{
 				Folder:       "latest_log",
-				FileName:     "harmony.log",
+				FileName:     "feechain.log",
 				RotateSize:   10,
 				RotateCount:  3,
 				RotateMaxAge: 0,

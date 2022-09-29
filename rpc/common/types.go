@@ -3,10 +3,10 @@ package common
 import (
 	"encoding/json"
 
-	harmonyconfig "github.com/harmony-one/harmony/internal/configs/harmony"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
+	harmonyconfig "github.com/Timestopeofficial/feechain/internal/configs/harmony"
+	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
 
-	"github.com/harmony-one/harmony/internal/params"
+	"github.com/Timestopeofficial/feechain/internal/params"
 	"github.com/libp2p/go-libp2p-core/peer"
 )
 

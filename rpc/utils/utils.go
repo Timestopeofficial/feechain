@@ -4,7 +4,7 @@ import (
 	"strings"
 
 	"github.com/ethereum/go-ethereum/common"
-	internal_common "github.com/harmony-one/harmony/internal/common"
+	internal_common "github.com/Timestopeofficial/feechain/internal/common"
 )
 
 // ConvertAddresses - converts to bech32 depending on the RPC version

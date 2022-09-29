@@ -6,7 +6,7 @@ import (
 )
 
 /*
-The message structure of any message in Harmony network
+The message structure of any message in Feechain network
 
 ----  content start -----
 1 byte            - message category
@@ -34,7 +34,7 @@ const (
 )
 
 const (
-	// ProtocolVersion is a constant defined as the version of the Harmony protocol
+	// ProtocolVersion is a constant defined as the version of the Feechain protocol
 	ProtocolVersion = 1
 	// MessageCategoryBytes is the number of bytes message category takes
 	MessageCategoryBytes = 1

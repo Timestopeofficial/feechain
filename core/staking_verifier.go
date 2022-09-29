@@ -6,19 +6,19 @@ import (
 	"math/big"
 	"sort"
 
-	"github.com/harmony-one/harmony/staking/availability"
+	"github.com/Timestopeofficial/feechain/staking/availability"
 
-	"github.com/harmony-one/harmony/internal/params"
+	"github.com/Timestopeofficial/feechain/internal/params"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/common/denominations"
-	"github.com/harmony-one/harmony/core/vm"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/staking/effective"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/Timestopeofficial/feechain/common/denominations"
+	"github.com/Timestopeofficial/feechain/core/vm"
+	common2 "github.com/Timestopeofficial/feechain/internal/common"
+	"github.com/Timestopeofficial/feechain/internal/utils"
+	"github.com/Timestopeofficial/feechain/staking/effective"
+	staking "github.com/Timestopeofficial/feechain/staking/types"
 	"github.com/pkg/errors"
 )
 

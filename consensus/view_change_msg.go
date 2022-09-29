@@ -3,16 +3,16 @@ package consensus
 import (
 	"encoding/binary"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/rlp"
 
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	"github.com/harmony-one/harmony/api/proto"
-	msg_pb "github.com/harmony-one/harmony/api/proto/message"
-	bls_cosi "github.com/harmony-one/harmony/crypto/bls"
+	bls_core "github.com/Timestopeofficial/bls/ffi/go/bls"
+	"github.com/Timestopeofficial/feechain/api/proto"
+	msg_pb "github.com/Timestopeofficial/feechain/api/proto/message"
+	bls_cosi "github.com/Timestopeofficial/feechain/crypto/bls"
 
-	"github.com/harmony-one/harmony/multibls"
+	"github.com/Timestopeofficial/feechain/multibls"
 	"github.com/pkg/errors"
 )
 

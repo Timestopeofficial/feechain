@@ -23,13 +23,13 @@ import (
 	"sort"
 	"sync"
 
-	"github.com/harmony-one/harmony/block"
-	"github.com/harmony-one/harmony/eth/rpc"
-	"github.com/harmony-one/harmony/internal/utils"
+	"github.com/Timestopeofficial/feechain/block"
+	"github.com/Timestopeofficial/feechain/eth/rpc"
+	"github.com/Timestopeofficial/feechain/internal/utils"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/params"
-	"github.com/harmony-one/harmony/core/types"
+	"github.com/Timestopeofficial/feechain/core/types"
 )
 
 const sampleNumber = 3 // Number of transactions sampled in a block

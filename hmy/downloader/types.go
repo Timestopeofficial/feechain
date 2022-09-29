@@ -5,8 +5,8 @@ import (
 	"sync"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/core/types"
-	sttypes "github.com/harmony-one/harmony/p2p/stream/types"
+	"github.com/Timestopeofficial/feechain/core/types"
+	sttypes "github.com/Timestopeofficial/feechain/p2p/stream/types"
 )
 
 var (

@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/harmony-one/harmony/common/denominations"
-	"github.com/harmony-one/harmony/consensus/engine"
-	shardingconfig "github.com/harmony-one/harmony/internal/configs/sharding"
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/shard"
+	"github.com/Timestopeofficial/feechain/common/denominations"
+	"github.com/Timestopeofficial/feechain/consensus/engine"
+	shardingconfig "github.com/Timestopeofficial/feechain/internal/configs/sharding"
+	"github.com/Timestopeofficial/feechain/internal/params"
+	"github.com/Timestopeofficial/feechain/numeric"
+	"github.com/Timestopeofficial/feechain/shard"
 )
 
 var (
@@ -84,7 +84,7 @@ func getPreStakingRewardsFromBlockNumber(id shardingconfig.NetworkID, blockNum *
 // WARNING: the data collected here are calculated from a consumer of the Rosetta API.
 // If data becomes mission critical, implement a cross-link based approach.
 //
-// Data Source: https://github.com/harmony-one/jupyter
+// Data Source: https://github.com/Timestopeofficial/jupyter
 //
 // TODO (dm): use first crosslink of all shards to compute rewards on network instead of relying on constants.
 var (

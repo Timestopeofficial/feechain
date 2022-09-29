@@ -6,13 +6,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/harmony-one/harmony/eth/rpc"
-	"github.com/harmony-one/harmony/hmy"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
-	"github.com/harmony-one/harmony/internal/utils"
-	eth "github.com/harmony-one/harmony/rpc/eth"
-	v1 "github.com/harmony-one/harmony/rpc/v1"
-	v2 "github.com/harmony-one/harmony/rpc/v2"
+	"github.com/Timestopeofficial/feechain/eth/rpc"
+	"github.com/Timestopeofficial/feechain/hmy"
+	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
+	"github.com/Timestopeofficial/feechain/internal/utils"
+	eth "github.com/Timestopeofficial/feechain/rpc/eth"
+	v1 "github.com/Timestopeofficial/feechain/rpc/v1"
+	v2 "github.com/Timestopeofficial/feechain/rpc/v2"
 )
 
 // Version enum

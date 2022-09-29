@@ -1,7 +1,7 @@
 package sttypes
 
 import (
-	p2ptypes "github.com/harmony-one/harmony/p2p/types"
+	p2ptypes "github.com/Timestopeofficial/feechain/p2p/types"
 	"github.com/hashicorp/go-version"
 	libp2p_network "github.com/libp2p/go-libp2p-core/network"
 )

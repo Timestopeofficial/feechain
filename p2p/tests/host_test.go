@@ -3,7 +3,7 @@ package p2ptests
 import (
 	"testing"
 
-	"github.com/harmony-one/harmony/test/helpers"
+	"github.com/Timestopeofficial/feechain/test/helpers"
 	"github.com/stretchr/testify/assert"
 )
 

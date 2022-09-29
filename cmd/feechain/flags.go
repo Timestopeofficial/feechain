@@ -5,13 +5,13 @@ import (
 	"strconv"
 	"strings"
 
-	harmonyconfig "github.com/harmony-one/harmony/internal/configs/harmony"
+	harmonyconfig "github.com/Timestopeofficial/feechain/internal/configs/harmony"
 
 	"github.com/spf13/cobra"
 
-	"github.com/harmony-one/harmony/api/service/legacysync"
-	"github.com/harmony-one/harmony/internal/cli"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
+	"github.com/Timestopeofficial/feechain/api/service/legacysync"
+	"github.com/Timestopeofficial/feechain/internal/cli"
+	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
 )
 
 var (
@@ -519,7 +519,7 @@ var (
 	}
 	p2pKeyFileFlag = cli.StringFlag{
 		Name:     "p2p.keyfile",
-		Usage:    "the p2p key file of the harmony node",
+		Usage:    "the p2p key file of the feechain node",
 		DefValue: defaultConfig.P2P.KeyFile,
 	}
 	p2pDHTDataStoreFlag = cli.StringFlag{
@@ -530,7 +530,7 @@ var (
 	}
 	legacyKeyFileFlag = cli.StringFlag{
 		Name:       "key",
-		Usage:      "the p2p key file of the harmony node",
+		Usage:      "the p2p key file of the feechain node",
 		DefValue:   defaultConfig.P2P.KeyFile,
 		Deprecated: "use --p2p.keyfile",
 	}
@@ -1118,7 +1118,7 @@ var (
 	}
 	logFileNameFlag = cli.StringFlag{
 		Name:     "log.name",
-		Usage:    "log file name (e.g. harmony.log)",
+		Usage:    "log file name (e.g. feechain.log)",
 		DefValue: defaultConfig.Log.FileName,
 	}
 	logVerbosityFlag = cli.IntFlag{

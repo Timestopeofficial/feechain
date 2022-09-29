@@ -7,9 +7,9 @@ import (
 	"testing"
 
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/harmony-one/harmony/core/vm"
-	"github.com/harmony-one/harmony/internal/params"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/Timestopeofficial/feechain/core/vm"
+	"github.com/Timestopeofficial/feechain/internal/params"
+	staking "github.com/Timestopeofficial/feechain/staking/types"
 	"github.com/pkg/errors"
 )
 

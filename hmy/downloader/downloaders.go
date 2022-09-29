@@ -2,8 +2,8 @@ package downloader
 
 import (
 	"github.com/harmony-one/abool"
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/p2p"
+	"github.com/Timestopeofficial/feechain/core"
+	"github.com/Timestopeofficial/feechain/p2p"
 )
 
 // Downloaders is the set of downloaders

@@ -5,8 +5,8 @@ import (
 	"os"
 	"path/filepath"
 
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	"github.com/harmony-one/harmony/multibls"
+	bls_core "github.com/Timestopeofficial/bls/ffi/go/bls"
+	"github.com/Timestopeofficial/feechain/multibls"
 )
 
 // loadHelper defines the helper interface to load bls keys. Implemented by

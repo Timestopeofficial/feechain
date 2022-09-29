@@ -3,8 +3,8 @@ package rpc
 import (
 	"context"
 
-	"github.com/harmony-one/harmony/eth/rpc"
-	"github.com/harmony-one/harmony/hmy"
+	"github.com/Timestopeofficial/feechain/eth/rpc"
+	"github.com/Timestopeofficial/feechain/hmy"
 )
 
 // PrivateDebugService Internal JSON RPC for debugging purpose
@@ -52,7 +52,7 @@ func (s *PrivateDebugService) GetConsensusPhase(
 	return s.hmy.NodeAPI.GetConsensusPhase()
 }
 
-// GetConfig get harmony config
+// GetConfig get feechain config
 func (s *PrivateDebugService) GetConfig(
 	ctx context.Context,
 ) (StructuredResponse, error) {

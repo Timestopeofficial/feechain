@@ -31,7 +31,7 @@ import (
 	"unicode"
 
 	"github.com/ethereum/go-ethereum/log"
-	"github.com/harmony-one/harmony/accounts/abi"
+	"github.com/Timestopeofficial/feechain/accounts/abi"
 )
 
 // Lang is a target programming language selector to generate bindings for.

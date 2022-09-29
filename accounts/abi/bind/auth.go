@@ -26,10 +26,10 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/log"
-	"github.com/harmony-one/harmony/accounts"
-	"github.com/harmony-one/harmony/accounts/external"
-	"github.com/harmony-one/harmony/accounts/keystore"
-	"github.com/harmony-one/harmony/core/types"
+	"github.com/Timestopeofficial/feechain/accounts"
+	"github.com/Timestopeofficial/feechain/accounts/external"
+	"github.com/Timestopeofficial/feechain/accounts/keystore"
+	"github.com/Timestopeofficial/feechain/core/types"
 )
 
 // ErrNoChainID is returned whenever the user failed to specify a chain id.

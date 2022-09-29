@@ -7,16 +7,16 @@ import (
 	"math/big"
 	"sort"
 
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
+	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
 
-	"github.com/harmony-one/harmony/shard"
+	"github.com/Timestopeofficial/feechain/shard"
 
 	"github.com/ethereum/go-ethereum/common"
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	"github.com/harmony-one/harmony/crypto/bls"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/numeric"
+	bls_core "github.com/Timestopeofficial/bls/ffi/go/bls"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
+	common2 "github.com/Timestopeofficial/feechain/internal/common"
+	"github.com/Timestopeofficial/feechain/internal/utils"
+	"github.com/Timestopeofficial/feechain/numeric"
 	"github.com/pkg/errors"
 )
 
@@ -180,14 +180,14 @@ func Compute(subComm *shard.Committee, epoch *big.Int) (*Roster, error) {
 	theirPercentage := numeric.ZeroDec()
 	var lastStakedVoter *AccommodateHarmonyVote
 
-	harmonyPercent := shard.Schedule.InstanceForEpoch(epoch).HarmonyVotePercent()
+	feechainPercent := shard.Schedule.InstanceForEpoch(epoch).HarmonyVotePercent()
 	externalPercent := shard.Schedule.InstanceForEpoch(epoch).ExternalVotePercent()
 
 	// Testnet incident recovery
-	// Make harmony nodes having 70% voting power for epoch 73314
+	// Make feechain nodes having 70% voting power for epoch 73314
 	if nodeconfig.GetDefaultConfig().GetNetworkType() == nodeconfig.Testnet && epoch.Cmp(big.NewInt(73305)) >= 0 &&
 		epoch.Cmp(big.NewInt(73490)) <= 0 {
-		harmonyPercent = numeric.MustNewDecFromStr("0.70")
+		feechainPercent = numeric.MustNewDecFromStr("0.70")
 		externalPercent = numeric.MustNewDecFromStr("0.40") // Make sure consensus is always good.
 	}
 
@@ -213,8 +213,8 @@ func Compute(subComm *shard.Committee, epoch *big.Int) (*Roster, error) {
 			lastStakedVoter = &member
 		} else { // Our node
 			member.IsHarmonyNode = true
-			member.OverallPercent = harmonyPercent.Quo(asDecHMYSlotCount)
-			member.GroupPercent = member.OverallPercent.Quo(harmonyPercent)
+			member.OverallPercent = feechainPercent.Quo(asDecHMYSlotCount)
+			member.GroupPercent = member.OverallPercent.Quo(feechainPercent)
 			ourPercentage = ourPercentage.Add(member.OverallPercent)
 		}
 

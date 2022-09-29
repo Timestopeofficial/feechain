@@ -19,11 +19,11 @@ package vm
 import (
 	"math/big"
 
-	"github.com/harmony-one/harmony/numeric"
+	"github.com/Timestopeofficial/feechain/numeric"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/core/types"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/Timestopeofficial/feechain/core/types"
+	staking "github.com/Timestopeofficial/feechain/staking/types"
 )
 
 // StateDB is an EVM database for full state querying.

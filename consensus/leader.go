@@ -3,17 +3,17 @@ package consensus
 import (
 	"time"
 
-	"github.com/harmony-one/harmony/crypto/bls"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
+	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
 
-	"github.com/harmony-one/harmony/consensus/signature"
+	"github.com/Timestopeofficial/feechain/consensus/signature"
 
 	"github.com/ethereum/go-ethereum/rlp"
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	msg_pb "github.com/harmony-one/harmony/api/proto/message"
-	"github.com/harmony-one/harmony/consensus/quorum"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/p2p"
+	bls_core "github.com/Timestopeofficial/bls/ffi/go/bls"
+	msg_pb "github.com/Timestopeofficial/feechain/api/proto/message"
+	"github.com/Timestopeofficial/feechain/consensus/quorum"
+	"github.com/Timestopeofficial/feechain/core/types"
+	"github.com/Timestopeofficial/feechain/p2p"
 )
 
 func (consensus *Consensus) announce(block *types.Block) {

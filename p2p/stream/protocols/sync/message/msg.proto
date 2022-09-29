@@ -1,5 +1,5 @@
 syntax = "proto3";
-package harmony.stream.sync.message ;
+package feechain.stream.sync.message ;
 
 option go_package = "./;message";
 

@@ -7,7 +7,7 @@ SHELL ["/bin/bash", "-c"]
 
 ENV GOPATH=/root/go
 ENV GO111MODULE=on
-ENV HMY_PATH=${GOPATH}/src/github.com/harmony-one
+ENV HMY_PATH=${GOPATH}/src/github.com/Timestopeofficial
 ENV OPENSSL_DIR=/usr/lib/ssl
 ENV MCL_DIR=${HMY_PATH}/mcl
 ENV BLS_DIR=${HMY_PATH}/bls
@@ -34,7 +34,7 @@ ADD id_ed25519 /root/.ssh/id_ed25519
 RUN touch /root/.ssh/known_hosts
 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
 
-RUN git clone git@github.com:Timestopeofficial/feechain.git ${HMY_PATH}/harmony
+RUN git clone git@github.com:Timestopeofficial/feechain.git ${HMY_PATH}/feechain
 
 RUN git clone git@github.com:Timestopeofficial/bls.git ${HMY_PATH}/bls
 
@@ -63,7 +63,7 @@ RUN	go get -u github.com/stamblerre/gocode;
 RUN	go get -u golang.org/x/tools/...;
 # RUN	go get -u honnef.co/go/tools/cmd/staticcheck/...
 
-WORKDIR ${HMY_PATH}/harmony
+WORKDIR ${HMY_PATH}/feechain
 
 # RUN scripts/install_build_tools.sh
 

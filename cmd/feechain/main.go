@@ -15,42 +15,42 @@ import (
 	"syscall"
 	"time"
 
-	rosetta_common "github.com/harmony-one/harmony/rosetta/common"
+	rosetta_common "github.com/Timestopeofficial/feechain/rosetta/common"
 
-	harmonyconfig "github.com/harmony-one/harmony/internal/configs/harmony"
-	rpc_common "github.com/harmony-one/harmony/rpc/common"
+	harmonyconfig "github.com/Timestopeofficial/feechain/internal/configs/harmony"
+	rpc_common "github.com/Timestopeofficial/feechain/rpc/common"
 
 	ethCommon "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/log"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 
-	"github.com/harmony-one/bls/ffi/go/bls"
+	"github.com/Timestopeofficial/bls/ffi/go/bls"
 
-	"github.com/harmony-one/harmony/api/service"
-	"github.com/harmony-one/harmony/api/service/pprof"
-	"github.com/harmony-one/harmony/api/service/prometheus"
-	"github.com/harmony-one/harmony/api/service/synchronize"
-	"github.com/harmony-one/harmony/common/fdlimit"
-	"github.com/harmony-one/harmony/common/ntp"
-	"github.com/harmony-one/harmony/consensus"
-	"github.com/harmony-one/harmony/consensus/quorum"
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/hmy/downloader"
-	"github.com/harmony-one/harmony/internal/cli"
-	"github.com/harmony-one/harmony/internal/common"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
-	shardingconfig "github.com/harmony-one/harmony/internal/configs/sharding"
-	"github.com/harmony-one/harmony/internal/genesis"
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/internal/shardchain"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/multibls"
-	"github.com/harmony-one/harmony/node"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/p2p"
-	"github.com/harmony-one/harmony/shard"
-	"github.com/harmony-one/harmony/webhooks"
+	"github.com/Timestopeofficial/feechain/api/service"
+	"github.com/Timestopeofficial/feechain/api/service/pprof"
+	"github.com/Timestopeofficial/feechain/api/service/prometheus"
+	"github.com/Timestopeofficial/feechain/api/service/synchronize"
+	"github.com/Timestopeofficial/feechain/common/fdlimit"
+	"github.com/Timestopeofficial/feechain/common/ntp"
+	"github.com/Timestopeofficial/feechain/consensus"
+	"github.com/Timestopeofficial/feechain/consensus/quorum"
+	"github.com/Timestopeofficial/feechain/core"
+	"github.com/Timestopeofficial/feechain/hmy/downloader"
+	"github.com/Timestopeofficial/feechain/internal/cli"
+	"github.com/Timestopeofficial/feechain/internal/common"
+	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
+	shardingconfig "github.com/Timestopeofficial/feechain/internal/configs/sharding"
+	"github.com/Timestopeofficial/feechain/internal/genesis"
+	"github.com/Timestopeofficial/feechain/internal/params"
+	"github.com/Timestopeofficial/feechain/internal/shardchain"
+	"github.com/Timestopeofficial/feechain/internal/utils"
+	"github.com/Timestopeofficial/feechain/multibls"
+	"github.com/Timestopeofficial/feechain/node"
+	"github.com/Timestopeofficial/feechain/numeric"
+	"github.com/Timestopeofficial/feechain/p2p"
+	"github.com/Timestopeofficial/feechain/shard"
+	"github.com/Timestopeofficial/feechain/webhooks"
 )
 
 // Host
@@ -196,12 +196,12 @@ func getHarmonyConfig(cmd *cobra.Command) (harmonyconfig.HarmonyConfig, error) {
 				err := updateConfigFile(configFile)
 				if err != nil {
 					fmt.Printf("Could not update config - %s", err.Error())
-					fmt.Println("Update config manually with `./harmony config update [config_file]`")
+					fmt.Println("Update config manually with `./feechain config update [config_file]`")
 				}
 			}
 
 		} else {
-			fmt.Println("Update saved config with `./harmony config update [config_file]`")
+			fmt.Println("Update saved config with `./feechain config update [config_file]`")
 		}
 	}
 

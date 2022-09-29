@@ -8,9 +8,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/harmony-one/harmony/internal/cli"
-	harmonyconfig "github.com/harmony-one/harmony/internal/configs/harmony"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
+	"github.com/Timestopeofficial/feechain/internal/cli"
+	harmonyconfig "github.com/Timestopeofficial/feechain/internal/configs/harmony"
+	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
 	"github.com/pelletier/go-toml"
 	"github.com/spf13/cobra"
 )
@@ -177,8 +177,8 @@ func dumpConfig(cmd *cobra.Command, args []string) {
 
 var dumpConfigCmd = &cobra.Command{
 	Use:   "dump [config_file]",
-	Short: "dump default config file for harmony binary configurations",
-	Long:  "dump default config file for harmony binary configurations",
+	Short: "dump default config file for feechain binary configurations",
+	Long:  "dump default config file for feechain binary configurations",
 	Args:  cobra.MinimumNArgs(1),
 	Run:   dumpConfig,
 }
@@ -208,7 +208,7 @@ func promptConfigUpdate() bool {
 	}()
 	select {
 	case <-timeoutTimer.C:
-		fmt.Println("Timed out - update manually with ./harmony config update [config_file]")
+		fmt.Println("Timed out - update manually with ./feechain config update [config_file]")
 		return false
 	case <-read:
 		readStr = strings.TrimSpace(readStr)

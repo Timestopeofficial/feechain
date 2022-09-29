@@ -1,9 +1,9 @@
 package eth
 
 import (
-	"github.com/harmony-one/harmony/core/types"
-	internal_common "github.com/harmony-one/harmony/internal/common"
-	rpc_common "github.com/harmony-one/harmony/rpc/common"
+	"github.com/Timestopeofficial/feechain/core/types"
+	internal_common "github.com/Timestopeofficial/feechain/internal/common"
+	rpc_common "github.com/Timestopeofficial/feechain/rpc/common"
 	"github.com/pkg/errors"
 )
 

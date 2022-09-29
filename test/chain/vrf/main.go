@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
 
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	"github.com/harmony-one/harmony/crypto/hash"
-	vrf_bls "github.com/harmony-one/harmony/crypto/vrf/bls"
+	bls_core "github.com/Timestopeofficial/bls/ffi/go/bls"
+	"github.com/Timestopeofficial/feechain/crypto/hash"
+	vrf_bls "github.com/Timestopeofficial/feechain/crypto/vrf/bls"
 )
 
 func init() {

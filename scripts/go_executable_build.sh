@@ -3,7 +3,7 @@
 export GO111MODULE=on
 
 declare -A SRC
-SRC[feechain]=./cmd/harmony
+SRC[feechain]=./cmd/feechain
 SRC[bootnode]=./cmd/bootnode
 
 BINDIR=bin
@@ -76,7 +76,7 @@ ACTION:
    upload      upload binaries to s3
    release     upload binaries to release bucket
 
-   harmony|bootnode|
+   feechain|bootnode|
                only build the specified binary
 
 EXAMPLES:

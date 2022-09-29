@@ -5,12 +5,12 @@ import (
 	"time"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/consensus/engine"
-	// "github.com/harmony-one/harmony/consensus/reward"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/shard"
-	stakingReward "github.com/harmony-one/harmony/staking/reward"
+	"github.com/Timestopeofficial/feechain/consensus/engine"
+	// "github.com/Timestopeofficial/feechain/consensus/reward"
+	common2 "github.com/Timestopeofficial/feechain/internal/common"
+	"github.com/Timestopeofficial/feechain/numeric"
+	"github.com/Timestopeofficial/feechain/shard"
+	stakingReward "github.com/Timestopeofficial/feechain/staking/reward"
 	"github.com/pkg/errors"
 )
 

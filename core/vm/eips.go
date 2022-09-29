@@ -19,7 +19,7 @@ package vm
 import (
 	"fmt"
 
-	"github.com/harmony-one/harmony/internal/params"
+	"github.com/Timestopeofficial/feechain/internal/params"
 )
 
 // EnableEIP enables the given EIP on the config.

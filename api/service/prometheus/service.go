@@ -1,5 +1,5 @@
 // Package prometheus defines a service which is used for metrics collection
-// and health of a node in Harmony.
+// and health of a node in Feechain.
 package prometheus
 
 import (
@@ -13,7 +13,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/metrics"
 	eth_prometheus "github.com/ethereum/go-ethereum/metrics/prometheus"
-	"github.com/harmony-one/harmony/internal/utils"
+	"github.com/Timestopeofficial/feechain/internal/utils"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/prometheus/client_golang/prometheus/push"
@@ -27,7 +27,7 @@ type Config struct {
 	EnablePush bool   // enable pushgateway support
 	Gateway    string // address of the pushgateway
 	Network    string // network type, used as job prefix
-	Legacy     bool   // legacy or not, legacy is harmony internal node
+	Legacy     bool   // legacy or not, legacy is feechain internal node
 	NodeType   string // node type, validator or exlorer node
 	Shard      uint32 // shard id, used as job suffix
 	Instance   string //identifier of the instance in prometheus metrics
@@ -63,7 +63,7 @@ var (
 func (s *Service) getJobName() string {
 	var node string
 
-	// legacy nodes are harmony nodes: s0,s1,s2,s3
+	// legacy nodes are feechain nodes: s0,s1,s2,s3
 	if s.config.Legacy {
 		node = "s"
 	} else {

@@ -4,9 +4,9 @@ import (
 	"context"
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/harmony-one/harmony/eth/rpc"
-	"github.com/harmony-one/harmony/hmy"
-	internal_common "github.com/harmony-one/harmony/internal/common"
+	"github.com/Timestopeofficial/feechain/eth/rpc"
+	"github.com/Timestopeofficial/feechain/hmy"
+	internal_common "github.com/Timestopeofficial/feechain/internal/common"
 )
 
 // PublicEthService provides an API to access to the Eth endpoints for the Harmony blockchain.

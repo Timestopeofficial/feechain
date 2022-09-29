@@ -4,18 +4,18 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/harmony-one/harmony/internal/shardchain"
+	"github.com/Timestopeofficial/feechain/internal/shardchain"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/consensus"
-	"github.com/harmony-one/harmony/consensus/quorum"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/crypto/bls"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/multibls"
-	"github.com/harmony-one/harmony/p2p"
-	"github.com/harmony-one/harmony/shard"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/Timestopeofficial/feechain/consensus"
+	"github.com/Timestopeofficial/feechain/consensus/quorum"
+	"github.com/Timestopeofficial/feechain/core/types"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
+	"github.com/Timestopeofficial/feechain/internal/utils"
+	"github.com/Timestopeofficial/feechain/multibls"
+	"github.com/Timestopeofficial/feechain/p2p"
+	"github.com/Timestopeofficial/feechain/shard"
+	staking "github.com/Timestopeofficial/feechain/staking/types"
 )
 
 func TestFinalizeNewBlockAsync(t *testing.T) {

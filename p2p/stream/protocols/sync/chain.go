@@ -2,10 +2,10 @@ package sync
 
 import (
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/block"
-	"github.com/harmony-one/harmony/consensus/engine"
-	"github.com/harmony-one/harmony/core/types"
-	shardingconfig "github.com/harmony-one/harmony/internal/configs/sharding"
+	"github.com/Timestopeofficial/feechain/block"
+	"github.com/Timestopeofficial/feechain/consensus/engine"
+	"github.com/Timestopeofficial/feechain/core/types"
+	shardingconfig "github.com/Timestopeofficial/feechain/internal/configs/sharding"
 	"github.com/pkg/errors"
 )
 

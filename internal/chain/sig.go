@@ -3,10 +3,10 @@ package chain
 import (
 	"errors"
 
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
+	bls_core "github.com/Timestopeofficial/bls/ffi/go/bls"
 
-	"github.com/harmony-one/harmony/crypto/bls"
-	"github.com/harmony-one/harmony/internal/utils"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
+	"github.com/Timestopeofficial/feechain/internal/utils"
 )
 
 // ReadSignatureBitmapByPublicKeys read the payload of signature and bitmap based on public keys

@@ -4,8 +4,8 @@ import (
 	"math/big"
 	"testing"
 
-	shardingconfig "github.com/harmony-one/harmony/internal/configs/sharding"
-	"github.com/harmony-one/harmony/numeric"
+	shardingconfig "github.com/Timestopeofficial/feechain/internal/configs/sharding"
+	"github.com/Timestopeofficial/feechain/numeric"
 )
 
 func TestFiveSecondsBaseStakedReward(t *testing.T) {

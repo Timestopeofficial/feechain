@@ -1,4 +1,4 @@
-// Package shardingconfig defines types and utilities that deal with Harmony
+// Package shardingconfig defines types and utilities that deal with Feechain
 // sharding configuration schedule.
 package shardingconfig
 
@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/harmony-one/harmony/numeric"
+	"github.com/Timestopeofficial/feechain/numeric"
 
-	"github.com/harmony-one/harmony/internal/genesis"
+	"github.com/Timestopeofficial/feechain/internal/genesis"
 )
 
 // Schedule returns the sharding configuration instance for the given
@@ -49,16 +49,16 @@ type Instance interface {
 	NumNodesPerShard() int
 
 	// NumHarmonyOperatedNodesPerShard returns number of nodes in each shard
-	// that are operated by Harmony.
+	// that are operated by Feechain.
 	NumHarmonyOperatedNodesPerShard() int
 
-	// HarmonyVotePercent returns total percentage of voting power harmony nodes possess.
+	// HarmonyVotePercent returns total percentage of voting power feechain nodes possess.
 	HarmonyVotePercent() numeric.Dec
 
 	// ExternalVotePercent returns total percentage of voting power external validators possess.
 	ExternalVotePercent() numeric.Dec
 
-	// HmyAccounts returns a list of Harmony accounts
+	// HmyAccounts returns a list of Feechain accounts
 	HmyAccounts() []genesis.DeployAccount
 
 	// FnAccounts returns a list of Foundational node accounts

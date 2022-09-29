@@ -5,8 +5,8 @@ import (
 
 	"github.com/ethereum/go-ethereum/rlp"
 
-	"github.com/harmony-one/harmony/block"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/Timestopeofficial/feechain/block"
+	staking "github.com/Timestopeofficial/feechain/staking/types"
 )
 
 // BodyV1 is the V1 block body

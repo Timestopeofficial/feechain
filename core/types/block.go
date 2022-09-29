@@ -32,15 +32,15 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/harmony/block"
-	blockfactory "github.com/harmony-one/harmony/block/factory"
-	v0 "github.com/harmony-one/harmony/block/v0"
-	v1 "github.com/harmony-one/harmony/block/v1"
-	v2 "github.com/harmony-one/harmony/block/v2"
-	v3 "github.com/harmony-one/harmony/block/v3"
-	"github.com/harmony-one/harmony/crypto/hash"
-	"github.com/harmony-one/harmony/internal/utils"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/Timestopeofficial/feechain/block"
+	blockfactory "github.com/Timestopeofficial/feechain/block/factory"
+	v0 "github.com/Timestopeofficial/feechain/block/v0"
+	v1 "github.com/Timestopeofficial/feechain/block/v1"
+	v2 "github.com/Timestopeofficial/feechain/block/v2"
+	v3 "github.com/Timestopeofficial/feechain/block/v3"
+	"github.com/Timestopeofficial/feechain/crypto/hash"
+	"github.com/Timestopeofficial/feechain/internal/utils"
+	staking "github.com/Timestopeofficial/feechain/staking/types"
 	"github.com/harmony-one/taggedrlp"
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog"
@@ -205,7 +205,7 @@ func init() {
 	BodyRegistry.MustRegister(blockV2, new(BodyV2))
 }
 
-// Block represents an entire block in the Harmony blockchain.
+// Block represents an entire block in the Feechain blockchain.
 type Block struct {
 	header              *block.Header
 	uncles              []*block.Header

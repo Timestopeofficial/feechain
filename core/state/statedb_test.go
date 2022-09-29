@@ -32,16 +32,16 @@ import (
 	"github.com/ethereum/go-ethereum/core/rawdb"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/core/types"
+	"github.com/Timestopeofficial/feechain/core/types"
 
-	"github.com/harmony-one/harmony/crypto/bls"
-	"github.com/harmony-one/harmony/crypto/hash"
-	"github.com/harmony-one/harmony/numeric"
-	stk "github.com/harmony-one/harmony/staking/types"
-	staketest "github.com/harmony-one/harmony/staking/types/test"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
+	"github.com/Timestopeofficial/feechain/crypto/hash"
+	"github.com/Timestopeofficial/feechain/numeric"
+	stk "github.com/Timestopeofficial/feechain/staking/types"
+	staketest "github.com/Timestopeofficial/feechain/staking/types/test"
 
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/harmony-one/harmony/common/denominations"
+	"github.com/Timestopeofficial/feechain/common/denominations"
 )
 
 // Tests that updating a state trie does not leak any database writes prior to
@@ -930,7 +930,7 @@ func makeValidValidatorWrapper(addr common.Address) stk.ValidatorWrapper {
 	d := stk.Description{
 		Name:     "Wayne",
 		Identity: "wen",
-		Website:  "harmony.one.wen",
+		Website:  "timestope.com.wen",
 		Details:  "best",
 	}
 

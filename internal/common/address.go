@@ -11,8 +11,8 @@ import (
 	ethCommon "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/harmony-one/harmony/internal/bech32"
-	"github.com/harmony-one/harmony/internal/utils"
+	"github.com/Timestopeofficial/feechain/internal/bech32"
+	"github.com/Timestopeofficial/feechain/internal/utils"
 	"github.com/pkg/errors"
 	"golang.org/x/crypto/sha3"
 )
@@ -23,7 +23,7 @@ const (
 	AddressLength = 20
 )
 
-// Address represents the 20 byte address of an Harmony account.
+// Address represents the 20 byte address of an Feechain account.
 type Address [AddressLength]byte
 
 // BytesToAddress returns Address with value b.
@@ -43,7 +43,7 @@ func BigToAddress(b *big.Int) Address { return BytesToAddress(b.Bytes()) }
 func HexToAddress(s string) Address { return BytesToAddress(utils.FromHex(s)) }
 
 // IsBech32Address verifies whether a string can represent a valid bech32-encoded
-// Harmony address or not.
+// Feechain address or not.
 func IsBech32Address(s string) bool {
 	hrp, bytes, err := bech32.DecodeAndConvert(s)
 	if err != nil || (hrp != "fee" && hrp != "tfee") || len(bytes) != AddressLength {
@@ -185,7 +185,7 @@ func MustBuildBech32Addr(hrp string, addr ethCommon.Address) string {
 	return b32
 }
 
-// Bech32AddressHRP is the human-readable part of the Harmony address used by
+// Bech32AddressHRP is the human-readable part of the Feechain address used by
 // this process.
 var Bech32AddressHRP = "fee"
 // var Bech32AddressHRP = "one"

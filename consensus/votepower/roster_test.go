@@ -5,20 +5,20 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
 
-	shardingconfig "github.com/harmony-one/harmony/internal/configs/sharding"
+	shardingconfig "github.com/Timestopeofficial/feechain/internal/configs/sharding"
 
 	"github.com/ethereum/go-ethereum/common"
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/shard"
+	bls_core "github.com/Timestopeofficial/bls/ffi/go/bls"
+	"github.com/Timestopeofficial/feechain/numeric"
+	"github.com/Timestopeofficial/feechain/shard"
 )
 
 var (
 	slotList      shard.SlotList
 	totalStake    numeric.Dec
-	harmonyNodes  = 10
+	feechainNodes  = 10
 	stakedNodes   = 10
 	maxAccountGen = int64(98765654323123134)
 	accountGen    = rand.New(rand.NewSource(1337))
@@ -30,7 +30,7 @@ var (
 
 func init() {
 	shard.Schedule = shardingconfig.LocalnetSchedule
-	for i := 0; i < harmonyNodes; i++ {
+	for i := 0; i < feechainNodes; i++ {
 		newSlot := generateRandomSlot()
 		newSlot.EffectiveStake = nil
 		slotList = append(slotList, newSlot)
@@ -59,7 +59,7 @@ func TestCompute(t *testing.T) {
 	expectedRoster := NewRoster(shard.BeaconChainShardID)
 	// Calculated when generated
 	expectedRoster.TotalEffectiveStake = totalStake
-	expectedRoster.HMYSlotCount = int64(harmonyNodes)
+	expectedRoster.HMYSlotCount = int64(feechainNodes)
 
 	asDecHMYSlotCount := numeric.NewDec(expectedRoster.HMYSlotCount)
 	ourPercentage := numeric.ZeroDec()
@@ -79,7 +79,7 @@ func TestCompute(t *testing.T) {
 		}
 
 		// Real Staker
-		harmonyPercent := shard.Schedule.InstanceForEpoch(big.NewInt(3)).HarmonyVotePercent()
+		feechainPercent := shard.Schedule.InstanceForEpoch(big.NewInt(3)).HarmonyVotePercent()
 		externalPercent := shard.Schedule.InstanceForEpoch(big.NewInt(3)).ExternalVotePercent()
 		if e := staked[i].EffectiveStake; e != nil {
 			member.EffectiveStake = member.EffectiveStake.Add(*e)
@@ -88,8 +88,8 @@ func TestCompute(t *testing.T) {
 			theirPercentage = theirPercentage.Add(member.OverallPercent)
 		} else { // Our node
 			member.IsHarmonyNode = true
-			member.OverallPercent = harmonyPercent.Quo(asDecHMYSlotCount)
-			member.GroupPercent = member.OverallPercent.Quo(harmonyPercent)
+			member.OverallPercent = feechainPercent.Quo(asDecHMYSlotCount)
+			member.GroupPercent = member.OverallPercent.Quo(feechainPercent)
 			ourPercentage = ourPercentage.Add(member.OverallPercent)
 		}
 

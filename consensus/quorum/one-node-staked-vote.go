@@ -5,19 +5,19 @@ import (
 	"encoding/json"
 	"math/big"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
 
-	"github.com/harmony-one/harmony/internal/utils"
+	"github.com/Timestopeofficial/feechain/internal/utils"
 
 	"github.com/ethereum/go-ethereum/common"
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
+	bls_core "github.com/Timestopeofficial/bls/ffi/go/bls"
 	"github.com/pkg/errors"
 
-	"github.com/harmony-one/harmony/consensus/votepower"
-	bls_cosi "github.com/harmony-one/harmony/crypto/bls"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/shard"
+	"github.com/Timestopeofficial/feechain/consensus/votepower"
+	bls_cosi "github.com/Timestopeofficial/feechain/crypto/bls"
+	common2 "github.com/Timestopeofficial/feechain/internal/common"
+	"github.com/Timestopeofficial/feechain/numeric"
+	"github.com/Timestopeofficial/feechain/shard"
 )
 
 var (
@@ -75,7 +75,7 @@ func (v *stakedVoteWeight) AddNewVote(
 		} else {
 			// Aggregated signature should not contain signatures from keys belonging to different accounts,
 			// to avoid malicious node catching other people's signatures and merge with their own to cause problems.
-			// Harmony nodes are excluded from this rule.
+			// Feechain nodes are excluded from this rule.
 			if bytes.Compare(signerAddr.Bytes(), voter.EarningAccount[:]) != 0 && !voter.IsHarmonyNode {
 				return nil, errors.Errorf("Multiple signer accounts used in multi-sig: %x, %x", signerAddr.Bytes(), voter.EarningAccount)
 			}
@@ -244,7 +244,7 @@ func (v *stakedVoteWeight) SetRawStake(key bls.SerializedPublicKey, d numeric.De
 func (v *stakedVoteWeight) MarshalJSON() ([]byte, error) {
 	voterCount := len(v.roster.Voters)
 	type u struct {
-		IsHarmony      bool   `json:"is-harmony-slot"`
+		IsHarmony      bool   `json:"is-feechain-slot"`
 		EarningAccount string `json:"earning-account"`
 		Identity       string `json:"bls-public-key"`
 		RawPercent     string `json:"voting-power-unnormalized"`

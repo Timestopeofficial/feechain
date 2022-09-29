@@ -4,9 +4,9 @@ import (
 	"reflect"
 	"testing"
 
-	harmonyconfig "github.com/harmony-one/harmony/internal/configs/harmony"
+	harmonyconfig "github.com/Timestopeofficial/feechain/internal/configs/harmony"
 
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
+	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
 )
 
 var (
@@ -41,7 +41,7 @@ Version = "1.0.2"
   RosettaPort = 9700
 
 [Log]
-  FileName = "harmony.log"
+  FileName = "feechain.log"
   Folder = "./latest"
   RotateSize = 100
   Verbosity = 3
@@ -106,7 +106,7 @@ Version = "1.0.3"
   RosettaPort = 9700
 
 [Log]
-  FileName = "harmony.log"
+  FileName = "feechain.log"
   Folder = "./latest"
   RotateSize = 100
   Verbosity = 3
@@ -171,7 +171,7 @@ Version = "1.0.4"
   RosettaPort = 9700
 
 [Log]
-  FileName = "harmony.log"
+  FileName = "feechain.log"
   Folder = "./latest"
   RotateSize = 100
   Verbosity = 3
@@ -248,7 +248,7 @@ Version = "1.0.4"
   RosettaPort = 9700
 
 [Log]
-  FileName = "harmony.log"
+  FileName = "feechain.log"
   Folder = "./latest"
   RotateSize = 100
   Verbosity = 3

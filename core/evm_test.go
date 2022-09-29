@@ -12,19 +12,19 @@ import (
 	"github.com/ethereum/go-ethereum/core/rawdb"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethdb"
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	"github.com/harmony-one/harmony/block"
-	blockfactory "github.com/harmony-one/harmony/block/factory"
-	"github.com/harmony-one/harmony/common/denominations"
-	"github.com/harmony-one/harmony/core/state"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/core/vm"
-	"github.com/harmony-one/harmony/crypto/bls"
-	"github.com/harmony-one/harmony/crypto/hash"
-	chain2 "github.com/harmony-one/harmony/internal/chain"
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/numeric"
-	staking "github.com/harmony-one/harmony/staking/types"
+	bls_core "github.com/Timestopeofficial/bls/ffi/go/bls"
+	"github.com/Timestopeofficial/feechain/block"
+	blockfactory "github.com/Timestopeofficial/feechain/block/factory"
+	"github.com/Timestopeofficial/feechain/common/denominations"
+	"github.com/Timestopeofficial/feechain/core/state"
+	"github.com/Timestopeofficial/feechain/core/types"
+	"github.com/Timestopeofficial/feechain/core/vm"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
+	"github.com/Timestopeofficial/feechain/crypto/hash"
+	chain2 "github.com/Timestopeofficial/feechain/internal/chain"
+	"github.com/Timestopeofficial/feechain/internal/params"
+	"github.com/Timestopeofficial/feechain/numeric"
+	staking "github.com/Timestopeofficial/feechain/staking/types"
 )
 
 func getTestEnvironment(testBankKey ecdsa.PrivateKey) (*BlockChain, *state.DB, *block.Header, ethdb.Database) {
@@ -381,7 +381,7 @@ func sampleEditValidator(key ecdsa.PrivateKey) staking.EditValidator {
 		Description: staking.Description{
 			Name:            "Alice",
 			Identity:        "alice",
-			Website:         "alice.harmony.one",
+			Website:         "alice.feechain.net",
 			SecurityContact: "Bob",
 			Details:         "Don't mess with me!!!",
 		},

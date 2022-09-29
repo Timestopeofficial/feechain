@@ -1,12 +1,12 @@
 package accounts
 
 import (
-	"github.com/harmony-one/harmony/internal/bech32"
-	"github.com/harmony-one/harmony/internal/common"
+	"github.com/Timestopeofficial/feechain/internal/bech32"
+	"github.com/Timestopeofficial/feechain/internal/common"
 	"github.com/pkg/errors"
 )
 
-// MustBech32ToAddressH is a wrapper for casting ethCommon.Address to harmony's common.Address
+// MustBech32ToAddressH is a wrapper for casting ethCommon.Address to feechain's common.Address
 func MustBech32ToAddressH(b32 string) common.Address {
 	return common.Address(common.MustBech32ToAddress(b32))
 }

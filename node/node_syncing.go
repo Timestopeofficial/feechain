@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	prom "github.com/harmony-one/harmony/api/service/prometheus"
+	prom "github.com/Timestopeofficial/feechain/api/service/prometheus"
 	"github.com/prometheus/client_golang/prometheus"
 
 	"github.com/ethereum/go-ethereum/common"
@@ -16,19 +16,19 @@ import (
 	lru "github.com/hashicorp/golang-lru"
 	"github.com/pkg/errors"
 
-	"github.com/harmony-one/harmony/api/service"
-	"github.com/harmony-one/harmony/api/service/legacysync"
-	legdownloader "github.com/harmony-one/harmony/api/service/legacysync/downloader"
-	downloader_pb "github.com/harmony-one/harmony/api/service/legacysync/downloader/proto"
-	"github.com/harmony-one/harmony/api/service/synchronize"
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/hmy/downloader"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/node/worker"
-	"github.com/harmony-one/harmony/p2p"
-	"github.com/harmony-one/harmony/shard"
+	"github.com/Timestopeofficial/feechain/api/service"
+	"github.com/Timestopeofficial/feechain/api/service/legacysync"
+	legdownloader "github.com/Timestopeofficial/feechain/api/service/legacysync/downloader"
+	downloader_pb "github.com/Timestopeofficial/feechain/api/service/legacysync/downloader/proto"
+	"github.com/Timestopeofficial/feechain/api/service/synchronize"
+	"github.com/Timestopeofficial/feechain/core"
+	"github.com/Timestopeofficial/feechain/core/types"
+	"github.com/Timestopeofficial/feechain/hmy/downloader"
+	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
+	"github.com/Timestopeofficial/feechain/internal/utils"
+	"github.com/Timestopeofficial/feechain/node/worker"
+	"github.com/Timestopeofficial/feechain/p2p"
+	"github.com/Timestopeofficial/feechain/shard"
 )
 
 // Constants related to doing syncing.

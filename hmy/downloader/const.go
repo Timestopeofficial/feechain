@@ -3,8 +3,8 @@ package downloader
 import (
 	"time"
 
-	"github.com/harmony-one/harmony/core/types"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
+	"github.com/Timestopeofficial/feechain/core/types"
+	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
 )
 
 const (

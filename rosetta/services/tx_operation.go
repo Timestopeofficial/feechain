@@ -3,22 +3,22 @@ package services
 import (
 	"math/big"
 
-	"github.com/harmony-one/harmony/hmy/tracers"
+	"github.com/Timestopeofficial/feechain/hmy/tracers"
 
-	"github.com/harmony-one/harmony/internal/bech32"
-	internalCommon "github.com/harmony-one/harmony/internal/common"
+	"github.com/Timestopeofficial/feechain/internal/bech32"
+	internalCommon "github.com/Timestopeofficial/feechain/internal/common"
 
 	"github.com/coinbase/rosetta-sdk-go/types"
 	ethcommon "github.com/ethereum/go-ethereum/common"
 
-	"github.com/harmony-one/harmony/core"
-	hmytypes "github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/hmy"
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/rosetta/common"
-	rpcV2 "github.com/harmony-one/harmony/rpc/v2"
-	"github.com/harmony-one/harmony/staking"
-	stakingTypes "github.com/harmony-one/harmony/staking/types"
+	"github.com/Timestopeofficial/feechain/core"
+	hmytypes "github.com/Timestopeofficial/feechain/core/types"
+	"github.com/Timestopeofficial/feechain/hmy"
+	"github.com/Timestopeofficial/feechain/internal/params"
+	"github.com/Timestopeofficial/feechain/rosetta/common"
+	rpcV2 "github.com/Timestopeofficial/feechain/rpc/v2"
+	"github.com/Timestopeofficial/feechain/staking"
+	stakingTypes "github.com/Timestopeofficial/feechain/staking/types"
 )
 
 const (
@@ -345,7 +345,7 @@ func GetSideEffectOperationsFromGenesisSpec(
 	)
 }
 
-// GetTransactionStatus for any valid harmony transaction given its receipt.
+// GetTransactionStatus for any valid feechain transaction given its receipt.
 func GetTransactionStatus(tx hmytypes.PoolTransaction, receipt *hmytypes.Receipt) *string {
 	if _, ok := tx.(*hmytypes.Transaction); ok {
 		status := common.SuccessOperationStatus.Status

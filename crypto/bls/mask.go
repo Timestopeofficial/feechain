@@ -1,7 +1,7 @@
 package bls
 
 import (
-	"github.com/harmony-one/bls/ffi/go/bls"
+	"github.com/Timestopeofficial/bls/ffi/go/bls"
 	lru "github.com/hashicorp/golang-lru"
 	"github.com/pkg/errors"
 )

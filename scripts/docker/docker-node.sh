@@ -21,7 +21,7 @@ options:
   -p base_port: base port, default: $port_base
   -n network  : network type
   -z dns_zone : dns zone
-  -d db_dir   : harmony db directory
+  -d db_dir   : feechain db directory
   -X "extra"  : extra parameters to docker 'run' script
 
   -k          : kill running node
@@ -84,9 +84,9 @@ if [ "$port_base" -gt 59900 ]; then
   exit 1
 fi
 
-if [ -n "$(docker ps -q -a -f name=^harmony-${tag}-${port_base}$)" ]; then
+if [ -n "$(docker ps -q -a -f name=^feechain-${tag}-${port_base}$)" ]; then
   echo "Stop node for tag: $tag, port: $port_base"
-  docker rm -v -f harmony-${tag}-${port_base} >/dev/null
+  docker rm -v -f feechain-${tag}-${port_base} >/dev/null
 elif [ "$kill_only" = "true" ]; then
   echo "Cannot find exist node for port $port_base"
   exit 1
@@ -110,25 +110,25 @@ mkdir -p ${db_dir}/harmony_db_2
 mkdir -p ${db_dir}/harmony_db_3
 
 docker run -it -d \
-  --name harmony-$tag-$port_base \
+  --name feechain-$tag-$port_base \
   -p $port_base:$port_base -p $port_ss:$port_ss -p $port_rpc:$port_rpc -p $port_wss:$port_wss \
   -e NODE_PORT=$port_base \
   -e NODE_BLSKEY=$BLSKEY \
   -e NODE_BLSPASS=$BLSPASS \
   -e NODE_EXTRA_OPTIONS="$extra" \
-  -v $(realpath ${db_dir}/harmony_db_0):/harmony/harmony_db_0 \
-  -v $(realpath ${db_dir}/harmony_db_1):/harmony/harmony_db_1 \
-  -v $(realpath ${db_dir}/harmony_db_2):/harmony/harmony_db_2 \
-  -v $(realpath ${db_dir}/harmony_db_3):/harmony/harmony_db_3 \
-  -v $(realpath keys):/harmony/.hmy \
-  -v $(realpath logs):/harmony/log \
+  -v $(realpath ${db_dir}/harmony_db_0):/feechain/harmony_db_0 \
+  -v $(realpath ${db_dir}/harmony_db_1):/feechain/harmony_db_1 \
+  -v $(realpath ${db_dir}/harmony_db_2):/feechain/harmony_db_2 \
+  -v $(realpath ${db_dir}/harmony_db_3):/feechain/harmony_db_3 \
+  -v $(realpath keys):/feechain/.hmy \
+  -v $(realpath logs):/feechain/log \
   $DOCKER_IMAGE >/dev/null
 
 echo
 echo "======================================"
-echo "Node for tag ($tag) (port $port_base) is running in container 'harmony-$tag-$port_base'"
+echo "Node for tag ($tag) (port $port_base) is running in container 'feechain-$tag-$port_base'"
 echo
-echo "To check console log, please run \`docker logs -f harmony-$tag-$port_base\`"
+echo "To check console log, please run \`docker logs -f feechain-$tag-$port_base\`"
 echo "To stop node, please run \`$0 -t $tag -p $port_base -k blskey blspass\`"
 echo "======================================"
 

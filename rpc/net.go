@@ -5,10 +5,10 @@ import (
 	"fmt"
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/harmony-one/harmony/eth/rpc"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/p2p"
+	"github.com/Timestopeofficial/feechain/eth/rpc"
+	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
+	"github.com/Timestopeofficial/feechain/internal/utils"
+	"github.com/Timestopeofficial/feechain/p2p"
 )
 
 // PublicNetService offers network related RPC methods

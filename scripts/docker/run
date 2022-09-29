@@ -82,10 +82,10 @@ myip
 # setup runtime environment
 setup_env
 
-keydir=/harmony/.hmy
+keydir=/feechain/.hmy
 
 args=(
-      -log_folder "/harmony/log"
+      -log_folder "/feechain/log"
       -node_type "validator"
       -network_type "asadal"
       -bootnodes "$NODE_BN_MNET"
@@ -112,9 +112,9 @@ if [ -n "$NODE_EXTRA_OPTIONS" ]; then
   extra_args="$NODE_EXTRA_OPTIONS"
 fi
 
-msg "harmony ${args[@]} $extra_args"
+msg "feechain ${args[@]} $extra_args"
 ls -al ${keydir}
 
-harmony "${args[@]} $extra_args"
+feechain "${args[@]} $extra_args"
 
 # vim: ai ts=2 sw=2 et sts=2 ft=sh

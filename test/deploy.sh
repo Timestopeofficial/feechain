@@ -125,7 +125,7 @@ function launch_localnet() {
     esac
 
     # Start the node
-    ${DRYRUN} "${ROOT}/bin/harmony" "${args[@]}" "${extra_args[@]}" 2>&1 | tee -a "${LOG_FILE}" &
+    ${DRYRUN} "${ROOT}/bin/feechain" "${args[@]}" "${extra_args[@]}" 2>&1 | tee -a "${LOG_FILE}" &
   done <"${config}"
 }
 
@@ -147,7 +147,7 @@ USAGE: $ME [OPTIONS] config_file_name [extra args to node]
    -v             verbosity in log (default: $VERBOSE)
    -e             expose WS & HTTP ip (default: $EXPOSEAPIS)
 
-This script will build all the binaries and start harmony and based on the configuration file.
+This script will build all the binaries and start feechain and based on the configuration file.
 
 EXAMPLES:
 

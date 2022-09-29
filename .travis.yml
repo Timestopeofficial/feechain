@@ -3,7 +3,7 @@ dist: bionic
 language: go
 go:
   - 1.16
-go_import_path: github.com/harmony-one/harmony
+go_import_path: github.com/Timestopeofficial/feechain
 cache:
   directories:
     - docker_images
@@ -14,12 +14,12 @@ env:
   - TEST="bash ./scripts/travis_rosetta_checker.sh"
 install:
   # default working directory with source code is automatically set to
-  #   /home/travis/gopath/src/github.com/harmony-one/harmony
+  #   /home/travis/gopath/src/github.com/Timestopeofficial/feechain
   # https://docs.travis-ci.com/user/languages/go/#go-import-path
-  - git clone https://github.com/harmony-one/mcl.git $HOME/gopath/src/github.com/harmony-one/mcl
-  - git clone https://github.com/harmony-one/bls.git $HOME/gopath/src/github.com/harmony-one/bls
-  - (cd $HOME/gopath/src/github.com/harmony-one/mcl; make -j4)
-  - (cd $HOME/gopath/src/github.com/harmony-one/bls; make BLS_SWAP_G=1 -j4)
+  - git clone https://github.com/Timestopeofficial/mcl.git $HOME/gopath/src/github.com/Timestopeofficial/mcl
+  - git clone https://github.com/Timestopeofficial/bls.git $HOME/gopath/src/github.com/Timestopeofficial/bls
+  - (cd $HOME/gopath/src/github.com/Timestopeofficial/mcl; make -j4)
+  - (cd $HOME/gopath/src/github.com/Timestopeofficial/bls; make BLS_SWAP_G=1 -j4)
   - go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.26
   - go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.1
   - make go-get

@@ -24,16 +24,16 @@ import (
 	"math/big"
 	"sync/atomic"
 
-	"github.com/harmony-one/harmony/internal/params"
+	"github.com/Timestopeofficial/feechain/internal/params"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/rlp"
 
-	"github.com/harmony-one/harmony/crypto/hash"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/Timestopeofficial/feechain/crypto/hash"
+	common2 "github.com/Timestopeofficial/feechain/internal/common"
+	staking "github.com/Timestopeofficial/feechain/staking/types"
 )
 
 // no go:generate gencodec -type txdata -field-override txdataMarshaling -out gen_tx_json.go
@@ -63,7 +63,7 @@ var StakingTypeMap = map[staking.Directive]TransactionType{staking.DirectiveCrea
 	staking.DirectiveEditValidator: StakeEditVal, staking.DirectiveDelegate: Delegate,
 	staking.DirectiveUndelegate: Undelegate, staking.DirectiveCollectRewards: CollectRewards}
 
-// InternalTransaction defines the common interface for harmony and ethereum transactions.
+// InternalTransaction defines the common interface for feechain and ethereum transactions.
 type InternalTransaction interface {
 	CoreTransaction
 

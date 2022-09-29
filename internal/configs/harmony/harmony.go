@@ -1,11 +1,11 @@
-package harmony
+package feechain
 
 import (
 	"reflect"
 	"strings"
 )
 
-// HarmonyConfig contains all the configs user can set for running harmony binary. Served as the bridge
+// HarmonyConfig contains all the configs user can set for running feechain binary. Served as the bridge
 // from user set flags to internal node configs. Also user can persist this structure to a toml file
 // to avoid inputting all arguments.
 type HarmonyConfig struct {

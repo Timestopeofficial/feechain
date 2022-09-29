@@ -9,10 +9,10 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/rlp"
-	blockif "github.com/harmony-one/harmony/block/interface"
-	"github.com/harmony-one/harmony/crypto/hash"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/shard"
+	blockif "github.com/Timestopeofficial/feechain/block/interface"
+	"github.com/Timestopeofficial/feechain/crypto/hash"
+	"github.com/Timestopeofficial/feechain/internal/utils"
+	"github.com/Timestopeofficial/feechain/shard"
 	"github.com/rs/zerolog"
 )
 
@@ -215,7 +215,7 @@ func (h *Header) SetExtra(newExtra []byte) {
 
 // MixDigest is the mixhash.
 //
-// This field is a remnant from Ethereum, and Harmony does not use it and always
+// This field is a remnant from Ethereum, and Feechain does not use it and always
 // zeroes it out.
 func (h *Header) MixDigest() common.Hash {
 	return h.fields.MixDigest

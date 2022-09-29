@@ -25,10 +25,10 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/harmony/block"
-	blockfactory "github.com/harmony-one/harmony/block/factory"
-	"github.com/harmony-one/harmony/core/types"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/Timestopeofficial/feechain/block"
+	blockfactory "github.com/Timestopeofficial/feechain/block/factory"
+	"github.com/Timestopeofficial/feechain/core/types"
+	staking "github.com/Timestopeofficial/feechain/staking/types"
 	"golang.org/x/crypto/sha3"
 )
 

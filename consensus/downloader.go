@@ -2,7 +2,7 @@ package consensus
 
 import (
 	"github.com/ethereum/go-ethereum/event"
-	"github.com/harmony-one/harmony/core/types"
+	"github.com/Timestopeofficial/feechain/core/types"
 	"github.com/pkg/errors"
 )
 

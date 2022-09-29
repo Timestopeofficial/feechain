@@ -1,14 +1,14 @@
 package node
 
 import (
-	"github.com/harmony-one/harmony/consensus/quorum"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/eth/rpc"
-	"github.com/harmony-one/harmony/hmy"
-	"github.com/harmony-one/harmony/rosetta"
-	hmy_rpc "github.com/harmony-one/harmony/rpc"
-	rpc_common "github.com/harmony-one/harmony/rpc/common"
-	"github.com/harmony-one/harmony/rpc/filters"
+	"github.com/Timestopeofficial/feechain/consensus/quorum"
+	"github.com/Timestopeofficial/feechain/core/types"
+	"github.com/Timestopeofficial/feechain/eth/rpc"
+	"github.com/Timestopeofficial/feechain/hmy"
+	"github.com/Timestopeofficial/feechain/rosetta"
+	hmy_rpc "github.com/Timestopeofficial/feechain/rpc"
+	rpc_common "github.com/Timestopeofficial/feechain/rpc/common"
+	"github.com/Timestopeofficial/feechain/rpc/filters"
 	"github.com/libp2p/go-libp2p-core/peer"
 )
 
@@ -65,12 +65,12 @@ func (node *Node) ReportPlainErrorSink() types.TransactionErrorReports {
 
 // StartRPC start RPC service
 func (node *Node) StartRPC() error {
-	harmony := hmy.New(node, node.TxPool, node.CxPool, node.Consensus.ShardID)
+	feechain := hmy.New(node, node.TxPool, node.CxPool, node.Consensus.ShardID)
 
 	// Gather all the possible APIs to surface
-	apis := node.APIs(harmony)
+	apis := node.APIs(feechain)
 
-	return hmy_rpc.StartServers(harmony, apis, node.NodeConfig.RPCServer)
+	return hmy_rpc.StartServers(feechain, apis, node.NodeConfig.RPCServer)
 }
 
 // StopRPC stop RPC service
@@ -80,8 +80,8 @@ func (node *Node) StopRPC() error {
 
 // StartRosetta start rosetta service
 func (node *Node) StartRosetta() error {
-	harmony := hmy.New(node, node.TxPool, node.CxPool, node.Consensus.ShardID)
-	return rosetta.StartServers(harmony, node.NodeConfig.RosettaServer, node.NodeConfig.RPCServer.RateLimiterEnabled, node.NodeConfig.RPCServer.RequestsPerSecond)
+	feechain := hmy.New(node, node.TxPool, node.CxPool, node.Consensus.ShardID)
+	return rosetta.StartServers(feechain, node.NodeConfig.RosettaServer, node.NodeConfig.RPCServer.RateLimiterEnabled, node.NodeConfig.RPCServer.RequestsPerSecond)
 }
 
 // StopRosetta stops rosetta service
@@ -91,15 +91,15 @@ func (node *Node) StopRosetta() error {
 
 // APIs return the collection of local RPC services.
 // NOTE, some of these services probably need to be moved to somewhere else.
-func (node *Node) APIs(harmony *hmy.Harmony) []rpc.API {
+func (node *Node) APIs(feechain *hmy.Harmony) []rpc.API {
 	// Append all the local APIs and return
 	return []rpc.API{
-		hmy_rpc.NewPublicNetAPI(node.host, harmony.ChainID, hmy_rpc.V1),
-		hmy_rpc.NewPublicNetAPI(node.host, harmony.ChainID, hmy_rpc.V2),
-		hmy_rpc.NewPublicNetAPI(node.host, harmony.ChainID, hmy_rpc.Eth),
+		hmy_rpc.NewPublicNetAPI(node.host, feechain.ChainID, hmy_rpc.V1),
+		hmy_rpc.NewPublicNetAPI(node.host, feechain.ChainID, hmy_rpc.V2),
+		hmy_rpc.NewPublicNetAPI(node.host, feechain.ChainID, hmy_rpc.Eth),
 		hmy_rpc.NewPublicWeb3API(),
-		filters.NewPublicFilterAPI(harmony, false, "fch"),
-		filters.NewPublicFilterAPI(harmony, false, "eth"),
+		filters.NewPublicFilterAPI(feechain, false, "fch"),
+		filters.NewPublicFilterAPI(feechain, false, "eth"),
 	}
 }
 

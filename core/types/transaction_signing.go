@@ -25,9 +25,9 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	"github.com/harmony-one/harmony/crypto/hash"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
-	"github.com/harmony-one/harmony/internal/params"
+	"github.com/Timestopeofficial/feechain/crypto/hash"
+	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
+	"github.com/Timestopeofficial/feechain/internal/params"
 )
 
 // Constants for transaction signing.

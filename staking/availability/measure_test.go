@@ -7,14 +7,14 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/shard"
-	"github.com/harmony-one/harmony/staking/effective"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/Timestopeofficial/feechain/numeric"
+	"github.com/Timestopeofficial/feechain/shard"
+	"github.com/Timestopeofficial/feechain/staking/effective"
+	staking "github.com/Timestopeofficial/feechain/staking/types"
 )
 
 func TestBlockSigners(t *testing.T) {
@@ -423,7 +423,7 @@ func (ctx *incStateTestCtx) checkAddrIncStateByType(addr common.Address, typeInc
 		}
 	case typeIncHmyNode:
 		if err = ctx.checkHmyNodeStateChangeByAddr(addr); err != nil {
-			err = fmt.Errorf("harmony node address %s: %v", addr, err)
+			err = fmt.Errorf("feechain node address %s: %v", addr, err)
 		}
 	default:
 		err = errors.New("unknown typeInc")
@@ -686,7 +686,7 @@ func makeHmySlot(seed int, shardID uint32) shard.Slot {
 
 const testStake = int64(100000000000)
 
-// makeTestMixedCommittee makes a committee with both harmony nodes and user nodes
+// makeTestMixedCommittee makes a committee with both feechain nodes and user nodes
 func makeTestMixedCommittee(numHmySlots, numUserSlots int, shardID uint32) *shard.Committee {
 	slots := make(shard.SlotList, 0, numHmySlots+numUserSlots)
 	for i := 0; i != numHmySlots; i++ {

@@ -10,16 +10,16 @@ import (
 	"github.com/ethereum/go-ethereum/ethdb"
 	"github.com/ethereum/go-ethereum/event"
 	"github.com/ethereum/go-ethereum/params"
-	"github.com/harmony-one/harmony/api/proto"
-	"github.com/harmony-one/harmony/block"
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/core/state"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/core/vm"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
-	commonRPC "github.com/harmony-one/harmony/rpc/common"
-	"github.com/harmony-one/harmony/shard"
-	staking "github.com/harmony-one/harmony/staking/types"
+	"github.com/Timestopeofficial/feechain/api/proto"
+	"github.com/Timestopeofficial/feechain/block"
+	"github.com/Timestopeofficial/feechain/core"
+	"github.com/Timestopeofficial/feechain/core/state"
+	"github.com/Timestopeofficial/feechain/core/types"
+	"github.com/Timestopeofficial/feechain/core/vm"
+	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
+	commonRPC "github.com/Timestopeofficial/feechain/rpc/common"
+	"github.com/Timestopeofficial/feechain/shard"
+	staking "github.com/Timestopeofficial/feechain/staking/types"
 	lru "github.com/hashicorp/golang-lru"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/pkg/errors"
@@ -250,7 +250,7 @@ func (hmy *Harmony) EventMux() *event.TypeMux {
 }
 
 // BloomStatus ...
-// TODO: this is not implemented or verified yet for harmony.
+// TODO: this is not implemented or verified yet for feechain.
 func (hmy *Harmony) BloomStatus() (uint64, uint64) {
 	sections, _, _ := hmy.BloomIndexer.Sections()
 	return BloomBitsBlocks, sections

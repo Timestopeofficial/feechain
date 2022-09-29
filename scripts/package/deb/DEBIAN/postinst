@@ -1,23 +1,23 @@
 #!/bin/sh
 
 after_install() {
-   mkdir -p /home/harmony/.hmy/blskeys
-   mkdir -p /home/harmony/.config/rclone
-   chown -R harmony.harmony /home/harmony
+   mkdir -p /home/feechain/.hmy/blskeys
+   mkdir -p /home/feechain/.config/rclone
+   chown -R feechain.feechain /home/feechain
 
-   systemctl enable harmony
-   systemctl start harmony
+   systemctl enable feechain
+   systemctl start feechain
 }
 
 after_upgrade() {
-   systemctl enable harmony
-   systemctl restart harmony
+   systemctl enable feechain
+   systemctl restart feechain
 }
 
 
 # Setup system users and groups
-getent group harmony >/dev/null || addgroup --quiet --system harmony
-getent passwd harmony >/dev/null || adduser --quiet --system --ingroup harmony --gecos "harmony validator account" harmony
+getent group feechain >/dev/null || addgroup --quiet --system feechain
+getent passwd feechain >/dev/null || adduser --quiet --system --ingroup feechain --gecos "feechain validator account" feechain
 
 if [ "${1}" = "configure" -a -z "${2}" ] || \
    [ "${1}" = "abort-remove" ]

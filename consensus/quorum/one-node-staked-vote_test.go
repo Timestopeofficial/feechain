@@ -6,20 +6,20 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
 
-	shardingconfig "github.com/harmony-one/harmony/internal/configs/sharding"
+	shardingconfig "github.com/Timestopeofficial/feechain/internal/configs/sharding"
 
 	"github.com/ethereum/go-ethereum/common"
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/shard"
+	bls_core "github.com/Timestopeofficial/bls/ffi/go/bls"
+	"github.com/Timestopeofficial/feechain/numeric"
+	"github.com/Timestopeofficial/feechain/shard"
 )
 
 var (
 	quorumNodes   = 100
 	msg           = "Testing"
-	hmy           = "Harmony"
+	hmy           = "Feechain"
 	reg           = "Stakers"
 	basicDecider  Decider
 	maxAccountGen = int64(98765654323123134)
@@ -48,7 +48,7 @@ func generateRandomSlot() (shard.Slot, bls_core.SecretKey) {
 	return shard.Slot{addr, key, &stake}, secretKey
 }
 
-// 50 Harmony Nodes, 50 Staked Nodes
+// 50 Feechain Nodes, 50 Staked Nodes
 func setupBaseCase() (Decider, *TallyResult, shard.SlotList, map[string]secretKeyMap) {
 	slotList := shard.SlotList{}
 	sKeys := map[string]secretKeyMap{}
@@ -81,7 +81,7 @@ func setupBaseCase() (Decider, *TallyResult, shard.SlotList, map[string]secretKe
 	return decider, tally, slotList, sKeys
 }
 
-// 33 Harmony Nodes, 67 Staked Nodes
+// 33 Feechain Nodes, 67 Staked Nodes
 func setupEdgeCase() (Decider, *TallyResult, shard.SlotList, secretKeyMap) {
 	slotList := shard.SlotList{}
 	sKeys := secretKeyMap{}
@@ -139,7 +139,7 @@ func TestEvenNodes(t *testing.T) {
 	// Check HarmonyPercent + StakePercent == 1
 	sum := result.ourPercent.Add(result.theirPercent)
 	if !sum.Equal(numeric.OneDec()) {
-		t.Errorf("Total voting power does not equal 1. Harmony voting power: %s, Staked voting power: %s, Sum: %s",
+		t.Errorf("Total voting power does not equal 1. Feechain voting power: %s, Staked voting power: %s, Sum: %s",
 			result.ourPercent, result.theirPercent, sum)
 		t.FailNow()
 	}
@@ -172,7 +172,7 @@ func TestEvenNodes(t *testing.T) {
 			strconv.FormatBool(rewarded))
 	}
 
-	// Sign all Harmony Nodes
+	// Sign all Feechain Nodes
 	sign(stakedVote, sKeys[hmy], Prepare)
 	achieved = stakedVote.IsQuorumAchieved(Prepare)
 	if !achieved {
@@ -206,36 +206,36 @@ func Test33HarmonyNodes(t *testing.T) {
 	// Check HarmonyPercent + StakePercent == 1
 	sum := result.ourPercent.Add(result.theirPercent)
 	if !sum.Equal(numeric.OneDec()) {
-		t.Errorf("Total voting power does not equal 1. Harmony voting power: %s, Staked voting power: %s, Sum: %s",
+		t.Errorf("Total voting power does not equal 1. Feechain voting power: %s, Staked voting power: %s, Sum: %s",
 			result.ourPercent, result.theirPercent, sum)
 		t.FailNow()
 	}
-	// Sign all Harmony Nodes, 0 Staker Nodes
+	// Sign all Feechain Nodes, 0 Staker Nodes
 	// Prepare
 	sign(stakedVote, sKeys, Prepare)
 	achieved := stakedVote.IsQuorumAchieved(Prepare)
 	if !achieved {
-		t.Errorf("[IsQuorumAchieved] Phase: %s, QuorumAchieved: %s, Expected: true (All Harmony nodes = 68%%)",
+		t.Errorf("[IsQuorumAchieved] Phase: %s, QuorumAchieved: %s, Expected: true (All Feechain nodes = 68%%)",
 			Prepare, strconv.FormatBool(achieved))
 	}
 	// Commit
 	sign(stakedVote, sKeys, Commit)
 	achieved = stakedVote.IsQuorumAchieved(Commit)
 	if !achieved {
-		t.Errorf("[IsQuorumAchieved] Phase: %s, QuorumAchieved: %s, Expected: true (All Harmony nodes = 68%%)",
+		t.Errorf("[IsQuorumAchieved] Phase: %s, QuorumAchieved: %s, Expected: true (All Feechain nodes = 68%%)",
 			Commit, strconv.FormatBool(achieved))
 	}
 	// ViewChange
 	sign(stakedVote, sKeys, ViewChange)
 	achieved = stakedVote.IsQuorumAchieved(ViewChange)
 	if !achieved {
-		t.Errorf("[IsQuorumAchieved] Phase: %s, Got: %s, Expected: true (All Harmony nodes = 68%%)",
+		t.Errorf("[IsQuorumAchieved] Phase: %s, Got: %s, Expected: true (All Feechain nodes = 68%%)",
 			ViewChange, strconv.FormatBool(achieved))
 	}
 	// RewardThreshold
 	rewarded := stakedVote.IsAllSigsCollected()
 	if rewarded {
-		t.Errorf("[IsAllSigsCollected] Got: %s, Expected: false (All Harmony nodes = 68%%)",
+		t.Errorf("[IsAllSigsCollected] Got: %s, Expected: false (All Feechain nodes = 68%%)",
 			strconv.FormatBool(rewarded))
 	}
 }

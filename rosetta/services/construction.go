@@ -10,11 +10,11 @@ import (
 	ethCommon "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	"github.com/harmony-one/harmony/common/denominations"
-	hmyTypes "github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/hmy"
-	"github.com/harmony-one/harmony/rosetta/common"
-	stakingTypes "github.com/harmony-one/harmony/staking/types"
+	"github.com/Timestopeofficial/feechain/common/denominations"
+	hmyTypes "github.com/Timestopeofficial/feechain/core/types"
+	"github.com/Timestopeofficial/feechain/hmy"
+	"github.com/Timestopeofficial/feechain/rosetta/common"
+	stakingTypes "github.com/Timestopeofficial/feechain/staking/types"
 )
 
 const (

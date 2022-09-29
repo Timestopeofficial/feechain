@@ -1,4 +1,4 @@
-module github.com/harmony-one/harmony
+module github.com/Timestopeofficial/feechain
 
 go 1.16
 
@@ -24,7 +24,7 @@ require (
 	github.com/gorilla/websocket v1.4.2
 	github.com/harmony-ek/gencodec v0.0.0-20190215044613-e6740dbdd846
 	github.com/harmony-one/abool v1.0.1
-	github.com/harmony-one/bls v0.0.6
+	github.com/Timestopeofficial/bls latest
 	github.com/harmony-one/taggedrlp v0.1.4
 	github.com/harmony-one/vdf v0.0.0-20190924175951-620379da8849
 	github.com/hashicorp/go-version v1.2.0

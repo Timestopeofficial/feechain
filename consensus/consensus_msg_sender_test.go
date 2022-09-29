@@ -4,9 +4,9 @@ import (
 	"sync/atomic"
 	"testing"
 
-	msg_pb "github.com/harmony-one/harmony/api/proto/message"
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
-	"github.com/harmony-one/harmony/test/helpers"
+	msg_pb "github.com/Timestopeofficial/feechain/api/proto/message"
+	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
+	"github.com/Timestopeofficial/feechain/test/helpers"
 	"github.com/stretchr/testify/assert"
 )
 

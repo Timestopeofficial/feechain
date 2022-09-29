@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	"github.com/ethereum/go-ethereum/common"
-	sttypes "github.com/harmony-one/harmony/p2p/stream/types"
+	sttypes "github.com/Timestopeofficial/feechain/p2p/stream/types"
 	"github.com/rs/zerolog"
 )
 

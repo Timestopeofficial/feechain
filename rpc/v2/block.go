@@ -1,8 +1,8 @@
 package v2
 
 import (
-	"github.com/harmony-one/harmony/core/types"
-	rpc_common "github.com/harmony-one/harmony/rpc/common"
+	"github.com/Timestopeofficial/feechain/core/types"
+	rpc_common "github.com/Timestopeofficial/feechain/rpc/common"
 	"github.com/pkg/errors"
 )
 

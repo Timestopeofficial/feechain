@@ -11,16 +11,16 @@ import (
 
 	common2 "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/harmony-one/harmony/crypto/bls"
-	"github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/numeric"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
+	"github.com/Timestopeofficial/feechain/internal/common"
+	"github.com/Timestopeofficial/feechain/numeric"
 
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	hmytypes "github.com/harmony-one/harmony/core/types"
-	stakingTypes "github.com/harmony-one/harmony/staking/types"
-	"github.com/harmony-one/harmony/test/helpers"
+	hmytypes "github.com/Timestopeofficial/feechain/core/types"
+	stakingTypes "github.com/Timestopeofficial/feechain/staking/types"
+	"github.com/Timestopeofficial/feechain/test/helpers"
 )
 
 func TestUnpackWrappedTransactionFromString(t *testing.T) {
@@ -475,7 +475,7 @@ func stakingCreateValidatorTransaction(key *ecdsa.PrivateKey) (*stakingTypes.Sta
 			Description: stakingTypes.Description{
 				Name:            "Alice",
 				Identity:        "alice",
-				Website:         "alice.harmony.one",
+				Website:         "alice.timestope.com",
 				SecurityContact: "Bob",
 				Details:         "Don't mess with me!!!",
 			},
@@ -527,7 +527,7 @@ func stakingEditValidatorTransaction(key *ecdsa.PrivateKey) (*stakingTypes.Staki
 			Description: stakingTypes.Description{
 				Name:            "Alice",
 				Identity:        "alice",
-				Website:         "alice.harmony.one",
+				Website:         "alice.timestope.com",
 				SecurityContact: "Bob",
 				Details:         "Don't mess with me!!!",
 			},

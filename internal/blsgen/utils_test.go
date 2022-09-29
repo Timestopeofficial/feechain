@@ -39,7 +39,7 @@ var testKeys = []testKey{
 		// key with non empty passphrase
 		publicKey:   "152beed46d7a0002ef0f960946008887eedd4775bdf2ed238809aa74e20d31fdca267443615cc6f4ede49d58911ee083",
 		privateKey:  "c20fa8de733d08e27e3101436d41f6a3207b8bedad7525c6e91a77ae2a49cf56",
-		passphrase:  "harmony",
+		passphrase:  "feechain",
 		keyFileData: "194a2d68c37f037f36b28a560402d64ab007f949313b63d9a08f5adb55a061681c70d9119df2d2cdcae5da6e484550c03bad63aae7c1332a3647ce633999ac4ddbb4a40e213c7e88e604784fef40da9d2f28b392c9fb2462f5e51e9c",
 	},
 }

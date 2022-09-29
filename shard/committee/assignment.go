@@ -4,23 +4,23 @@ import (
 	"encoding/json"
 	"math/big"
 
-	"github.com/harmony-one/harmony/core/state"
+	"github.com/Timestopeofficial/feechain/core/state"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	"github.com/harmony-one/harmony/block"
-	"github.com/harmony-one/harmony/core/types"
-	common2 "github.com/harmony-one/harmony/internal/common"
-	shardingconfig "github.com/harmony-one/harmony/internal/configs/sharding"
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/numeric"
-	"github.com/harmony-one/harmony/shard"
-	"github.com/harmony-one/harmony/staking/availability"
-	"github.com/harmony-one/harmony/staking/effective"
-	staking "github.com/harmony-one/harmony/staking/types"
+	bls_core "github.com/Timestopeofficial/bls/ffi/go/bls"
+	"github.com/Timestopeofficial/feechain/block"
+	"github.com/Timestopeofficial/feechain/core/types"
+	common2 "github.com/Timestopeofficial/feechain/internal/common"
+	shardingconfig "github.com/Timestopeofficial/feechain/internal/configs/sharding"
+	"github.com/Timestopeofficial/feechain/internal/params"
+	"github.com/Timestopeofficial/feechain/internal/utils"
+	"github.com/Timestopeofficial/feechain/numeric"
+	"github.com/Timestopeofficial/feechain/shard"
+	"github.com/Timestopeofficial/feechain/staking/availability"
+	"github.com/Timestopeofficial/feechain/staking/effective"
+	staking "github.com/Timestopeofficial/feechain/staking/types"
 	"github.com/pkg/errors"
 )
 
@@ -137,7 +137,7 @@ func prepareOrders(
 	essentials := map[common.Address]*effective.SlotOrder{}
 	totalStaked, tempZero := big.NewInt(0), numeric.ZeroDec()
 
-	// Avoid duplicate BLS keys as harmony nodes
+	// Avoid duplicate BLS keys as feechain nodes
 	instance := shard.Schedule.InstanceForEpoch(stakedReader.CurrentBlock().Epoch())
 	for _, account := range instance.HmyAccounts() {
 		pub := &bls_core.PublicKey{}
@@ -355,7 +355,7 @@ func eposStakedCommittee(
 		}
 	}
 
-	// TODO(audit): make sure external validator BLS key are also not duplicate to Harmony's keys
+	// TODO(audit): make sure external validator BLS key are also not duplicate to Feechain's keys
 	completedEPoSRound, err := NewEPoSRound(epoch, stakerReader, true)
 	// completedEPoSRound, err := NewEPoSRound(epoch, stakerReader, stakerReader.Config().IsEPoSBound35(epoch))
 

@@ -7,10 +7,10 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/staking/effective"
+	"github.com/Timestopeofficial/feechain/staking/effective"
 )
 
 var (
@@ -289,7 +289,7 @@ func cpTestDataSetup() {
 	description := Description{
 		Name:            "Wayne",
 		Identity:        "wen",
-		Website:         "harmony.one.wen",
+		Website:         "timestope.net.wen",
 		SecurityContact: "wenSecurity",
 		Details:         "wenDetails",
 	}

@@ -67,7 +67,7 @@ var (
 		StakingPrecompileEpoch:     big.NewInt(0), // => Ignore.
 	}
 
-	// TestnetChainConfig contains the chain parameters to run a node on the harmony test network.
+	// TestnetChainConfig contains the chain parameters to run a node on the feechain test network.
 	TestnetChainConfig = &ChainConfig{
 		ChainID:                    TestnetChainID,
 		EthCompatibleChainID:       EthTestnetShard0ChainID,

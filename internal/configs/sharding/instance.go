@@ -3,8 +3,8 @@ package shardingconfig
 import (
 	"math/big"
 
-	"github.com/harmony-one/harmony/internal/genesis"
-	"github.com/harmony-one/harmony/numeric"
+	"github.com/Timestopeofficial/feechain/internal/genesis"
+	"github.com/Timestopeofficial/feechain/numeric"
 	"github.com/pkg/errors"
 )
 
@@ -54,12 +54,12 @@ func NewInstance(
 	}
 	if numHarmonyOperatedNodesPerShard < 0 {
 		return nil, errors.Errorf(
-			"Harmony-operated nodes cannot be negative %d", numHarmonyOperatedNodesPerShard,
+			"Feechain-operated nodes cannot be negative %d", numHarmonyOperatedNodesPerShard,
 		)
 	}
 	if numHarmonyOperatedNodesPerShard > numNodesPerShard {
 		return nil, errors.Errorf(""+
-			"number of Harmony-operated nodes cannot exceed "+
+			"number of Feechain-operated nodes cannot exceed "+
 			"overall number of nodes per shard %d %d",
 			numHarmonyOperatedNodesPerShard,
 			numNodesPerShard,
@@ -68,7 +68,7 @@ func NewInstance(
 	if harmonyVotePercent.LT(numeric.ZeroDec()) ||
 		harmonyVotePercent.GT(numeric.OneDec()) {
 		return nil, errors.Errorf("" +
-			"total voting power of harmony nodes should be within [0, 1]",
+			"total voting power of feechain nodes should be within [0, 1]",
 		)
 	}
 
@@ -116,7 +116,7 @@ func (sc instance) NumShards() uint32 {
 	return sc.numShards
 }
 
-// HarmonyVotePercent returns total percentage of voting power harmony nodes possess.
+// HarmonyVotePercent returns total percentage of voting power feechain nodes possess.
 func (sc instance) HarmonyVotePercent() numeric.Dec {
 	return sc.harmonyVotePercent
 }
@@ -132,12 +132,12 @@ func (sc instance) NumNodesPerShard() int {
 }
 
 // NumHarmonyOperatedNodesPerShard returns number of nodes in each shard
-// that are operated by Harmony.
+// that are operated by Feechain.
 func (sc instance) NumHarmonyOperatedNodesPerShard() int {
 	return sc.numHarmonyOperatedNodesPerShard
 }
 
-// HmyAccounts returns the list of Harmony accounts
+// HmyAccounts returns the list of Feechain accounts
 func (sc instance) HmyAccounts() []genesis.DeployAccount {
 	return sc.hmyAccounts
 }

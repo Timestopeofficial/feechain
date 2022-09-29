@@ -8,20 +8,20 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/bloombits"
 	"github.com/ethereum/go-ethereum/event"
-	"github.com/harmony-one/harmony/block"
-	"github.com/harmony-one/harmony/core"
-	"github.com/harmony-one/harmony/core/rawdb"
-	"github.com/harmony-one/harmony/core/state"
-	"github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/crypto/bls"
-	internal_bls "github.com/harmony-one/harmony/crypto/bls"
-	"github.com/harmony-one/harmony/eth/rpc"
-	internal_common "github.com/harmony-one/harmony/internal/common"
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/internal/utils"
-	"github.com/harmony-one/harmony/shard"
-	"github.com/harmony-one/harmony/staking/availability"
-	stakingReward "github.com/harmony-one/harmony/staking/reward"
+	"github.com/Timestopeofficial/feechain/block"
+	"github.com/Timestopeofficial/feechain/core"
+	"github.com/Timestopeofficial/feechain/core/rawdb"
+	"github.com/Timestopeofficial/feechain/core/state"
+	"github.com/Timestopeofficial/feechain/core/types"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
+	internal_bls "github.com/Timestopeofficial/feechain/crypto/bls"
+	"github.com/Timestopeofficial/feechain/eth/rpc"
+	internal_common "github.com/Timestopeofficial/feechain/internal/common"
+	"github.com/Timestopeofficial/feechain/internal/params"
+	"github.com/Timestopeofficial/feechain/internal/utils"
+	"github.com/Timestopeofficial/feechain/shard"
+	"github.com/Timestopeofficial/feechain/staking/availability"
+	stakingReward "github.com/Timestopeofficial/feechain/staking/reward"
 	"github.com/pkg/errors"
 )
 
@@ -333,37 +333,37 @@ func (hmy *Harmony) ServiceFilter(ctx context.Context, session *bloombits.Matche
 }
 
 // SubscribeNewTxsEvent subscribes new tx event.
-// TODO: this is not implemented or verified yet for harmony.
+// TODO: this is not implemented or verified yet for feechain.
 func (hmy *Harmony) SubscribeNewTxsEvent(ch chan<- core.NewTxsEvent) event.Subscription {
 	return hmy.TxPool.SubscribeNewTxsEvent(ch)
 }
 
 // SubscribeChainEvent subscribes chain event.
-// TODO: this is not implemented or verified yet for harmony.
+// TODO: this is not implemented or verified yet for feechain.
 func (hmy *Harmony) SubscribeChainEvent(ch chan<- core.ChainEvent) event.Subscription {
 	return hmy.BlockChain.SubscribeChainEvent(ch)
 }
 
 // SubscribeChainHeadEvent subcribes chain head event.
-// TODO: this is not implemented or verified yet for harmony.
+// TODO: this is not implemented or verified yet for feechain.
 func (hmy *Harmony) SubscribeChainHeadEvent(ch chan<- core.ChainHeadEvent) event.Subscription {
 	return hmy.BlockChain.SubscribeChainHeadEvent(ch)
 }
 
 // SubscribeChainSideEvent subcribes chain side event.
-// TODO: this is not implemented or verified yet for harmony.
+// TODO: this is not implemented or verified yet for feechain.
 func (hmy *Harmony) SubscribeChainSideEvent(ch chan<- core.ChainSideEvent) event.Subscription {
 	return hmy.BlockChain.SubscribeChainSideEvent(ch)
 }
 
 // SubscribeRemovedLogsEvent subcribes removed logs event.
-// TODO: this is not implemented or verified yet for harmony.
+// TODO: this is not implemented or verified yet for feechain.
 func (hmy *Harmony) SubscribeRemovedLogsEvent(ch chan<- core.RemovedLogsEvent) event.Subscription {
 	return hmy.BlockChain.SubscribeRemovedLogsEvent(ch)
 }
 
 // SubscribeLogsEvent subcribes log event.
-// TODO: this is not implemented or verified yet for harmony.
+// TODO: this is not implemented or verified yet for feechain.
 func (hmy *Harmony) SubscribeLogsEvent(ch chan<- []*types.Log) event.Subscription {
 	return hmy.BlockChain.SubscribeLogsEvent(ch)
 }

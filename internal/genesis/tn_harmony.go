@@ -1,6 +1,6 @@
 package genesis
 
-// TNHarmonyAccounts are the accounts for the initial genesis nodes hosted by Harmony for testnet.
+// TNHarmonyAccounts are the accounts for the initial genesis nodes hosted by Feechain for testnet.
 var TNHarmonyAccounts = []DeployAccount{
 	{Index: "0", Address: "fee1pnwklqmtf3t2lme053s7cspf299qfse2cw4g8q", BLSPublicKey: "e0d10faab80cb549e5df7b8e424c9370dbaa3ceebde818445e67d2730fc25827932aa251939f73710c0edc3dc4e86d82"},
 	{Index: "1", Address: "fee1zg5w232a6hnlcsq9vyffd0zy2z5359d7d0ed56", BLSPublicKey: "00dfa6f75114f5763b935c177ac5e06b2b928bffd1b0f9d5f2bf8bfce11fa6c2c4b8cb30da33fa9cba5a403e742a5e94"},

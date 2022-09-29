@@ -1,9 +1,9 @@
 package hmy
 
 import (
-	nodeconfig "github.com/harmony-one/harmony/internal/configs/node"
-	commonRPC "github.com/harmony-one/harmony/rpc/common"
-	"github.com/harmony-one/harmony/staking/network"
+	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
+	commonRPC "github.com/Timestopeofficial/feechain/rpc/common"
+	"github.com/Timestopeofficial/feechain/staking/network"
 	"github.com/libp2p/go-libp2p-core/peer"
 )
 

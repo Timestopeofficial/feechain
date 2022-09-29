@@ -1,6 +1,6 @@
 package requestmanager
 
-import sttypes "github.com/harmony-one/harmony/p2p/stream/types"
+import sttypes "github.com/Timestopeofficial/feechain/p2p/stream/types"
 
 // RequestOption is the additional instruction for requests.
 // Currently, two options are supported:

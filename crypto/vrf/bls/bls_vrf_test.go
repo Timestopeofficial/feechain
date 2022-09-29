@@ -5,7 +5,7 @@ import (
 	"math"
 	"testing"
 
-	"github.com/harmony-one/harmony/crypto/bls"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
 )
 
 func TestVRF1(t *testing.T) {

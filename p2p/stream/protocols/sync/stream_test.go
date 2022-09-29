@@ -8,8 +8,8 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	protobuf "github.com/golang/protobuf/proto"
-	syncpb "github.com/harmony-one/harmony/p2p/stream/protocols/sync/message"
-	sttypes "github.com/harmony-one/harmony/p2p/stream/types"
+	syncpb "github.com/Timestopeofficial/feechain/p2p/stream/protocols/sync/message"
+	sttypes "github.com/Timestopeofficial/feechain/p2p/stream/types"
 	ic "github.com/libp2p/go-libp2p-core/crypto"
 	libp2p_network "github.com/libp2p/go-libp2p-core/network"
 	"github.com/libp2p/go-libp2p-core/peer"

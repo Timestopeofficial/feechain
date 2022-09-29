@@ -1,7 +1,7 @@
 package downloader
 
 import (
-	pb "github.com/harmony-one/harmony/api/service/legacysync/downloader/proto"
+	pb "github.com/Timestopeofficial/feechain/api/service/legacysync/downloader/proto"
 )
 
 // DownloadInterface is the interface for downloader package.

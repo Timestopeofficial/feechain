@@ -7,8 +7,8 @@ import (
 	"testing"
 
 	"github.com/coinbase/rosetta-sdk-go/types"
-	"github.com/harmony-one/harmony/rosetta/common"
-	commonRPC "github.com/harmony-one/harmony/rpc/common"
+	"github.com/Timestopeofficial/feechain/rosetta/common"
+	commonRPC "github.com/Timestopeofficial/feechain/rpc/common"
 	"github.com/libp2p/go-libp2p-core/peer"
 )
 

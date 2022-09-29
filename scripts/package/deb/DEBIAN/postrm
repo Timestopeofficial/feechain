@@ -4,16 +4,16 @@ set -e
 
 after_remove() {
    :
-   #rm -rf /data/harmony/latest
-   #rm -rf /data/harmony/.dht*
-   #rm -rf /data/harmony/transactions.rlp
+   #rm -rf /data/feechain/latest
+   #rm -rf /data/feechain/.dht*
+   #rm -rf /data/feechain/transactions.rlp
 }
 
 after_purge() {
-	systemctl disable harmony
-	userdel harmony || true
-	groupdel harmony || true
-	rm -rf /etc/harmony
+	systemctl disable feechain
+	userdel feechain || true
+	groupdel feechain || true
+	rm -rf /etc/feechain
 }
 
 dummy() {

@@ -1,6 +1,6 @@
 package genesis
 
-// HarmonyAccounts are the accounts for the initial genesis nodes hosted by Harmony.
+// HarmonyAccounts are the accounts for the initial genesis nodes hosted by Feechain.
 var HarmonyAccounts = []DeployAccount{
 	{Index: "0", Address: "fee1pnwklqmtf3t2lme053s7cspf299qfse2cw4g8q", BLSPublicKey: "c5e277141b0eb9bad6af1fec406d108f17530d83e097296f9d11c4cb42b4e55ff06aa7119147555ef0ef2c13bfa4c406"},
 	{Index: "1", Address: "fee1zg5w232a6hnlcsq9vyffd0zy2z5359d7d0ed56", BLSPublicKey: "04de8e31e37856722a7c97e50a0ee11584f879544aaafc7a9580853aea57da1ffe521319749d4be776082fde41549797"},

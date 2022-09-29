@@ -7,8 +7,8 @@ import (
 	"testing"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/harmony/common/denominations"
-	stakingTypes "github.com/harmony-one/harmony/staking/types"
+	"github.com/Timestopeofficial/feechain/common/denominations"
+	stakingTypes "github.com/Timestopeofficial/feechain/staking/types"
 )
 
 func TestValidateContractAddress(t *testing.T) {

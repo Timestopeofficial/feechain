@@ -9,13 +9,13 @@ import (
 	"strings"
 	"sync"
 
-	bls_core "github.com/harmony-one/bls/ffi/go/bls"
-	"github.com/harmony-one/harmony/crypto/bls"
-	shardingconfig "github.com/harmony-one/harmony/internal/configs/sharding"
-	"github.com/harmony-one/harmony/internal/params"
-	"github.com/harmony-one/harmony/multibls"
-	"github.com/harmony-one/harmony/shard"
-	"github.com/harmony-one/harmony/webhooks"
+	bls_core "github.com/Timestopeofficial/bls/ffi/go/bls"
+	"github.com/Timestopeofficial/feechain/crypto/bls"
+	shardingconfig "github.com/Timestopeofficial/feechain/internal/configs/sharding"
+	"github.com/Timestopeofficial/feechain/internal/params"
+	"github.com/Timestopeofficial/feechain/multibls"
+	"github.com/Timestopeofficial/feechain/shard"
+	"github.com/Timestopeofficial/feechain/webhooks"
 	p2p_crypto "github.com/libp2p/go-libp2p-core/crypto"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/pkg/errors"
@@ -42,7 +42,7 @@ func (role Role) String() string {
 	}
 }
 
-// NetworkType describes the type of Harmony network
+// NetworkType describes the type of Feechain network
 type NetworkType string
 
 // Constants for NetworkType
@@ -68,7 +68,7 @@ var peerID peer.ID // PeerID of the node
 
 // ConfigType is the structure of all node related configuration variables
 type ConfigType struct {
-	// The three groupID design, please refer to https://github.com/harmony-one/harmony/blob/master/node/node.md#libp2p-integration
+	// The three groupID design, please refer to https://github.com/Timestopeofficial/feechain/blob/master/node/node.md#libp2p-integration
 	beacon          GroupID             // the beacon group ID
 	group           GroupID             // the group ID of the shard (note: for beacon chain node, the beacon and shard group are the same)
 	client          GroupID             // the client group ID of the shard
