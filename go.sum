@@ -39,8 +39,8 @@ github.com/Shopify/sarama v1.19.0/go.mod h1:FVkBWblsNy7DGZRfXLU0O9RCGt5g3g3yEuWX
 github.com/Shopify/toxiproxy v2.1.4+incompatible/go.mod h1:OXgGpZ6Cli1/URJOF1DMxUHB2q5Ap20/P/eIdh4G0pI=
 github.com/StackExchange/wmi v0.0.0-20180116203802-5d049714c4a6 h1:fLjPD/aNc3UIOA6tDi6QXUemppXK3P9BI7mr2hd6gx8=
 github.com/StackExchange/wmi v0.0.0-20180116203802-5d049714c4a6/go.mod h1:3eOhrUMpNV+6aFIbp5/iudMxNCF27Vw2OZgy4xEx0Fg=
-github.com/Timestopeofficial/bls v0.0.0-20220518073921-4d955f48631e h1:pWwGikWTla9N6ZYe1qwkQqlRZLlpOwLUcEFgGSMSKbU=
-github.com/Timestopeofficial/bls v0.0.0-20220518073921-4d955f48631e/go.mod h1:R2mxCRRmBSm9Y8YwKiYDjLUF7oLcqVvaACz33H6JMls=
+github.com/Timestopeofficial/bls v0.0.7 h1:4kh8nmGtZ6qFLMJEmAXL2X5zBodu/6FYEATJ8yjM32o=
+github.com/Timestopeofficial/bls v0.0.7/go.mod h1:R2mxCRRmBSm9Y8YwKiYDjLUF7oLcqVvaACz33H6JMls=
 github.com/VictoriaMetrics/fastcache v1.5.3/go.mod h1:+jv9Ckb+za/P1ZRg/sulP5Ni1v49daAVERr0H3CuscE=
 github.com/VictoriaMetrics/fastcache v1.5.7 h1:4y6y0G8PRzszQUYIQHHssv/jgPHAb5qQuuDNdCbyAgw=
 github.com/VictoriaMetrics/fastcache v1.5.7/go.mod h1:ptDBkNMQI4RtmVo8VS/XwRY6RoTu1dAWCbrk+6WsEM8=
