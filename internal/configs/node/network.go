@@ -30,7 +30,7 @@ var (
 )
 
 const (
-	mainnetDNSZone   = "b.timestope.net"
+	mainnetDNSZone   = "asadal.timestope.net"
 	testnetDNSZone   = "t.timestope.net"
 	pangaeaDNSZone   = "p.timestope.net"
 	partnerDNSZone   = "pa.timestope.net"

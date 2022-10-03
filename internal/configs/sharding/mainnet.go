@@ -16,9 +16,9 @@ const (
 	mainnetVdfDifficulty = 50000 // This takes about 100s to finish the vdf
 
 	// MainNetHTTPPattern is the http pattern for asadal.
-	MainNetHTTPPattern = "https://api.s%d.b.timestope.net"
+	MainNetHTTPPattern = "https://api.s%d.asadal.timestope.net"
 	// MainNetWSPattern is the websocket pattern for asadal.
-	MainNetWSPattern = "wss://ws.s%d.b.timestope.net"
+	MainNetWSPattern = "wss://ws.s%d.asadal.timestope.net"
 )
 
 // MainnetSchedule is the asadal sharding configuration schedule.
@@ -75,6 +75,6 @@ var mainnetReshardingEpoch = []*big.Int{
 }
 
 var (
-	mainnetV0 = MustNewInstance(4, 5, 5, 	numeric.OneDec(), 								 genesis.HarmonyAccounts, genesis.FoundationalNodeAccounts, mainnetReshardingEpoch, MainnetSchedule.BlocksPerEpoch())
-	mainnetV1 = MustNewInstance(4, 85, 5, numeric.MustNewDecFromStr("0.85"), genesis.HarmonyAccounts, genesis.FoundationalNodeAccounts, mainnetReshardingEpoch, MainnetSchedule.BlocksPerEpoch())
+	mainnetV0 = MustNewInstance(4, 6, 6, 	numeric.OneDec(), 								 genesis.HarmonyAccounts, genesis.FoundationalNodeAccounts, mainnetReshardingEpoch, MainnetSchedule.BlocksPerEpoch())
+	mainnetV1 = MustNewInstance(4, 85, 6, numeric.MustNewDecFromStr("0.84"), genesis.HarmonyAccounts, genesis.FoundationalNodeAccounts, mainnetReshardingEpoch, MainnetSchedule.BlocksPerEpoch())
 )
