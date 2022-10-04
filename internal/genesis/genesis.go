@@ -10,7 +10,7 @@ import (
 	"github.com/Timestopeofficial/feechain/internal/utils"
 )
 
-const genesisString = "Time is the ultimate currency. 2022.28.06"
+const genesisString = "Time is the ultimate currency. 2022.10.10"
 
 // DeployAccount is the account used in genesis
 type DeployAccount struct {

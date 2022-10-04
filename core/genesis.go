@@ -99,7 +99,7 @@ func NewGenesisSpec(netType nodeconfig.NetworkType, shardID uint32) *Genesis {
 	case nodeconfig.Mainnet:
 		chainConfig = *params.MainnetChainConfig
 		if shardID == 0 {
-			foundationAddress := common.HexToAddress("0xe67d6a979fdf74b56b1506312fddb3e254f67b16")
+			foundationAddress := common.HexToAddress("0xfee66D0724Ce45D67664699AfbEe3BadF3Fe923a")
 			genesisAlloc[foundationAddress] = GenesisAccount{Balance: GenesisFund}
 		}
 	case nodeconfig.Pangaea:
