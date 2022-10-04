@@ -30,7 +30,7 @@ const (
 	explorerPortDifference = 4000
 	defaultPageSize        = "1000"
 	maxAddresses           = 100000
-	nodeSyncTolerance      = 5
+	nodeSyncTolerance      = 4
 )
 
 // HTTPError is an HTTP error.
