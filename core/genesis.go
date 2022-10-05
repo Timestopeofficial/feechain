@@ -52,8 +52,8 @@ var errGenesisNoConfig = errors.New("genesis has no chain configuration")
 const (
 	// GenesisEpoch is the number of the genesis epoch.
 	GenesisEpoch = 0
-	// GenesisONEToken is the initial total number of ONE in the genesis block for asadal.
-	GenesisONEToken = 30000000000
+	// GenesisONEToken is the initial total number of FEE in the genesis block for asadal.
+	GenesisONEToken = 40000000000
 	// ContractDeployerInitFund is the initial fund for the contract deployer account in testnet/devnet.
 	ContractDeployerInitFund = 10000000000
 	// InitFreeFund is the initial fund for permissioned accounts for testnet/devnet/
@@ -61,7 +61,7 @@ const (
 )
 
 var (
-	// GenesisFund is the initial total number of ONE (in atto) in the genesis block for asadal.
+	// GenesisFund is the initial total number of FEE (in atto) in the genesis block for asadal.
 	GenesisFund = new(big.Int).Mul(big.NewInt(GenesisONEToken), big.NewInt(denominations.One))
 )
 
