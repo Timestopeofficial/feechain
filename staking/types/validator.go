@@ -28,7 +28,7 @@ const (
 	MaxSecurityContactLength = 140
 	MaxDetailsLength         = 280
 	BLSVerificationStr       = "feechain-fee"
-	TenThousand              = 10000
+	TenThousand              = 100000
 	APRHistoryLength         = 30
 	SigningHistoryLength     = 30
 )
@@ -43,7 +43,7 @@ var (
 		"total delegation can not be bigger than max_total_delegation",
 	)
 	errMinSelfDelegationTooSmall = errors.New(
-		"min_self_delegation must be greater than or equal to 10,000 ONE",
+		"min_self_delegation must be greater than or equal to 100,000 FEE",
 	)
 	errInvalidMaxTotalDelegation = errors.New(
 		"max_total_delegation can not be less than min_self_delegation",
@@ -274,7 +274,7 @@ func (v *Validator) SanityCheck() error {
 		return errNilMaxTotalDelegation
 	}
 
-	// MinSelfDelegation must be >= 10000 ONE
+	// MinSelfDelegation must be >= 100000 FEE
 	if v.MinSelfDelegation.Cmp(minimumStake) < 0 {
 		return errors.Wrapf(
 			errMinSelfDelegationTooSmall,

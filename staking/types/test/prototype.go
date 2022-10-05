@@ -13,9 +13,9 @@ import (
 
 var (
 	oneBig       = big.NewInt(1e18)
-	tenKOnes     = new(big.Int).Mul(big.NewInt(10000), oneBig)
-	twentyKOnes  = new(big.Int).Mul(big.NewInt(20000), oneBig)
-	hundredKOnes = new(big.Int).Mul(big.NewInt(100000), oneBig)
+	tenKOnes     = new(big.Int).Mul(big.NewInt(100000), oneBig)
+	twentyKOnes  = new(big.Int).Mul(big.NewInt(120000), oneBig)
+	hundredKOnes = new(big.Int).Mul(big.NewInt(1000000), oneBig)
 
 	// DefaultDelAmount is the default delegation amount
 	DefaultDelAmount = new(big.Int).Set(twentyKOnes)
