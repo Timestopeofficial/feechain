@@ -121,7 +121,7 @@ func NewGenesisSpec(netType nodeconfig.NetworkType, shardID uint32) *Genesis {
 		// 	strings.NewReader("Test contract key string stream that is fixed so that generated test key are deterministic every time"),
 		// )
 		// contractDeployerAddress := crypto.PubkeyToAddress(contractDeployerKey.PublicKey)
-		contractDeployerAddress := common.HexToAddress("0xe67d6a979fdf74b56b1506312fddb3e254f67b16")
+		contractDeployerAddress := common.HexToAddress("0x42922aae20b5a3e10e142710b9b0128834005e41")
 		contractDeployerFunds := big.NewInt(ContractDeployerInitFund)
 		contractDeployerFunds = contractDeployerFunds.Mul(
 			contractDeployerFunds, big.NewInt(denominations.One),

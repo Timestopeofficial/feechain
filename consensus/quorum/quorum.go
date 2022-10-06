@@ -2,6 +2,7 @@ package quorum
 
 import (
 	"fmt"
+	"math"
 	"math/big"
 
 	"github.com/Timestopeofficial/feechain/crypto/bls"
@@ -338,7 +339,7 @@ func (s *cIdentities) reset(ps []Phase) {
 }
 
 func (s *cIdentities) TwoThirdsSignersCount() int64 {
-	return s.ParticipantsCount()*2/3 + 1
+	return int64(math.Ceil(s.ParticipantsCount()*2/float64(3)))
 }
 
 func (s *cIdentities) ReadBallot(p Phase, pubkey bls.SerializedPublicKey) *votepower.Ballot {
