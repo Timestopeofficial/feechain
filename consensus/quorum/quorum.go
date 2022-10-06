@@ -339,7 +339,7 @@ func (s *cIdentities) reset(ps []Phase) {
 }
 
 func (s *cIdentities) TwoThirdsSignersCount() int64 {
-	return int64(math.Ceil(s.ParticipantsCount()*2/float64(3)))
+	return int64(math.Ceil(float64(s.ParticipantsCount()*2)/3))
 }
 
 func (s *cIdentities) ReadBallot(p Phase, pubkey bls.SerializedPublicKey) *votepower.Ballot {
