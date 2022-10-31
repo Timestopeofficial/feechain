@@ -7,8 +7,6 @@ import (
 	"math/big"
 	"sort"
 
-	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
-
 	"github.com/Timestopeofficial/feechain/shard"
 
 	"github.com/ethereum/go-ethereum/common"
