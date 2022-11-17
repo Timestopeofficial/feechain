@@ -24,10 +24,14 @@ const (
 	TestNetHTTPPattern = "https://api.s%d.t.timestope.net"
 	// TestNetWSPattern is the websocket pattern for testnet.
 	TestNetWSPattern = "wss://ws.s%d.t.timestope.net"
+
+	testnetV2Epoch = 250;
 )
 
 func (ts testnetSchedule) InstanceForEpoch(epoch *big.Int) Instance {
 	switch {
+	case epoch.Cmp(big.NewInt(testnetV2Epoch)) >= 0:
+		return testnetV2
 	case epoch.Cmp(params.TestnetChainConfig.StakingEpoch) >= 0:
 		return testnetV1
 	default: // genesis
@@ -72,7 +76,9 @@ func (ts testnetSchedule) IsSkippedEpoch(shardID uint32, epoch *big.Int) bool {
 var testnetReshardingEpoch = []*big.Int{
 	big.NewInt(0),
 	params.TestnetChainConfig.StakingEpoch,
+	big.NewInt(testnetV2Epoch)
 }
 
 var testnetV0 = MustNewInstance(2, 4, 4, numeric.OneDec(), genesis.TNHarmonyAccounts, genesis.TNFoundationalAccounts, testnetReshardingEpoch, TestnetSchedule.BlocksPerEpoch())
 var testnetV1 = MustNewInstance(2, 20, 4, numeric.MustNewDecFromStr("0.80"), genesis.TNHarmonyAccounts, genesis.TNFoundationalAccounts, testnetReshardingEpoch, TestnetSchedule.BlocksPerEpoch())
+var testnetV2 = MustNewInstance(2, 100, 6, numeric.MustNewDecFromStr("0.80"), genesis.TNHarmonyAccounts, genesis.TNFoundationalAccounts, testnetReshardingEpoch, TestnetSchedule.BlocksPerEpoch())
