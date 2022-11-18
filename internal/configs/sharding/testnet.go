@@ -25,7 +25,7 @@ const (
 	// TestNetWSPattern is the websocket pattern for testnet.
 	TestNetWSPattern = "wss://ws.s%d.t.timestope.net"
 
-	testnetV2Epoch = 250
+	testnetV2Epoch = 248
 )
 
 func (ts testnetSchedule) InstanceForEpoch(epoch *big.Int) Instance {
