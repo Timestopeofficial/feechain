@@ -26,10 +26,13 @@ const (
 	TestNetWSPattern = "wss://ws.s%d.t.timestope.net"
 
 	testnetV2Epoch = 248
+	testnetV3Epoch = 408
 )
 
 func (ts testnetSchedule) InstanceForEpoch(epoch *big.Int) Instance {
 	switch {
+	case epoch.Cmp(big.NewInt(testnetV3Epoch)) >= 0:
+		return testnetV3
 	case epoch.Cmp(big.NewInt(testnetV2Epoch)) >= 0:
 		return testnetV2
 	case epoch.Cmp(params.TestnetChainConfig.StakingEpoch) >= 0:
@@ -77,8 +80,10 @@ var testnetReshardingEpoch = []*big.Int{
 	big.NewInt(0),
 	params.TestnetChainConfig.StakingEpoch,
 	big.NewInt(testnetV2Epoch),
+	big.NewInt(testnetV3Epoch),
 }
 
 var testnetV0 = MustNewInstance(2, 4, 4, numeric.OneDec(), genesis.TNHarmonyAccounts, genesis.TNFoundationalAccounts, testnetReshardingEpoch, TestnetSchedule.BlocksPerEpoch())
 var testnetV1 = MustNewInstance(2, 20, 4, numeric.MustNewDecFromStr("0.80"), genesis.TNHarmonyAccounts, genesis.TNFoundationalAccounts, testnetReshardingEpoch, TestnetSchedule.BlocksPerEpoch())
 var testnetV2 = MustNewInstance(2, 100, 6, numeric.MustNewDecFromStr("0.80"), genesis.TNHarmonyAccounts, genesis.TNFoundationalAccounts, testnetReshardingEpoch, TestnetSchedule.BlocksPerEpoch())
+var testnetV3 = MustNewInstance(2, 100, 7, numeric.MustNewDecFromStr("0.80"), genesis.TNHarmonyAccounts, genesis.TNFoundationalAccounts, testnetReshardingEpoch, TestnetSchedule.BlocksPerEpoch())

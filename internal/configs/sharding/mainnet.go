@@ -19,6 +19,8 @@ const (
 	MainNetHTTPPattern = "https://api.s%d.asadal.timestope.net"
 	// MainNetWSPattern is the websocket pattern for asadal.
 	MainNetWSPattern = "wss://ws.s%d.asadal.timestope.net"
+
+	mainnetV2Epoch = 64
 )
 
 // MainnetSchedule is the asadal sharding configuration schedule.
@@ -28,6 +30,8 @@ type mainnetSchedule struct{}
 
 func (ms mainnetSchedule) InstanceForEpoch(epoch *big.Int) Instance {
 	switch {
+	case epoch.Cmp(big.NewInt(mainnetV2Epoch)) >= 0:
+		return mainnetV2
 	case epoch.Cmp(params.MainnetChainConfig.StakingEpoch) >= 0:
 		return mainnetV1
 	default: // genesis
@@ -72,9 +76,11 @@ func (ms mainnetSchedule) IsSkippedEpoch(shardID uint32, epoch *big.Int) bool {
 var mainnetReshardingEpoch = []*big.Int{
 	big.NewInt(0),
 	params.MainnetChainConfig.StakingEpoch,
+	big.NewInt(mainnetV2Epoch),
 }
 
 var (
 	mainnetV0 = MustNewInstance(4, 6, 6, 	numeric.OneDec(), 								 genesis.HarmonyAccounts, genesis.FoundationalNodeAccounts, mainnetReshardingEpoch, MainnetSchedule.BlocksPerEpoch())
 	mainnetV1 = MustNewInstance(4, 85, 6, numeric.MustNewDecFromStr("0.84"), genesis.HarmonyAccounts, genesis.FoundationalNodeAccounts, mainnetReshardingEpoch, MainnetSchedule.BlocksPerEpoch())
+	mainnetV2 = MustNewInstance(4, 100, 7, numeric.MustNewDecFromStr("0.80"), genesis.HarmonyAccounts, genesis.FoundationalNodeAccounts, mainnetReshardingEpoch, MainnetSchedule.BlocksPerEpoch())
 )
