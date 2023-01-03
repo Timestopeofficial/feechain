@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/abool"
+	"github.com/Timestopeofficial/abool"
 	"github.com/Timestopeofficial/feechain/core"
 	core2 "github.com/Timestopeofficial/feechain/core"
 	"github.com/Timestopeofficial/feechain/core/types"

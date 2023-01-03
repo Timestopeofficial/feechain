@@ -22,11 +22,11 @@ require (
 	github.com/golangci/golangci-lint v1.22.2
 	github.com/gorilla/mux v1.8.0
 	github.com/gorilla/websocket v1.4.2
-	github.com/harmony-ek/gencodec v0.0.0-20190215044613-e6740dbdd846
-	github.com/harmony-one/abool v1.0.1
+	github.com/Timestopeofficial/gencodec v0.0.1
+	github.com/Timestopeofficial/abool v1.0.1
 	github.com/Timestopeofficial/bls v0.0.7
-	github.com/harmony-one/taggedrlp v0.1.4
-	github.com/harmony-one/vdf v0.0.0-20190924175951-620379da8849
+	github.com/Timestopeofficial/taggedrlp v0.1.4
+	github.com/Timestopeofficial/vdf v0.0.1
 	github.com/hashicorp/go-version v1.2.0
 	github.com/hashicorp/golang-lru v0.5.4
 	github.com/ipfs/go-ds-badger v0.2.7

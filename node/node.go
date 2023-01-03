@@ -14,7 +14,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	protobuf "github.com/golang/protobuf/proto"
-	"github.com/harmony-one/abool"
+	"github.com/Timestopeofficial/abool"
 	bls_core "github.com/Timestopeofficial/bls/ffi/go/bls"
 	lru "github.com/hashicorp/golang-lru"
 	libp2p_peer "github.com/libp2p/go-libp2p-core/peer"

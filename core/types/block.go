@@ -41,7 +41,7 @@ import (
 	"github.com/Timestopeofficial/feechain/crypto/hash"
 	"github.com/Timestopeofficial/feechain/internal/utils"
 	staking "github.com/Timestopeofficial/feechain/staking/types"
-	"github.com/harmony-one/taggedrlp"
+	"github.com/Timestopeofficial/taggedrlp"
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog"
 )

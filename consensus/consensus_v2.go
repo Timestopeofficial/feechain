@@ -23,7 +23,7 @@ import (
 	vrf_bls "github.com/Timestopeofficial/feechain/crypto/vrf/bls"
 	"github.com/Timestopeofficial/feechain/p2p"
 	"github.com/Timestopeofficial/feechain/shard"
-	"github.com/harmony-one/vdf/src/vdf_go"
+	"github.com/Timestopeofficial/vdf/src/vdf_go"
 	"github.com/pkg/errors"
 	"github.com/prometheus/client_golang/prometheus"
 )

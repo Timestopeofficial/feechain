@@ -7,7 +7,7 @@ import (
 
 	"github.com/Timestopeofficial/feechain/crypto/bls"
 
-	"github.com/harmony-one/abool"
+	"github.com/Timestopeofficial/abool"
 	bls_core "github.com/Timestopeofficial/bls/ffi/go/bls"
 	"github.com/Timestopeofficial/feechain/consensus/quorum"
 	"github.com/Timestopeofficial/feechain/core"
