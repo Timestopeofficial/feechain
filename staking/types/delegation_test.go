@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	testAddr, _   = common2.Bech32ToAddress("one129r9pj3sk0re76f7zs3qz92rggmdgjhtwge62k")
+	testAddr, _   = common2.Bech32ToAddress("fee129r9pj3sk0re76f7zs3qz92rggmdgjhtc4vefg")
 	delegatorAddr = common.Address(testAddr)
 	delegationAmt = big.NewInt(100000)
 	// create a new delegation:

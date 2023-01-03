@@ -22,7 +22,7 @@ var (
 	fchBLSPub      bls.SerializedPublicKey
 
 	fchBLSPubStr     = "c2962419d9999a87daa134f6d177f9ccabfe168a470587b13dd02ce91d1690a92170e5949d3dbdfc1b13fd7327dbef8c"
-	validatorAddr, _ = common2.Bech32ToAddress("one1pdv9lrdwl0rg5vglh4xtyrv3wjk3wsqket7zxy")
+	validatorAddr, _ = common2.Bech32ToAddress("fee1pdv9lrdwl0rg5vglh4xtyrv3wjk3wsqk0ktp96")
 )
 
 var (

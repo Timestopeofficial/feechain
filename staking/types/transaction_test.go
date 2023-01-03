@@ -16,7 +16,7 @@ import (
 
 // for testing purpose
 var (
-	testAccount    = "one1pdv9lrdwl0rg5vglh4xtyrv3wjk3wsqket7zxy"
+	testAccount    = "fee1pdv9lrdwl0rg5vglh4xtyrv3wjk3wsqk0ktp96"
 	testBLSPubKey  = "65f55eb3052f9e9f632b2923be594ba77c55543f5c58ee1454b9cfd658d25e06373b0f7d42a19c84768139ea294f6204"
 	testBLSPubKey2 = "40379eed79ed82bebfb4310894fd33b6a3f8413a78dc4d43b98d0adc9ef69f3285df05eaab9f2ce5f7227f8cb920e809"
 )

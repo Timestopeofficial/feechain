@@ -32,14 +32,14 @@ func TestIsBech32Address(t *testing.T) {
 		str string
 		exp bool
 	}{
-		{"one1ay37rp2pc3kjarg7a322vu3sa8j9puahg679z3", true},
-		{"one1fdv7u7rll9epgcqv9xxh9lhwq427nsqldp8ua9", true},
-		{"tone1fdv7u7rll9epgcqv9xxh9lhwq427nsqlr5wca5", true},
-		{"tone1fdv7u7rll9epgcqv9xxh9lhwq427nsqlr5wca1", false},
-		{"xone1fdv7u7rll9epgcqv9xxh9lhwq427nsqlr5wca5", false},
+		{"fee1ay37rp2pc3kjarg7a322vu3sa8j9puah78txp0", true},
+		{"fee1fdv7u7rll9epgcqv9xxh9lhwq427nsqlmujl7m", true},
+		{"tfee1fdv7u7rll9epgcqv9xxh9lhwq427nsqlr5wca5", true},
+		{"tfee1fdv7u7rll9epgcqv9xxh9lhwq427nsqlr5wca1", false},
+		{"xfee1fdv7u7rll9epgcqv9xxh9lhwq427nsqlr5wca5", false},
 		{"ne1fdv7u7rll9epgcqv9xxh9lhwq427nsqlr5wca5", false},
-		{"1one1fdv7u7rll9epgcqv9xxh9lhwq427nsqlr5wca5", false},
-		{"one2fdv7u7rll9epgcqv9xxh9lhwq427nsqlr5wca5", false},
+		{"1fee1fdv7u7rll9epgcqv9xxh9lhwq427nsqlr5wca5", false},
+		{"fee2fdv7u7rll9epgcqv9xxh9lhwq427nsqlr5wca5", false},
 	}
 
 	for _, test := range tests {
@@ -144,7 +144,7 @@ func BenchmarkAddressBech32(b *testing.B) {
 func TestAddressToBech32(t *testing.T) {
 	adr := ethCommon.HexToAddress("0x15a128e599b74842bccba860311efa92991bffb5")
 	if address, err := AddressToBech32(adr); err == nil {
-		if address != "one1zksj3evekayy90xt4psrz8h6j2v3hla4qwz4ur" {
+		if address != "fee1zksj3evekayy90xt4psrz8h6j2v3hla4knhkla" {
 			t.Errorf("error on parseAddr")
 		}
 	}
@@ -152,12 +152,12 @@ func TestAddressToBech32(t *testing.T) {
 
 func TestParseAddr(t *testing.T) {
 	adr := ethCommon.HexToAddress("0x15a128e599b74842bccba860311efa92991bffb5")
-	adr2, _ := ParseAddr("one1zksj3evekayy90xt4psrz8h6j2v3hla4qwz4ur")
+	adr2, _ := ParseAddr("fee1zksj3evekayy90xt4psrz8h6j2v3hla4knhkla")
 	if adr.Hex() != adr2.Hex() {
 		t.Errorf("error on ParseAddr")
 	}
 	// Parsing incorrect address
-	adr3, _ := ParseAddr("helloworldone1zksj3evekayy90xt4psrz8h6j2v3hla4qwz4ufdfsrfasdfadfas")
+	adr3, _ := ParseAddr("helloworldfee1zksj3evekayy90xt4psrz8h6j2v3hla4qwz4ufdfsrfasdfadfas")
 	if adr3.Hex() != "0x0000000000000000000000000000000000000000" {
 		t.Errorf("error on ParseAddr")
 	}

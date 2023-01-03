@@ -31,7 +31,7 @@ import (
 )
 
 var (
-	validatorAddress = common2.Address(common.MustBech32ToAddress("one1pdv9lrdwl0rg5vglh4xtyrv3wjk3wsqket7zxy"))
+	validatorAddress = common2.Address(common.MustBech32ToAddress("fee1pdv9lrdwl0rg5vglh4xtyrv3wjk3wsqk0ktp96"))
 
 	testBLSPubKey    = "30b2c38b1316da91e068ac3bd8751c0901ef6c02a1d58bc712104918302c6ed03d5894671d0c816dad2b4d303320f202"
 	testBLSPrvKey    = "c6d7603520311f7a4e6aac0b26701fc433b75b38df504cd416ef2b900cd66205"

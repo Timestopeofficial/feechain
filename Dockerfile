@@ -73,9 +73,9 @@ WORKDIR ${FCH_PATH}/feechain
 
 # RUN cd ${FCH_PATH}/go-sdk && make -j8 && cp fch /root/bin
 
-# ARG K1=one1tq4hy947c9gr8qzv06yxz4aeyhc9vn78al4rmu
-# ARG K2=one1y5gmmzumajkm5mx3g2qsxtza2d3haq0zxyg47r
-# ARG K3=one1qrqcfek6sc29sachs3glhs4zny72mlad76lqcp
+# ARG K1=fee1tq4hy947c9gr8qzv06yxz4aeyhc9vn78tzqqcz
+# ARG K2=fee1y5gmmzumajkm5mx3g2qsxtza2d3haq0zseakaa
+# ARG K3=fee1qrqcfek6sc29sachs3glhs4zny72mladg82rml
 
 # ARG KS1=8d222cffa99eb1fb86c581d9dfe7d60dd40ec62aa29056b7ff48028385270541
 # ARG KS2=da1800da5dedf02717696675c7a7e58383aff90b1014dfa1ab5b7bd1ce3ef535

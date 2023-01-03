@@ -123,7 +123,7 @@ func (s *PublicTransactionService) GetTransactionsCount(
 	timer := DoMetricRPCRequest(GetTransactionsCount)
 	defer DoRPCRequestDuration(GetTransactionsCount, timer)
 
-	if !strings.HasPrefix(address, "one1") {
+	if !strings.HasPrefix(address, "fee1") {
 		// Handle hex address
 		addr, err := internal_common.ParseAddr(address)
 		if err != nil {
@@ -146,7 +146,7 @@ func (s *PublicTransactionService) GetStakingTransactionsCount(
 	timer := DoMetricRPCRequest(GetStakingTransactionsCount)
 	defer DoRPCRequestDuration(GetStakingTransactionsCount, timer)
 
-	if !strings.HasPrefix(address, "one1") {
+	if !strings.HasPrefix(address, "fee1") {
 		// Handle hex address
 		addr, err := internal_common.ParseAddr(address)
 		if err != nil {
@@ -316,7 +316,7 @@ func (s *PublicTransactionService) GetTransactionsHistory(
 	var address string
 	var result []common.Hash
 	var err error
-	if strings.HasPrefix(args.Address, "one1") {
+	if strings.HasPrefix(args.Address, "fee1") {
 		address = args.Address
 	} else {
 		addr, err := internal_common.ParseAddr(args.Address)
@@ -370,7 +370,7 @@ func (s *PublicTransactionService) GetStakingTransactionsHistory(
 	var address string
 	var result []common.Hash
 	var err error
-	if strings.HasPrefix(args.Address, "one1") {
+	if strings.HasPrefix(args.Address, "fee1") {
 		address = args.Address
 	} else {
 		addr, err := internal_common.ParseAddr(args.Address)

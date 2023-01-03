@@ -18,7 +18,7 @@ import (
 var (
 	// InaccessibleAddresses are a list of known eth addresses that cannot spend ONE tokens.
 	InaccessibleAddresses = []common.Address{
-		// one10000000000000000000000000000dead5shlag
+		// fee10000000000000000000000000000deadzdzu7k
 		common.HexToAddress("0x7bDeF7Bdef7BDeF7BDEf7bDef7bdef7bdeF6E7AD"),
 	}
 )

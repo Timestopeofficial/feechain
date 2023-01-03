@@ -11,8 +11,8 @@ import (
 )
 
 var (
-	testAddr1Str  = "one1upj2dzv5ayuqy5x0aclgcr32chqfy32glsdusk"
-	testAddr2Str  = "one1k860e6h0sen6ap5fymzwpqtmqlkut2fcus840l"
+	testAddr1Str  = "fee1upj2dzv5ayuqy5x0aclgcr32chqfy32gfdclng"
+	testAddr2Str  = "fee1k860e6h0sen6ap5fymzwpqtmqlkut2fc2djkvp"
 	testAddr1JStr = fmt.Sprintf(`"%v"`, testAddr1Str)
 	testAddr2JStr = fmt.Sprintf(`"%v"`, testAddr2Str)
 

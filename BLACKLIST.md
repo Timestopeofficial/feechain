@@ -8,9 +8,9 @@ By default, the feechain binary looks for the file `./.fch/blaklist.txt`.
 
 ## Example File
 ```
-one1spshr72utf6rwxseaz339j09ed8p6f8ke370zj
-one1uyshu2jgv8w465yc8kkny36thlt2wvel89tcmg  # This is a comment
-one1r4zyyjqrulf935a479sgqlpa78kz7zlcg2jfen
+fee1spshr72utf6rwxseaz339j09ed8p6f8k0vtvpv
+fee1uyshu2jgv8w465yc8kkny36thlt2wvel3c7mck  # This is a comment
+fee1r4zyyjqrulf935a479sgqlpa78kz7zlc7h826d
 
 ```
 
