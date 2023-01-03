@@ -23,10 +23,10 @@ require (
 	github.com/gorilla/mux v1.8.0
 	github.com/gorilla/websocket v1.4.2
 	github.com/Timestopeofficial/gencodec v0.0.1
-	github.com/Timestopeofficial/abool v1.0.1
+	github.com/Timestopeofficial/abool v1.0.2
 	github.com/Timestopeofficial/bls v0.0.7
-	github.com/Timestopeofficial/taggedrlp v0.1.4
-	github.com/Timestopeofficial/vdf v0.0.1
+	github.com/Timestopeofficial/taggedrlp v0.1.5
+	github.com/Timestopeofficial/vdf v0.0.2
 	github.com/hashicorp/go-version v1.2.0
 	github.com/hashicorp/golang-lru v0.5.4
 	github.com/ipfs/go-ds-badger v0.2.7
