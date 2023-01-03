@@ -5,17 +5,17 @@ import (
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/Timestopeofficial/feechain/eth/rpc"
-	"github.com/Timestopeofficial/feechain/hmy"
+	"github.com/Timestopeofficial/feechain/fch"
 	internal_common "github.com/Timestopeofficial/feechain/internal/common"
 )
 
-// PublicEthService provides an API to access to the Eth endpoints for the Harmony blockchain.
+// PublicEthService provides an API to access to the Eth endpoints for the Feechain blockchain.
 type PublicEthService struct {
-	hmy *hmy.Harmony
+	fch *fch.Feechain
 }
 
 // NewPublicEthService creates a new API for the RPC interface
-func NewPublicEthService(hmy *hmy.Harmony, namespace string) rpc.API {
+func NewPublicEthService(fch *fch.Feechain, namespace string) rpc.API {
 	if namespace == "" {
 		namespace = "eth"
 	}
@@ -23,7 +23,7 @@ func NewPublicEthService(hmy *hmy.Harmony, namespace string) rpc.API {
 	return rpc.API{
 		Namespace: namespace,
 		Version:   "1.0",
-		Service:   &PublicEthService{hmy},
+		Service:   &PublicEthService{fch},
 		Public:    true,
 	}
 }
@@ -38,7 +38,7 @@ func (s *PublicEthService) GetBalance(
 	if err != nil {
 		return nil, err
 	}
-	balance, err := s.hmy.GetBalance(ctx, addr, blockNr)
+	balance, err := s.fch.GetBalance(ctx, addr, blockNr)
 	if err != nil {
 		return nil, err
 	}

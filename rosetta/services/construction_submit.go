@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/coinbase/rosetta-sdk-go/types"
-	hmyTypes "github.com/Timestopeofficial/feechain/core/types"
+	fchTypes "github.com/Timestopeofficial/feechain/core/types"
 	"github.com/Timestopeofficial/feechain/rosetta/common"
 	stakingTypes "github.com/Timestopeofficial/feechain/staking/types"
 	"github.com/pkg/errors"
@@ -15,7 +15,7 @@ import (
 func (s *ConstructAPI) ConstructionHash(
 	ctx context.Context, request *types.ConstructionHashRequest,
 ) (*types.TransactionIdentifierResponse, *types.Error) {
-	if err := assertValidNetworkIdentifier(request.NetworkIdentifier, s.hmy.ShardID); err != nil {
+	if err := assertValidNetworkIdentifier(request.NetworkIdentifier, s.fch.ShardID); err != nil {
 		return nil, err
 	}
 	_, tx, rosettaError := unpackWrappedTransactionFromString(request.SignedTransaction, true)
@@ -27,9 +27,9 @@ func (s *ConstructAPI) ConstructionHash(
 			"message": "nil transaction",
 		})
 	}
-	if tx.ShardID() != s.hmy.ShardID {
+	if tx.ShardID() != s.fch.ShardID {
 		return nil, common.NewError(common.InvalidTransactionConstructionError, map[string]interface{}{
-			"message": fmt.Sprintf("transaction is for shard %v != shard %v", tx.ShardID(), s.hmy.ShardID),
+			"message": fmt.Sprintf("transaction is for shard %v != shard %v", tx.ShardID(), s.fch.ShardID),
 		})
 	}
 	return &types.TransactionIdentifierResponse{
@@ -41,7 +41,7 @@ func (s *ConstructAPI) ConstructionHash(
 func (s *ConstructAPI) ConstructionSubmit(
 	ctx context.Context, request *types.ConstructionSubmitRequest,
 ) (*types.TransactionIdentifierResponse, *types.Error) {
-	if err := assertValidNetworkIdentifier(request.NetworkIdentifier, s.hmy.ShardID); err != nil {
+	if err := assertValidNetworkIdentifier(request.NetworkIdentifier, s.fch.ShardID); err != nil {
 		return nil, err
 	}
 	wrappedTransaction, tx, rosettaError := unpackWrappedTransactionFromString(request.SignedTransaction, true)
@@ -53,9 +53,9 @@ func (s *ConstructAPI) ConstructionSubmit(
 			"message": "nil wrapped transaction or nil unwrapped transaction",
 		})
 	}
-	if tx.ShardID() != s.hmy.ShardID {
+	if tx.ShardID() != s.fch.ShardID {
 		return nil, common.NewError(common.StakingTransactionSubmissionError, map[string]interface{}{
-			"message": fmt.Sprintf("transaction is for shard %v != shard %v", tx.ShardID(), s.hmy.ShardID),
+			"message": fmt.Sprintf("transaction is for shard %v != shard %v", tx.ShardID(), s.fch.ShardID),
 		})
 	}
 
@@ -66,10 +66,10 @@ func (s *ConstructAPI) ConstructionSubmit(
 		})
 	}
 
-	var signedTx hmyTypes.PoolTransaction
+	var signedTx fchTypes.PoolTransaction
 	if stakingTx, ok := tx.(*stakingTypes.StakingTransaction); ok && wrappedTransaction.IsStaking {
 		signedTx = stakingTx
-	} else if plainTx, ok := tx.(*hmyTypes.Transaction); ok && !wrappedTransaction.IsStaking {
+	} else if plainTx, ok := tx.(*fchTypes.Transaction); ok && !wrappedTransaction.IsStaking {
 		signedTx = plainTx
 	} else {
 		return nil, common.NewError(common.CatchAllError, map[string]interface{}{
@@ -91,13 +91,13 @@ func (s *ConstructAPI) ConstructionSubmit(
 	}
 
 	if wrappedTransaction.IsStaking {
-		if err := s.hmy.SendStakingTx(ctx, signedTx.(*stakingTypes.StakingTransaction)); err != nil {
+		if err := s.fch.SendStakingTx(ctx, signedTx.(*stakingTypes.StakingTransaction)); err != nil {
 			return nil, common.NewError(common.StakingTransactionSubmissionError, map[string]interface{}{
 				"message": fmt.Sprintf("error is: %s, gas price is: %s, gas limit is: %d", err.Error(), signedTx.GasPrice().String(), signedTx.GasLimit()),
 			})
 		}
 	} else {
-		if err := s.hmy.SendTx(ctx, signedTx.(*hmyTypes.Transaction)); err != nil {
+		if err := s.fch.SendTx(ctx, signedTx.(*fchTypes.Transaction)); err != nil {
 			return nil, common.NewError(common.TransactionSubmissionError, map[string]interface{}{
 				"message": err.Error(),
 			})

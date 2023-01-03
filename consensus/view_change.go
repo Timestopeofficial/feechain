@@ -213,7 +213,7 @@ func (consensus *Consensus) getNextLeaderKey(viewID uint64) *bls.PublicKeyWrappe
 		Msg("[getNextLeaderKey] got leaderPubKey from coinbase")
 	// wasFound, next := consensus.Decider.NthNext(lastLeaderPubKey, gap)
 	// FIXME: rotate leader on feechain nodes only before fully externalization
-	wasFound, next := consensus.Decider.NthNextHmy(
+	wasFound, next := consensus.Decider.NthNextFch(
 		shard.Schedule.InstanceForEpoch(epoch),
 		lastLeaderPubKey,
 		gap)

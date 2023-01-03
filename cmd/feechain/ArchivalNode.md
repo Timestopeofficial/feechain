@@ -10,7 +10,7 @@ In asadal launch, we expect to launch one shard beacon chain and at least 2 regu
 
 Blockchain data archival is very important for main launch as this is the last option to recover the network if any emergency happens such as the network getting shutdown or restarted.
 
-The goal of this effort is to design archival system run by Harmony and separated from Harmony blockchain to backup block chain of beacon chain and other shard chains in both testnet (beacon chain only) and asadal (1 + 2 model).
+The goal of this effort is to design archival system run by Feechain and separated from Feechain blockchain to backup block chain of beacon chain and other shard chains in both testnet (beacon chain only) and asadal (1 + 2 model).
 
 Specifically, if we run in testnet with on beacon chain we want to have a system to back up all data of beacon chain on the fly. And if we run in asadal with beacon chain and N other shard chain, we want to back up all data of beacon chain and shard chain each.
 

@@ -5,18 +5,18 @@ import (
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/Timestopeofficial/feechain/eth/rpc"
-	"github.com/Timestopeofficial/feechain/hmy"
+	"github.com/Timestopeofficial/feechain/fch"
 	internal_common "github.com/Timestopeofficial/feechain/internal/common"
 )
 
-// PublicLegacyService provides an API to access the Harmony blockchain.
+// PublicLegacyService provides an API to access the Feechain blockchain.
 // Services here are legacy methods, specific to the V1 RPC that can be deprecated in the future.
 type PublicLegacyService struct {
-	hmy *hmy.Harmony
+	fch *fch.Feechain
 }
 
 // NewPublicLegacyAPI creates a new API for the RPC interface
-func NewPublicLegacyAPI(hmy *hmy.Harmony, namespace string) rpc.API {
+func NewPublicLegacyAPI(fch *fch.Feechain, namespace string) rpc.API {
 	if namespace == "" {
 		namespace = "fch"
 	}
@@ -24,7 +24,7 @@ func NewPublicLegacyAPI(hmy *hmy.Harmony, namespace string) rpc.API {
 	return rpc.API{
 		Namespace: namespace,
 		Version:   "1.0",
-		Service:   &PublicLegacyService{hmy},
+		Service:   &PublicLegacyService{fch},
 		Public:    true,
 	}
 }
@@ -39,7 +39,7 @@ func (s *PublicLegacyService) GetBalance(
 	if err != nil {
 		return nil, err
 	}
-	balance, err := s.hmy.GetBalance(ctx, addr, blockNr)
+	balance, err := s.fch.GetBalance(ctx, addr, blockNr)
 	if err != nil {
 		return nil, err
 	}

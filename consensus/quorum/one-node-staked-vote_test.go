@@ -19,7 +19,7 @@ import (
 var (
 	quorumNodes   = 100
 	msg           = "Testing"
-	hmy           = "Feechain"
+	fch           = "Feechain"
 	reg           = "Stakers"
 	basicDecider  Decider
 	maxAccountGen = int64(98765654323123134)
@@ -52,7 +52,7 @@ func generateRandomSlot() (shard.Slot, bls_core.SecretKey) {
 func setupBaseCase() (Decider, *TallyResult, shard.SlotList, map[string]secretKeyMap) {
 	slotList := shard.SlotList{}
 	sKeys := map[string]secretKeyMap{}
-	sKeys[hmy] = secretKeyMap{}
+	sKeys[fch] = secretKeyMap{}
 	sKeys[reg] = secretKeyMap{}
 	pubKeys := []bls.PublicKeyWrapper{}
 
@@ -60,7 +60,7 @@ func setupBaseCase() (Decider, *TallyResult, shard.SlotList, map[string]secretKe
 		newSlot, sKey := generateRandomSlot()
 		if i < 50 {
 			newSlot.EffectiveStake = nil
-			sKeys[hmy][newSlot.BLSPublicKey] = sKey
+			sKeys[fch][newSlot.BLSPublicKey] = sKey
 		} else {
 			sKeys[reg][newSlot.BLSPublicKey] = sKey
 		}
@@ -136,7 +136,7 @@ func TestQuorumThreshold(t *testing.T) {
 
 func TestEvenNodes(t *testing.T) {
 	stakedVote, result, _, sKeys := setupBaseCase()
-	// Check HarmonyPercent + StakePercent == 1
+	// Check FeechainPercent + StakePercent == 1
 	sum := result.ourPercent.Add(result.theirPercent)
 	if !sum.Equal(numeric.OneDec()) {
 		t.Errorf("Total voting power does not equal 1. Feechain voting power: %s, Staked voting power: %s, Sum: %s",
@@ -173,21 +173,21 @@ func TestEvenNodes(t *testing.T) {
 	}
 
 	// Sign all Feechain Nodes
-	sign(stakedVote, sKeys[hmy], Prepare)
+	sign(stakedVote, sKeys[fch], Prepare)
 	achieved = stakedVote.IsQuorumAchieved(Prepare)
 	if !achieved {
 		t.Errorf("[IsQuorumAchieved] Phase: %s, QuorumAchieved: %s, Expected: true (All nodes = 100%%)",
 			Prepare, strconv.FormatBool(achieved))
 	}
 	// Commit
-	sign(stakedVote, sKeys[hmy], Commit)
+	sign(stakedVote, sKeys[fch], Commit)
 	achieved = stakedVote.IsQuorumAchieved(Commit)
 	if !achieved {
 		t.Errorf("[IsQuorumAchieved] Phase: %s, QuorumAchieved: %s, Expected: true (All nodes = 100%%)",
 			Commit, strconv.FormatBool(achieved))
 	}
 	// ViewChange
-	sign(stakedVote, sKeys[hmy], ViewChange)
+	sign(stakedVote, sKeys[fch], ViewChange)
 	achieved = stakedVote.IsQuorumAchieved(ViewChange)
 	if !achieved {
 		t.Errorf("[IsQuorumAchieved] Phase: %s, Got: %s, Expected: true (All nodes = 100%%)",
@@ -201,9 +201,9 @@ func TestEvenNodes(t *testing.T) {
 	}
 }
 
-func Test33HarmonyNodes(t *testing.T) {
+func Test33FeechainNodes(t *testing.T) {
 	stakedVote, result, _, sKeys := setupEdgeCase()
-	// Check HarmonyPercent + StakePercent == 1
+	// Check FeechainPercent + StakePercent == 1
 	sum := result.ourPercent.Add(result.theirPercent)
 	if !sum.Equal(numeric.OneDec()) {
 		t.Errorf("Total voting power does not equal 1. Feechain voting power: %s, Staked voting power: %s, Sum: %s",

@@ -7,15 +7,15 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/Timestopeofficial/feechain/hmy/tracers"
+	"github.com/Timestopeofficial/feechain/fch/tracers"
 
 	"github.com/coinbase/rosetta-sdk-go/types"
 	ethcommon "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	hmytypes "github.com/Timestopeofficial/feechain/core/types"
+	fchtypes "github.com/Timestopeofficial/feechain/core/types"
 	"github.com/Timestopeofficial/feechain/core/vm"
-	"github.com/Timestopeofficial/feechain/hmy"
+	"github.com/Timestopeofficial/feechain/fch"
 	internalCommon "github.com/Timestopeofficial/feechain/internal/common"
 	"github.com/Timestopeofficial/feechain/internal/params"
 	"github.com/Timestopeofficial/feechain/rosetta/common"
@@ -61,8 +61,8 @@ func TestGetStakingOperationsFromCreateValidator(t *testing.T) {
 
 	gasUsed := uint64(1e5)
 	gasFee := new(big.Int).Mul(gasPrice, big.NewInt(int64(gasUsed)))
-	receipt := &hmytypes.Receipt{
-		Status:  hmytypes.ReceiptStatusSuccessful, // Failed staking transaction are never saved on-chain
+	receipt := &fchtypes.Receipt{
+		Status:  fchtypes.ReceiptStatusSuccessful, // Failed staking transaction are never saved on-chain
 		GasUsed: gasUsed,
 	}
 	refOperations := newNativeOperationsWithGas(gasFee, senderAccID)
@@ -204,8 +204,8 @@ func TestGetStakingOperationsFromDelegate(t *testing.T) {
 
 	gasUsed := uint64(1e5)
 	gasFee := new(big.Int).Mul(gasPrice, big.NewInt(int64(gasUsed)))
-	receipt := &hmytypes.Receipt{
-		Status:  hmytypes.ReceiptStatusSuccessful, // Failed staking transaction are never saved on-chain
+	receipt := &fchtypes.Receipt{
+		Status:  fchtypes.ReceiptStatusSuccessful, // Failed staking transaction are never saved on-chain
 		GasUsed: gasUsed,
 	}
 	refOperations := newNativeOperationsWithGas(gasFee, senderAccID)
@@ -250,7 +250,7 @@ func TestGetStakingOperationsFromDelegate(t *testing.T) {
 
 func TestGetSideEffectOperationsFromUndelegationPayouts(t *testing.T) {
 	startingOperationIndex := int64(0)
-	undelegationPayouts := hmy.NewUndelegationPayouts()
+	undelegationPayouts := fch.NewUndelegationPayouts()
 	delegator := ethcommon.HexToAddress("0xB5f440B5c6215eEDc1b2E12b4b964fa31f7afa7d")
 	validator := ethcommon.HexToAddress("0x3b8DE43c8F30D3C387840681FED67783f93f1F94")
 	undelegationPayouts.SetPayoutByDelegatorAddrAndValidatorAddr(delegator, validator, new(big.Int).SetInt64(4000))
@@ -343,8 +343,8 @@ func TestGetStakingOperationsFromUndelegate(t *testing.T) {
 
 	gasUsed := uint64(1e5)
 	gasFee := new(big.Int).Mul(gasPrice, big.NewInt(int64(gasUsed)))
-	receipt := &hmytypes.Receipt{
-		Status:  hmytypes.ReceiptStatusSuccessful, // Failed staking transaction are never saved on-chain
+	receipt := &fchtypes.Receipt{
+		Status:  fchtypes.ReceiptStatusSuccessful, // Failed staking transaction are never saved on-chain
 		GasUsed: gasUsed,
 	}
 	refOperations := newNativeOperationsWithGas(gasFee, senderAccID)
@@ -408,10 +408,10 @@ func TestGetStakingOperationsFromCollectRewards(t *testing.T) {
 
 	gasUsed := uint64(1e5)
 	gasFee := new(big.Int).Mul(gasPrice, big.NewInt(int64(gasUsed)))
-	receipt := &hmytypes.Receipt{
-		Status:  hmytypes.ReceiptStatusSuccessful, // Failed staking transaction are never saved on-chain
+	receipt := &fchtypes.Receipt{
+		Status:  fchtypes.ReceiptStatusSuccessful, // Failed staking transaction are never saved on-chain
 		GasUsed: gasUsed,
-		Logs: []*hmytypes.Log{
+		Logs: []*fchtypes.Log{
 			{
 				Address: senderAddr,
 				Topics:  []ethcommon.Hash{staking.CollectRewardsTopic},
@@ -469,8 +469,8 @@ func TestGetStakingOperationsFromEditValidator(t *testing.T) {
 
 	gasUsed := uint64(1e5)
 	gasFee := new(big.Int).Mul(gasPrice, big.NewInt(int64(gasUsed)))
-	receipt := &hmytypes.Receipt{
-		Status:  hmytypes.ReceiptStatusSuccessful, // Failed staking transaction are never saved on-chain
+	receipt := &fchtypes.Receipt{
+		Status:  fchtypes.ReceiptStatusSuccessful, // Failed staking transaction are never saved on-chain
 		GasUsed: gasUsed,
 	}
 	refOperations := newNativeOperationsWithGas(gasFee, senderAccID)
@@ -498,7 +498,7 @@ func TestGetStakingOperationsFromEditValidator(t *testing.T) {
 }
 
 func TestGetBasicTransferOperations(t *testing.T) {
-	signer := hmytypes.NewEIP155Signer(params.TestChainConfig.ChainID)
+	signer := fchtypes.NewEIP155Signer(params.TestChainConfig.ChainID)
 	tx, err := helpers.CreateTestTransaction(
 		signer, 0, 0, 0, 1e18, gasPrice, big.NewInt(1), []byte("test"),
 	)
@@ -551,8 +551,8 @@ func TestGetBasicTransferOperations(t *testing.T) {
 			},
 		},
 	}
-	receipt := &hmytypes.Receipt{
-		Status: hmytypes.ReceiptStatusFailed,
+	receipt := &fchtypes.Receipt{
+		Status: fchtypes.ReceiptStatusFailed,
 	}
 	opIndex := startingOpID.Index + 1
 	operations, rosettaError := getBasicTransferNativeOperations(tx, receipt, senderAddr, tx.To(), &opIndex)
@@ -569,7 +569,7 @@ func TestGetBasicTransferOperations(t *testing.T) {
 	// Test successful plain / contract transaction
 	refOperations[0].Status = &common.SuccessOperationStatus.Status
 	refOperations[1].Status = &common.SuccessOperationStatus.Status
-	receipt.Status = hmytypes.ReceiptStatusSuccessful
+	receipt.Status = fchtypes.ReceiptStatusSuccessful
 	operations, rosettaError = getBasicTransferNativeOperations(tx, receipt, senderAddr, tx.To(), &opIndex)
 	if rosettaError != nil {
 		t.Fatal(rosettaError)
@@ -583,7 +583,7 @@ func TestGetBasicTransferOperations(t *testing.T) {
 }
 
 func TestGetCrossShardSenderTransferNativeOperations(t *testing.T) {
-	signer := hmytypes.NewEIP155Signer(params.TestChainConfig.ChainID)
+	signer := fchtypes.NewEIP155Signer(params.TestChainConfig.ChainID)
 	tx, err := helpers.CreateTestTransaction(
 		signer, 0, 1, 0, 1e18, gasPrice, big.NewInt(1), []byte("data-does-nothing"),
 	)
@@ -611,7 +611,7 @@ func TestGetCrossShardSenderTransferNativeOperations(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	refReceipt := &hmytypes.Receipt{
+	refReceipt := &fchtypes.Receipt{
 		PostState: nil,
 		Status:    1,
 		GasUsed:   params.TxGas * 3, // somme arb number > TxGas
@@ -805,7 +805,7 @@ func TestGetContractInternalTransferNativeOperations(t *testing.T) {
 }
 
 func TestGetContractTransferNativeOperations(t *testing.T) {
-	signer := hmytypes.NewEIP155Signer(params.TestChainConfig.ChainID)
+	signer := fchtypes.NewEIP155Signer(params.TestChainConfig.ChainID)
 	refTxValue := big.NewInt(1)
 	refTx, err := helpers.CreateTestTransaction(
 		signer, 0, 0, 0, 1e18, gasPrice, refTxValue, []byte("blah-blah-blah"),
@@ -819,7 +819,7 @@ func TestGetContractTransferNativeOperations(t *testing.T) {
 	}
 	refStatus := common.SuccessOperationStatus.Status
 	refStartingIndex := int64(23)
-	refReceipt := &hmytypes.Receipt{
+	refReceipt := &fchtypes.Receipt{
 		PostState: nil,
 		Status:    1,
 		GasUsed:   params.TxGas * 3, // somme arb number > TxGas
@@ -927,7 +927,7 @@ func TestGetContractCreationNativeOperations(t *testing.T) {
 		t.Fatalf(err.Error())
 	}
 	chainID := params.TestChainConfig.ChainID
-	signer := hmytypes.NewEIP155Signer(chainID)
+	signer := fchtypes.NewEIP155Signer(chainID)
 	tx, err := helpers.CreateTestContractCreationTransaction(
 		signer, 0, 0, 1e18, gasPrice, big.NewInt(0), []byte("test"),
 	)
@@ -981,8 +981,8 @@ func TestGetContractCreationNativeOperations(t *testing.T) {
 			},
 		},
 	}
-	receipt := &hmytypes.Receipt{
-		Status:          hmytypes.ReceiptStatusFailed,
+	receipt := &fchtypes.Receipt{
+		Status:          fchtypes.ReceiptStatusFailed,
 		ContractAddress: contractAddr,
 	}
 	opIndex := startingOpID.Index + 1
@@ -1000,7 +1000,7 @@ func TestGetContractCreationNativeOperations(t *testing.T) {
 	// Test successful contract creation
 	refOperations[0].Status = &common.SuccessOperationStatus.Status
 	refOperations[1].Status = &common.SuccessOperationStatus.Status
-	receipt.Status = hmytypes.ReceiptStatusSuccessful // Indicate successful tx
+	receipt.Status = fchtypes.ReceiptStatusSuccessful // Indicate successful tx
 	operations, rosettaError = getContractCreationNativeOperations(tx, receipt, senderAddr, &ContractInfo{}, &opIndex)
 	if rosettaError != nil {
 		t.Fatal(rosettaError)

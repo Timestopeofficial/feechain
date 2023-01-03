@@ -6,7 +6,7 @@ import (
 	"github.com/Timestopeofficial/feechain/crypto/bls"
 
 	bls_core "github.com/Timestopeofficial/bls/ffi/go/bls"
-	harmony_bls "github.com/Timestopeofficial/feechain/crypto/bls"
+	feechain_bls "github.com/Timestopeofficial/feechain/crypto/bls"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -101,7 +101,7 @@ func TestGetNextLeaderKeyShouldSucceed(t *testing.T) {
 
 	keyCount := int64(5)
 	for i := int64(0); i < keyCount; i++ {
-		blsKey := harmony_bls.RandPrivateKey()
+		blsKey := feechain_bls.RandPrivateKey()
 		blsPubKey := blsKey.GetPublicKey()
 		bytes := bls.SerializedPublicKey{}
 		bytes.FromLibBLSPublicKey(blsPubKey)

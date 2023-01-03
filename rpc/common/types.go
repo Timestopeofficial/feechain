@@ -3,7 +3,7 @@ package common
 import (
 	"encoding/json"
 
-	harmonyconfig "github.com/Timestopeofficial/feechain/internal/configs/harmony"
+	feechainconfig "github.com/Timestopeofficial/feechain/internal/configs/feechain"
 	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
 
 	"github.com/Timestopeofficial/feechain/internal/params"
@@ -85,7 +85,7 @@ type NodePeerInfo struct {
 }
 
 type Config struct {
-	HarmonyConfig harmonyconfig.HarmonyConfig
+	FeechainConfig feechainconfig.FeechainConfig
 	NodeConfig    nodeconfig.ConfigType
 	ChainConfig   params.ChainConfig
 }

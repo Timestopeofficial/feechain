@@ -1,7 +1,7 @@
 package main
 
 import (
-	harmonyconfig "github.com/Timestopeofficial/feechain/internal/configs/harmony"
+	feechainconfig "github.com/Timestopeofficial/feechain/internal/configs/feechain"
 	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
 )
 
@@ -11,9 +11,9 @@ const (
 	defNetworkType = nodeconfig.Mainnet
 )
 
-var defaultConfig = harmonyconfig.HarmonyConfig{
+var defaultConfig = feechainconfig.FeechainConfig{
 	Version: tomlConfigVersion,
-	General: harmonyconfig.GeneralConfig{
+	General: feechainconfig.GeneralConfig{
 		NodeType:         "validator",
 		NoStaking:        false,
 		ShardID:          -1,
@@ -23,14 +23,14 @@ var defaultConfig = harmonyconfig.HarmonyConfig{
 		DataDir:          "./",
 	},
 	Network: getDefaultNetworkConfig(defNetworkType),
-	P2P: harmonyconfig.P2pConfig{
+	P2P: feechainconfig.P2pConfig{
 		Port:            nodeconfig.DefaultP2PPort,
 		IP:              nodeconfig.DefaultPublicListenIP,
-		KeyFile:         "./.fchkey",
+		KeyFile:         "./.nkey",
 		DiscConcurrency: nodeconfig.DefaultP2PConcurrency,
 		MaxConnsPerIP:   nodeconfig.DefaultMaxConnPerIP,
 	},
-	HTTP: harmonyconfig.HttpConfig{
+	HTTP: feechainconfig.HttpConfig{
 		Enabled:        true,
 		RosettaEnabled: false,
 		IP:             "127.0.0.1",
@@ -38,19 +38,19 @@ var defaultConfig = harmonyconfig.HarmonyConfig{
 		AuthPort:       nodeconfig.DefaultAuthRPCPort,
 		RosettaPort:    nodeconfig.DefaultRosettaPort,
 	},
-	WS: harmonyconfig.WsConfig{
+	WS: feechainconfig.WsConfig{
 		Enabled:  true,
 		IP:       "127.0.0.1",
 		Port:     nodeconfig.DefaultWSPort,
 		AuthPort: nodeconfig.DefaultAuthWSPort,
 	},
-	RPCOpt: harmonyconfig.RpcOptConfig{
+	RPCOpt: feechainconfig.RpcOptConfig{
 		DebugEnabled:      false,
 		RateLimterEnabled: true,
 		RequestsPerSecond: nodeconfig.DefaultRPCRateLimit,
 	},
-	BLSKeys: harmonyconfig.BlsConfig{
-		KeyDir:   "./.fch/blskeys",
+	BLSKeys: feechainconfig.BlsConfig{
+		KeyDir:   "./.blskeys",
 		KeyFiles: []string{},
 		MaxKeys:  10,
 
@@ -62,13 +62,13 @@ var defaultConfig = harmonyconfig.HarmonyConfig{
 		KMSConfigSrcType: kmsConfigTypeShared,
 		KMSConfigFile:    "",
 	},
-	TxPool: harmonyconfig.TxPoolConfig{
-		BlacklistFile:  "./.fch/blacklist.txt",
+	TxPool: feechainconfig.TxPoolConfig{
+		BlacklistFile:  "./blacklist.txt",
 		RosettaFixFile: "",
 		AccountSlots:   16,
 	},
 	Sync: getDefaultSyncConfig(defNetworkType),
-	Pprof: harmonyconfig.PprofConfig{
+	Pprof: feechainconfig.PprofConfig{
 		Enabled:            false,
 		ListenAddr:         "127.0.0.1:6060",
 		Folder:             "./profiles",
@@ -76,19 +76,19 @@ var defaultConfig = harmonyconfig.HarmonyConfig{
 		ProfileIntervals:   []int{600},
 		ProfileDebugValues: []int{0},
 	},
-	Log: harmonyconfig.LogConfig{
+	Log: feechainconfig.LogConfig{
 		Folder:       "./logs",
 		FileName:     "feechain.log",
 		RotateSize:   100,
 		RotateCount:  0,
 		RotateMaxAge: 0,
 		Verbosity:    3,
-		VerbosePrints: harmonyconfig.LogVerbosePrints{
+		VerbosePrints: feechainconfig.LogVerbosePrints{
 			Config: true,
 		},
 	},
 	DNSSync: getDefaultDNSSyncConfig(defNetworkType),
-	ShardData: harmonyconfig.ShardDataConfig{
+	ShardData: feechainconfig.ShardDataConfig{
 		EnableShardData: false,
 		DiskCount:       8,
 		ShardCount:      4,
@@ -97,33 +97,33 @@ var defaultConfig = harmonyconfig.HarmonyConfig{
 	},
 }
 
-var defaultSysConfig = harmonyconfig.SysConfig{
+var defaultSysConfig = feechainconfig.SysConfig{
 	NtpServer: "1.pool.ntp.org",
 }
 
-var defaultDevnetConfig = harmonyconfig.DevnetConfig{
+var defaultDevnetConfig = feechainconfig.DevnetConfig{
 	NumShards:   2,
 	ShardSize:   10,
-	HmyNodeSize: 10,
+	FchNodeSize: 10,
 }
 
-var defaultRevertConfig = harmonyconfig.RevertConfig{
+var defaultRevertConfig = feechainconfig.RevertConfig{
 	RevertBeacon: false,
 	RevertBefore: 0,
 	RevertTo:     0,
 }
 
-var defaultLogContext = harmonyconfig.LogContext{
+var defaultLogContext = feechainconfig.LogContext{
 	IP:   "127.0.0.1",
 	Port: 17000,
 }
 
-var defaultConsensusConfig = harmonyconfig.ConsensusConfig{
+var defaultConsensusConfig = feechainconfig.ConsensusConfig{
 	MinPeers:     6,
 	AggregateSig: true,
 }
 
-var defaultPrometheusConfig = harmonyconfig.PrometheusConfig{
+var defaultPrometheusConfig = feechainconfig.PrometheusConfig{
 	Enabled:    true,
 	IP:         "0.0.0.0",
 	Port:       17900,
@@ -132,7 +132,7 @@ var defaultPrometheusConfig = harmonyconfig.PrometheusConfig{
 }
 
 var (
-	defaultMainnetSyncConfig = harmonyconfig.SyncConfig{
+	defaultMainnetSyncConfig = feechainconfig.SyncConfig{
 		Enabled:        false,
 		Downloader:     false,
 		Concurrency:    4,
@@ -144,7 +144,7 @@ var (
 		DiscBatch:      8,
 	}
 
-	defaultTestNetSyncConfig = harmonyconfig.SyncConfig{
+	defaultTestNetSyncConfig = feechainconfig.SyncConfig{
 		Enabled:        true,
 		Downloader:     false,
 		Concurrency:    2,
@@ -156,7 +156,7 @@ var (
 		DiscBatch:      3,
 	}
 
-	defaultLocalNetSyncConfig = harmonyconfig.SyncConfig{
+	defaultLocalNetSyncConfig = feechainconfig.SyncConfig{
 		Enabled:        true,
 		Downloader:     true,
 		Concurrency:    2,
@@ -168,7 +168,7 @@ var (
 		DiscBatch:      3,
 	}
 
-	defaultElseSyncConfig = harmonyconfig.SyncConfig{
+	defaultElseSyncConfig = feechainconfig.SyncConfig{
 		Enabled:        true,
 		Downloader:     true,
 		Concurrency:    4,
@@ -185,7 +185,7 @@ const (
 	defaultBroadcastInvalidTx = false
 )
 
-func getDefaultHmyConfigCopy(nt nodeconfig.NetworkType) harmonyconfig.HarmonyConfig {
+func getDefaultFchConfigCopy(nt nodeconfig.NetworkType) feechainconfig.FeechainConfig {
 	config := defaultConfig
 
 	config.Network = getDefaultNetworkConfig(nt)
@@ -199,32 +199,32 @@ func getDefaultHmyConfigCopy(nt nodeconfig.NetworkType) harmonyconfig.HarmonyCon
 	return config
 }
 
-func getDefaultSysConfigCopy() harmonyconfig.SysConfig {
+func getDefaultSysConfigCopy() feechainconfig.SysConfig {
 	config := defaultSysConfig
 	return config
 }
 
-func getDefaultDevnetConfigCopy() harmonyconfig.DevnetConfig {
+func getDefaultDevnetConfigCopy() feechainconfig.DevnetConfig {
 	config := defaultDevnetConfig
 	return config
 }
 
-func getDefaultRevertConfigCopy() harmonyconfig.RevertConfig {
+func getDefaultRevertConfigCopy() feechainconfig.RevertConfig {
 	config := defaultRevertConfig
 	return config
 }
 
-func getDefaultLogContextCopy() harmonyconfig.LogContext {
+func getDefaultLogContextCopy() feechainconfig.LogContext {
 	config := defaultLogContext
 	return config
 }
 
-func getDefaultConsensusConfigCopy() harmonyconfig.ConsensusConfig {
+func getDefaultConsensusConfigCopy() feechainconfig.ConsensusConfig {
 	config := defaultConsensusConfig
 	return config
 }
 
-func getDefaultPrometheusConfigCopy() harmonyconfig.PrometheusConfig {
+func getDefaultPrometheusConfigCopy() feechainconfig.PrometheusConfig {
 	config := defaultPrometheusConfig
 	return config
 }

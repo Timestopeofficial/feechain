@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/Timestopeofficial/feechain/eth/rpc"
-	"github.com/Timestopeofficial/feechain/hmy"
+	"github.com/Timestopeofficial/feechain/fch"
 	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
 	"github.com/Timestopeofficial/feechain/internal/utils"
 	eth "github.com/Timestopeofficial/feechain/rpc/eth"
@@ -71,9 +71,9 @@ func (n Version) Namespace() string {
 }
 
 // StartServers starts the http & ws servers
-func StartServers(hmy *hmy.Harmony, apis []rpc.API, config nodeconfig.RPCServerConfig) error {
-	apis = append(apis, getAPIs(hmy, config.DebugEnabled, config.RateLimiterEnabled, config.RequestsPerSecond)...)
-	authApis := append(apis, getAuthAPIs(hmy, config.DebugEnabled, config.RateLimiterEnabled, config.RequestsPerSecond)...)
+func StartServers(fch *fch.Feechain, apis []rpc.API, config nodeconfig.RPCServerConfig) error {
+	apis = append(apis, getAPIs(fch, config.DebugEnabled, config.RateLimiterEnabled, config.RequestsPerSecond)...)
+	authApis := append(apis, getAuthAPIs(fch, config.DebugEnabled, config.RateLimiterEnabled, config.RequestsPerSecond)...)
 
 	if config.HTTPEnabled {
 		httpEndpoint = fmt.Sprintf("%v:%v", config.HTTPIp, config.HTTPPort)
@@ -133,51 +133,51 @@ func StopServers() error {
 	return nil
 }
 
-func getAuthAPIs(hmy *hmy.Harmony, debugEnable bool, rateLimiterEnable bool, ratelimit int) []rpc.API {
+func getAuthAPIs(fch *fch.Feechain, debugEnable bool, rateLimiterEnable bool, ratelimit int) []rpc.API {
 	return []rpc.API{
-		NewPublicTraceAPI(hmy, Debug), // Debug version means geth trace rpc
-		NewPublicTraceAPI(hmy, Trace), // Trace version means parity trace rpc
+		NewPublicTraceAPI(fch, Debug), // Debug version means geth trace rpc
+		NewPublicTraceAPI(fch, Trace), // Trace version means parity trace rpc
 	}
 }
 
 // getAPIs returns all the API methods for the RPC interface
-func getAPIs(hmy *hmy.Harmony, debugEnable bool, rateLimiterEnable bool, ratelimit int) []rpc.API {
+func getAPIs(fch *fch.Feechain, debugEnable bool, rateLimiterEnable bool, ratelimit int) []rpc.API {
 	publicAPIs := []rpc.API{
 		// Public methods
-		NewPublicHarmonyAPI(hmy, V1),
-		NewPublicHarmonyAPI(hmy, V2),
-		NewPublicHarmonyAPI(hmy, Eth),
-		NewPublicBlockchainAPI(hmy, V1, rateLimiterEnable, ratelimit),
-		NewPublicBlockchainAPI(hmy, V2, rateLimiterEnable, ratelimit),
-		NewPublicBlockchainAPI(hmy, Eth, rateLimiterEnable, ratelimit),
-		NewPublicContractAPI(hmy, V1),
-		NewPublicContractAPI(hmy, V2),
-		NewPublicContractAPI(hmy, Eth),
-		NewPublicTransactionAPI(hmy, V1),
-		NewPublicTransactionAPI(hmy, V2),
-		NewPublicTransactionAPI(hmy, Eth),
-		NewPublicPoolAPI(hmy, V1),
-		NewPublicPoolAPI(hmy, V2),
-		NewPublicPoolAPI(hmy, Eth),
-		NewPublicStakingAPI(hmy, V1),
-		NewPublicStakingAPI(hmy, V2),
-		NewPublicTraceAPI(hmy, Debug), // Debug version means geth trace rpc
-		NewPublicTraceAPI(hmy, Trace), // Trace version means parity trace rpc
+		NewPublicFeechainAPI(fch, V1),
+		NewPublicFeechainAPI(fch, V2),
+		NewPublicFeechainAPI(fch, Eth),
+		NewPublicBlockchainAPI(fch, V1, rateLimiterEnable, ratelimit),
+		NewPublicBlockchainAPI(fch, V2, rateLimiterEnable, ratelimit),
+		NewPublicBlockchainAPI(fch, Eth, rateLimiterEnable, ratelimit),
+		NewPublicContractAPI(fch, V1),
+		NewPublicContractAPI(fch, V2),
+		NewPublicContractAPI(fch, Eth),
+		NewPublicTransactionAPI(fch, V1),
+		NewPublicTransactionAPI(fch, V2),
+		NewPublicTransactionAPI(fch, Eth),
+		NewPublicPoolAPI(fch, V1),
+		NewPublicPoolAPI(fch, V2),
+		NewPublicPoolAPI(fch, Eth),
+		NewPublicStakingAPI(fch, V1),
+		NewPublicStakingAPI(fch, V2),
+		NewPublicTraceAPI(fch, Debug), // Debug version means geth trace rpc
+		NewPublicTraceAPI(fch, Trace), // Trace version means parity trace rpc
 		// Legacy methods (subject to removal)
-		v1.NewPublicLegacyAPI(hmy, "fch"),
-		eth.NewPublicEthService(hmy, "eth"),
-		v2.NewPublicLegacyAPI(hmy, "fchv2"),
+		v1.NewPublicLegacyAPI(fch, "fch"),
+		eth.NewPublicEthService(fch, "eth"),
+		v2.NewPublicLegacyAPI(fch, "fchv2"),
 	}
 
 	publicDebugAPIs := []rpc.API{
 		//Public debug API
-		NewPublicDebugAPI(hmy, V1),
-		NewPublicDebugAPI(hmy, V2),
+		NewPublicDebugAPI(fch, V1),
+		NewPublicDebugAPI(fch, V2),
 	}
 
 	privateAPIs := []rpc.API{
-		NewPrivateDebugAPI(hmy, V1),
-		NewPrivateDebugAPI(hmy, V2),
+		NewPrivateDebugAPI(fch, V1),
+		NewPrivateDebugAPI(fch, V2),
 	}
 
 	if debugEnable {

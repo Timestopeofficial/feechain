@@ -8,7 +8,7 @@ import (
 	"github.com/pelletier/go-toml"
 
 	"github.com/Timestopeofficial/feechain/api/service/legacysync"
-	harmonyconfig "github.com/Timestopeofficial/feechain/internal/configs/harmony"
+	feechainconfig "github.com/Timestopeofficial/feechain/internal/configs/feechain"
 	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
 )
 
@@ -40,31 +40,31 @@ func doMigrations(confVersion string, confTree *toml.Tree) error {
 	return nil
 }
 
-func migrateConf(confBytes []byte) (harmonyconfig.HarmonyConfig, string, error) {
+func migrateConf(confBytes []byte) (feechainconfig.FeechainConfig, string, error) {
 	var (
 		migratedFrom string
 	)
 	confTree, err := toml.LoadBytes(confBytes)
 	if err != nil {
-		return harmonyconfig.HarmonyConfig{}, "", fmt.Errorf("config file parse error - %s", err.Error())
+		return feechainconfig.FeechainConfig{}, "", fmt.Errorf("config file parse error - %s", err.Error())
 	}
 	confVersion, found := confTree.Get("Version").(string)
 	if !found {
-		return harmonyconfig.HarmonyConfig{}, "", errors.New("config file invalid - no version entry found")
+		return feechainconfig.FeechainConfig{}, "", errors.New("config file invalid - no version entry found")
 	}
 	migratedFrom = confVersion
 	if confVersion != tomlConfigVersion {
 		err = doMigrations(confVersion, confTree)
 		if err != nil {
-			return harmonyconfig.HarmonyConfig{}, "", err
+			return feechainconfig.FeechainConfig{}, "", err
 		}
 	}
 
 	// At this point we must be at current config version so
 	// we can safely unmarshal it
-	var config harmonyconfig.HarmonyConfig
+	var config feechainconfig.FeechainConfig
 	if err := confTree.Unmarshal(&config); err != nil {
-		return harmonyconfig.HarmonyConfig{}, "", err
+		return feechainconfig.FeechainConfig{}, "", err
 	}
 	return config, migratedFrom, nil
 }

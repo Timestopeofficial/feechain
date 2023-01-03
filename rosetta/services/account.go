@@ -11,16 +11,16 @@ import (
 	"github.com/coinbase/rosetta-sdk-go/types"
 	ethCommon "github.com/ethereum/go-ethereum/common"
 
-	hmyTypes "github.com/Timestopeofficial/feechain/core/types"
+	fchTypes "github.com/Timestopeofficial/feechain/core/types"
 	"github.com/Timestopeofficial/feechain/eth/rpc"
-	"github.com/Timestopeofficial/feechain/hmy"
+	"github.com/Timestopeofficial/feechain/fch"
 	internalCommon "github.com/Timestopeofficial/feechain/internal/common"
 	"github.com/Timestopeofficial/feechain/rosetta/common"
 )
 
 // AccountAPI implements the server.AccountAPIServicer interface.
 type AccountAPI struct {
-	hmy *hmy.Harmony
+	fch *fch.Feechain
 }
 
 func (s *AccountAPI) AccountCoins(ctx context.Context, request *types.AccountCoinsRequest) (*types.AccountCoinsResponse, *types.Error) {
@@ -28,9 +28,9 @@ func (s *AccountAPI) AccountCoins(ctx context.Context, request *types.AccountCoi
 }
 
 // NewAccountAPI creates a new instance of a BlockAPI.
-func NewAccountAPI(hmy *hmy.Harmony) server.AccountAPIServicer {
+func NewAccountAPI(fch *fch.Feechain) server.AccountAPIServicer {
 	return &AccountAPI{
-		hmy: hmy,
+		fch: fch,
 	}
 }
 
@@ -38,16 +38,16 @@ func NewAccountAPI(hmy *hmy.Harmony) server.AccountAPIServicer {
 func (s *AccountAPI) AccountBalance(
 	ctx context.Context, request *types.AccountBalanceRequest,
 ) (*types.AccountBalanceResponse, *types.Error) {
-	if err := assertValidNetworkIdentifier(request.NetworkIdentifier, s.hmy.ShardID); err != nil {
+	if err := assertValidNetworkIdentifier(request.NetworkIdentifier, s.fch.ShardID); err != nil {
 		return nil, err
 	}
 
-	var block *hmyTypes.Block
+	var block *fchTypes.Block
 	var rosettaError *types.Error
 	if request.BlockIdentifier == nil {
-		block = s.hmy.CurrentBlock()
+		block = s.fch.CurrentBlock()
 	} else {
-		block, rosettaError = getBlock(ctx, s.hmy, request.BlockIdentifier)
+		block, rosettaError = getBlock(ctx, s.fch, request.BlockIdentifier)
 		if rosettaError != nil {
 			return nil, rosettaError
 		}
@@ -69,7 +69,7 @@ func (s *AccountAPI) AccountBalance(
 			return nil, rosettaError
 		}
 	} else {
-		balance, err = s.hmy.GetBalance(ctx, addr, blockNum)
+		balance, err = s.fch.GetBalance(ctx, addr, blockNum)
 		if err != nil {
 			return nil, common.NewError(common.SanityCheckError, map[string]interface{}{
 				"message": "invalid address",
@@ -95,7 +95,7 @@ func (s *AccountAPI) AccountBalance(
 
 // getStakingBalance used for get delegated balance with sub account identifier
 func (s *AccountAPI) getStakingBalance(
-	subAccount *types.SubAccountIdentifier, addr ethCommon.Address, block *hmyTypes.Block,
+	subAccount *types.SubAccountIdentifier, addr ethCommon.Address, block *fchTypes.Block,
 ) (*big.Int, *types.Error) {
 	balance := new(big.Int)
 	ty, exist := subAccount.Metadata["type"]
@@ -109,7 +109,7 @@ func (s *AccountAPI) getStakingBalance(
 	switch ty.(string) {
 	case Delegation:
 		validatorAddr := subAccount.Address
-		validators, delegations := s.hmy.GetDelegationsByDelegatorByBlock(addr, block)
+		validators, delegations := s.fch.GetDelegationsByDelegatorByBlock(addr, block)
 		for index, validator := range validators {
 			if validatorAddr == internalCommon.MustAddressToBech32(validator) {
 				balance = new(big.Int).Add(balance, delegations[index].Amount)
@@ -117,7 +117,7 @@ func (s *AccountAPI) getStakingBalance(
 		}
 	case UnDelegation:
 		validatorAddr := subAccount.Address
-		validators, delegations := s.hmy.GetDelegationsByDelegatorByBlock(addr, block)
+		validators, delegations := s.fch.GetDelegationsByDelegatorByBlock(addr, block)
 		for index, validator := range validators {
 			if validatorAddr == internalCommon.MustAddressToBech32(validator) {
 				undelegations := delegations[index].Undelegations

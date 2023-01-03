@@ -6,19 +6,19 @@ import (
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/Timestopeofficial/feechain/core/rawdb"
-	hmyTypes "github.com/Timestopeofficial/feechain/core/types"
-	"github.com/Timestopeofficial/feechain/hmy"
+	fchTypes "github.com/Timestopeofficial/feechain/core/types"
+	"github.com/Timestopeofficial/feechain/fch"
 	internal_common "github.com/Timestopeofficial/feechain/internal/common"
 	rosetta_common "github.com/Timestopeofficial/feechain/rosetta/common"
 )
 
 // SearchAPI implements the server.SearchAPIServicer interface.
 type SearchAPI struct {
-	hmy *hmy.Harmony
+	fch *fch.Feechain
 }
 
-func NewSearchAPI(hmy *hmy.Harmony) *SearchAPI {
-	return &SearchAPI{hmy: hmy}
+func NewSearchAPI(fch *fch.Feechain) *SearchAPI {
+	return &SearchAPI{fch: fch}
 }
 
 // SearchTransactions implements the /search/transactions endpoint
@@ -32,7 +32,7 @@ func (s *SearchAPI) SearchTransactions(ctx context.Context, request *types.Searc
 		}
 	}
 
-	if err := assertValidNetworkIdentifier(request.NetworkIdentifier, s.hmy.ShardID); err != nil {
+	if err := assertValidNetworkIdentifier(request.NetworkIdentifier, s.fch.ShardID); err != nil {
 		return nil, err
 	}
 
@@ -59,7 +59,7 @@ func (s *SearchAPI) SearchTransactions(ctx context.Context, request *types.Searc
 			return nil, &rosetta_common.ErrCallParametersInvalid
 		}
 
-		histories, err := s.hmy.GetTransactionsHistory(address, "", "")
+		histories, err := s.fch.GetTransactionsHistory(address, "", "")
 		if err != nil {
 			return nil, rosetta_common.NewError(rosetta_common.CatchAllError, map[string]interface{}{
 				"message": err.Error(),
@@ -84,7 +84,7 @@ func (s *SearchAPI) SearchTransactions(ctx context.Context, request *types.Searc
 	}
 
 	for _, hash := range rangeHash {
-		tx, blockHash, blockNumber, index := rawdb.ReadTransaction(s.hmy.ChainDb(), hash)
+		tx, blockHash, blockNumber, index := rawdb.ReadTransaction(s.fch.ChainDb(), hash)
 		if tx == nil {
 			return nil, rosetta_common.NewError(rosetta_common.CatchAllError, map[string]interface{}{
 				"message": "can not get tx info by hash",
@@ -107,7 +107,7 @@ func (s *SearchAPI) SearchTransactions(ctx context.Context, request *types.Searc
 	return resp, nil
 }
 
-func buildFromTXInfo(tx *hmyTypes.Transaction, blockHash common.Hash, blockNumber uint64, index uint64) (*types.BlockTransaction, *types.Error) {
+func buildFromTXInfo(tx *fchTypes.Transaction, blockHash common.Hash, blockNumber uint64, index uint64) (*types.BlockTransaction, *types.Error) {
 	receiverAccountID, rosettaError := newAccountIdentifier(*tx.To())
 	if rosettaError != nil {
 		return nil, rosettaError

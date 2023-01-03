@@ -37,10 +37,10 @@ var versionCmd = &cobra.Command{
 	},
 }
 
-func getHarmonyVersion() string {
+func getFeechainVersion() string {
 	return fmt.Sprintf(versionFormat, "feechain", version, commit, builtBy, builtAt)
 }
 
 func printVersion() {
-	fmt.Println(getHarmonyVersion())
+	fmt.Println(getFeechainVersion())
 }

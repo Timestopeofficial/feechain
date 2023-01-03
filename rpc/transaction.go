@@ -16,7 +16,7 @@ import (
 	"github.com/Timestopeofficial/feechain/core/types"
 	"github.com/Timestopeofficial/feechain/core/vm"
 	"github.com/Timestopeofficial/feechain/eth/rpc"
-	"github.com/Timestopeofficial/feechain/hmy"
+	"github.com/Timestopeofficial/feechain/fch"
 	internal_common "github.com/Timestopeofficial/feechain/internal/common"
 	"github.com/Timestopeofficial/feechain/internal/params"
 	"github.com/Timestopeofficial/feechain/internal/utils"
@@ -30,19 +30,19 @@ const (
 	defaultPageSize = uint32(100)
 )
 
-// PublicTransactionService provides an API to access Harmony's transaction service.
+// PublicTransactionService provides an API to access Feechain's transaction service.
 // It offers only methods that operate on public data that is freely available to anyone.
 type PublicTransactionService struct {
-	hmy     *hmy.Harmony
+	fch     *fch.Feechain
 	version Version
 }
 
 // NewPublicTransactionAPI creates a new API for the RPC interface
-func NewPublicTransactionAPI(hmy *hmy.Harmony, version Version) rpc.API {
+func NewPublicTransactionAPI(fch *fch.Feechain, version Version) rpc.API {
 	return rpc.API{
 		Namespace: version.Namespace(),
 		Version:   APIVersion,
-		Service:   &PublicTransactionService{hmy, version},
+		Service:   &PublicTransactionService{fch, version},
 		Public:    true,
 	}
 }
@@ -62,7 +62,7 @@ func (s *PublicTransactionService) GetAccountNonce(
 	if err != nil {
 		return 0, err
 	}
-	return s.hmy.GetAccountNonce(ctx, addr, blockNum)
+	return s.fch.GetAccountNonce(ctx, addr, blockNum)
 }
 
 // GetTransactionCount returns the number of transactions the given address has sent for the given block number.
@@ -86,13 +86,13 @@ func (s *PublicTransactionService) GetTransactionCount(
 	var nonce uint64
 	if blockNum == rpc.PendingBlockNumber {
 		// Ask transaction pool for the nonce which includes pending transactions
-		nonce, err = s.hmy.GetPoolNonce(ctx, address)
+		nonce, err = s.fch.GetPoolNonce(ctx, address)
 		if err != nil {
 			return nil, err
 		}
 	} else {
 		// Resolve block number and use its state to ask for the nonce
-		state, _, err := s.hmy.StateAndHeaderByNumber(ctx, blockNum)
+		state, _, err := s.fch.StateAndHeaderByNumber(ctx, blockNum)
 		if err != nil {
 			return nil, err
 		}
@@ -136,7 +136,7 @@ func (s *PublicTransactionService) GetTransactionsCount(
 	}
 
 	// Response output is the same for all versions
-	return s.hmy.GetTransactionsCount(address, txType)
+	return s.fch.GetTransactionsCount(address, txType)
 }
 
 // GetStakingTransactionsCount returns the number of staking transactions from genesis of input type ("SENT", "RECEIVED", "ALL")
@@ -159,7 +159,7 @@ func (s *PublicTransactionService) GetStakingTransactionsCount(
 	}
 
 	// Response output is the same for all versions
-	return s.hmy.GetStakingTransactionsCount(address, txType)
+	return s.fch.GetStakingTransactionsCount(address, txType)
 }
 
 // EstimateGas returns an estimate of the amount of gas needed to execute the
@@ -170,7 +170,7 @@ func (s *PublicTransactionService) EstimateGas(
 	timer := DoMetricRPCRequest(RpcEstimateGas)
 	defer DoRPCRequestDuration(RpcEstimateGas, timer)
 
-	gas, err := EstimateGas(ctx, s.hmy, args, nil)
+	gas, err := EstimateGas(ctx, s.fch, args, nil)
 	if err != nil {
 		return 0, err
 	}
@@ -186,10 +186,10 @@ func (s *PublicTransactionService) GetTransactionByHash(
 	timer := DoMetricRPCRequest(GetTransactionByHash)
 	defer DoRPCRequestDuration(GetTransactionByHash, timer)
 	// Try to return an already finalized transaction
-	tx, blockHash, blockNumber, index := rawdb.ReadTransaction(s.hmy.ChainDb(), hash)
+	tx, blockHash, blockNumber, index := rawdb.ReadTransaction(s.fch.ChainDb(), hash)
 	if tx == nil {
 		// Try to return a pending transaction
-		if tx := s.hmy.TxPool.Get(hash); tx != nil {
+		if tx := s.fch.TxPool.Get(hash); tx != nil {
 			if plainTx, ok := tx.(*types.Transaction); ok {
 				return s.newRPCTransaction(plainTx, common.Hash{}, 0, 0, 0)
 			}
@@ -202,7 +202,7 @@ func (s *PublicTransactionService) GetTransactionByHash(
 		DoMetricRPCQueryInfo(GetTransactionByHash, FailedNumber)
 		return nil, nil
 	}
-	block, err := s.hmy.GetBlock(ctx, blockHash)
+	block, err := s.fch.GetBlock(ctx, blockHash)
 	if err != nil {
 		utils.Logger().Debug().
 			Err(err).
@@ -254,10 +254,10 @@ func (s *PublicTransactionService) GetStakingTransactionByHash(
 	defer DoRPCRequestDuration(GetStakingTransactionByHash, timer)
 
 	// Try to return an already finalized transaction
-	stx, blockHash, blockNumber, index := rawdb.ReadStakingTransaction(s.hmy.ChainDb(), hash)
+	stx, blockHash, blockNumber, index := rawdb.ReadStakingTransaction(s.fch.ChainDb(), hash)
 	if stx == nil {
 		// Try to return a pending transaction
-		if tx := s.hmy.TxPool.Get(hash); tx != nil {
+		if tx := s.fch.TxPool.Get(hash); tx != nil {
 			if stx, ok := tx.(*staking.StakingTransaction); ok {
 				return s.newRPCStakingTransaction(stx, common.Hash{}, 0, 0, 0)
 			}
@@ -270,7 +270,7 @@ func (s *PublicTransactionService) GetStakingTransactionByHash(
 		DoMetricRPCQueryInfo(GetStakingTransactionByHash, FailedNumber)
 		return nil, nil
 	}
-	block, err := s.hmy.GetBlock(ctx, blockHash)
+	block, err := s.fch.GetBlock(ctx, blockHash)
 	if err != nil {
 		utils.Logger().Debug().
 			Err(err).
@@ -330,7 +330,7 @@ func (s *PublicTransactionService) GetTransactionsHistory(
 			return nil, err
 		}
 	}
-	hashes, err := s.hmy.GetTransactionsHistory(address, args.TxType, args.Order)
+	hashes, err := s.fch.GetTransactionsHistory(address, args.TxType, args.Order)
 	if err != nil {
 		DoMetricRPCQueryInfo(GetTransactionsHistory, FailedNumber)
 		return nil, err
@@ -388,7 +388,7 @@ func (s *PublicTransactionService) GetStakingTransactionsHistory(
 			return nil, nil
 		}
 	}
-	hashes, err := s.hmy.GetStakingTransactionsHistory(address, args.TxType, args.Order)
+	hashes, err := s.fch.GetStakingTransactionsHistory(address, args.TxType, args.Order)
 	if err != nil {
 		utils.Logger().Debug().
 			Err(err).
@@ -433,7 +433,7 @@ func (s *PublicTransactionService) GetBlockTransactionCountByNumber(
 	blockNum := blockNumber.EthBlockNumber()
 
 	// Fetch block
-	block, err := s.hmy.BlockByNumber(ctx, blockNum)
+	block, err := s.fch.BlockByNumber(ctx, blockNum)
 	if err != nil {
 		utils.Logger().Debug().
 			Err(err).
@@ -462,7 +462,7 @@ func (s *PublicTransactionService) GetBlockTransactionCountByHash(
 	defer DoRPCRequestDuration(GetBlockTransactionCountByHash, timer)
 
 	// Fetch block
-	block, err := s.hmy.GetBlock(ctx, blockHash)
+	block, err := s.fch.GetBlock(ctx, blockHash)
 	if err != nil {
 		utils.Logger().Debug().
 			Err(err).
@@ -493,7 +493,7 @@ func (s *PublicTransactionService) GetTransactionByBlockNumberAndIndex(
 	blockNum := blockNumber.EthBlockNumber()
 
 	// Fetch Block
-	block, err := s.hmy.BlockByNumber(ctx, blockNum)
+	block, err := s.fch.BlockByNumber(ctx, blockNum)
 	if err != nil {
 		utils.Logger().Debug().
 			Err(err).
@@ -535,7 +535,7 @@ func (s *PublicTransactionService) GetTransactionByBlockHashAndIndex(
 	defer DoRPCRequestDuration(GetTransactionByBlockHashAndIndex, timer)
 
 	// Fetch Block
-	block, err := s.hmy.GetBlock(ctx, blockHash)
+	block, err := s.fch.GetBlock(ctx, blockHash)
 	if err != nil {
 		utils.Logger().Debug().
 			Err(err).
@@ -581,7 +581,7 @@ func (s *PublicTransactionService) GetBlockStakingTransactionCountByNumber(
 	blockNum := blockNumber.EthBlockNumber()
 
 	// Fetch block
-	block, err := s.hmy.BlockByNumber(ctx, blockNum)
+	block, err := s.fch.BlockByNumber(ctx, blockNum)
 	if err != nil {
 		utils.Logger().Debug().
 			Err(err).
@@ -610,7 +610,7 @@ func (s *PublicTransactionService) GetBlockStakingTransactionCountByHash(
 	defer DoRPCRequestDuration(GetBlockStakingTransactionCountByHash, timer)
 
 	// Fetch block
-	block, err := s.hmy.GetBlock(ctx, blockHash)
+	block, err := s.fch.GetBlock(ctx, blockHash)
 	if err != nil {
 		utils.Logger().Debug().
 			Err(err).
@@ -641,7 +641,7 @@ func (s *PublicTransactionService) GetStakingTransactionByBlockNumberAndIndex(
 	blockNum := blockNumber.EthBlockNumber()
 
 	// Fetch Block
-	block, err := s.hmy.BlockByNumber(ctx, blockNum)
+	block, err := s.fch.BlockByNumber(ctx, blockNum)
 	if err != nil {
 		utils.Logger().Debug().
 			Err(err).
@@ -677,7 +677,7 @@ func (s *PublicTransactionService) GetStakingTransactionByBlockHashAndIndex(
 	defer DoRPCRequestDuration(GetStakingTransactionByBlockHashAndIndex, timer)
 
 	// Fetch Block
-	block, err := s.hmy.GetBlock(ctx, blockHash)
+	block, err := s.fch.GetBlock(ctx, blockHash)
 	if err != nil {
 		utils.Logger().Debug().
 			Err(err).
@@ -717,18 +717,18 @@ func (s *PublicTransactionService) GetTransactionReceipt(
 	var stx *staking.StakingTransaction
 	var blockHash common.Hash
 	var blockNumber, index uint64
-	tx, blockHash, blockNumber, index = rawdb.ReadTransaction(s.hmy.ChainDb(), hash)
+	tx, blockHash, blockNumber, index = rawdb.ReadTransaction(s.fch.ChainDb(), hash)
 	if tx == nil {
-		stx, blockHash, blockNumber, index = rawdb.ReadStakingTransaction(s.hmy.ChainDb(), hash)
+		stx, blockHash, blockNumber, index = rawdb.ReadStakingTransaction(s.fch.ChainDb(), hash)
 		if stx == nil {
 			return nil, nil
 		}
 		// if there both normal and staking transactions, add to index
-		if block, _ := s.hmy.GetBlock(ctx, blockHash); block != nil {
+		if block, _ := s.fch.GetBlock(ctx, blockHash); block != nil {
 			index = index + uint64(block.Transactions().Len())
 		}
 	}
-	receipts, err := s.hmy.GetReceipts(ctx, blockHash)
+	receipts, err := s.fch.GetReceipts(ctx, blockHash)
 	if err != nil {
 		return nil, err
 	}
@@ -780,7 +780,7 @@ func (s *PublicTransactionService) GetCXReceiptByHash(
 	timer := DoMetricRPCRequest(GetCXReceiptByHash)
 	defer DoRPCRequestDuration(GetCXReceiptByHash, timer)
 
-	if cx, blockHash, blockNumber, _ := rawdb.ReadCXReceipt(s.hmy.ChainDb(), hash); cx != nil {
+	if cx, blockHash, blockNumber, _ := rawdb.ReadCXReceipt(s.fch.ChainDb(), hash); cx != nil {
 		// Format response according to version
 		switch s.version {
 		case V1, Eth:
@@ -814,7 +814,7 @@ func (s *PublicTransactionService) ResendCx(ctx context.Context, txID common.Has
 	timer := DoMetricRPCRequest(ResendCx)
 	defer DoRPCRequestDuration(ResendCx, timer)
 
-	_, success := s.hmy.ResendCx(ctx, txID)
+	_, success := s.fch.ResendCx(ctx, txID)
 
 	// Response output is the same for all versions
 	return success, nil
@@ -836,7 +836,7 @@ func returnHashesWithPagination(hashes []common.Hash, pageIndex uint32, pageSize
 }
 
 // EstimateGas - estimate gas cost for a given operation
-func EstimateGas(ctx context.Context, hmy *hmy.Harmony, args CallArgs, gasCap *big.Int) (uint64, error) {
+func EstimateGas(ctx context.Context, fch *fch.Feechain, args CallArgs, gasCap *big.Int) (uint64, error) {
 	// Binary search the gas requirement, as it may be higher than the amount used
 	var (
 		lo  uint64 = params.TxGas - 1
@@ -854,7 +854,7 @@ func EstimateGas(ctx context.Context, hmy *hmy.Harmony, args CallArgs, gasCap *b
 	} else {
 
 		// Retrieve the block to act as the gas ceiling
-		blk, err := hmy.BlockByNumber(ctx, blockNum)
+		blk, err := fch.BlockByNumber(ctx, blockNum)
 		if err != nil {
 			return 0, err
 		}
@@ -862,7 +862,7 @@ func EstimateGas(ctx context.Context, hmy *hmy.Harmony, args CallArgs, gasCap *b
 	}
 	// Recap the highest gas limit with account's available balance.
 	if args.GasPrice != nil && args.GasPrice.ToInt().BitLen() != 0 {
-		state, _, err := hmy.StateAndHeaderByNumber(ctx, blockNum)
+		state, _, err := fch.StateAndHeaderByNumber(ctx, blockNum)
 		if err != nil {
 			return 0, err
 		}
@@ -898,7 +898,7 @@ func EstimateGas(ctx context.Context, hmy *hmy.Harmony, args CallArgs, gasCap *b
 	executable := func(gas uint64) (bool, *core.ExecutionResult, error) {
 		args.Gas = (*hexutil.Uint64)(&gas)
 
-		result, err := DoEVMCall(ctx, hmy, args, blockNum, 0)
+		result, err := DoEVMCall(ctx, fch, args, blockNum, 0)
 		if err != nil {
 			if errors.Is(err, core.ErrIntrinsicGas) {
 				return true, nil, nil // Special case, raise gas limit

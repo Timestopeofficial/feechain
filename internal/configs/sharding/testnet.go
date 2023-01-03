@@ -83,7 +83,7 @@ var testnetReshardingEpoch = []*big.Int{
 	big.NewInt(testnetV3Epoch),
 }
 
-var testnetV0 = MustNewInstance(2, 4, 4, numeric.OneDec(), genesis.TNHarmonyAccounts, genesis.TNFoundationalAccounts, testnetReshardingEpoch, TestnetSchedule.BlocksPerEpoch())
-var testnetV1 = MustNewInstance(2, 20, 4, numeric.MustNewDecFromStr("0.80"), genesis.TNHarmonyAccounts, genesis.TNFoundationalAccounts, testnetReshardingEpoch, TestnetSchedule.BlocksPerEpoch())
-var testnetV2 = MustNewInstance(2, 100, 6, numeric.MustNewDecFromStr("0.80"), genesis.TNHarmonyAccounts, genesis.TNFoundationalAccounts, testnetReshardingEpoch, TestnetSchedule.BlocksPerEpoch())
-var testnetV3 = MustNewInstance(2, 100, 7, numeric.MustNewDecFromStr("0.80"), genesis.TNHarmonyAccounts, genesis.TNFoundationalAccounts, testnetReshardingEpoch, TestnetSchedule.BlocksPerEpoch())
+var testnetV0 = MustNewInstance(2, 4, 4, numeric.OneDec(), genesis.TNFeechainAccounts, genesis.TNFoundationalAccounts, testnetReshardingEpoch, TestnetSchedule.BlocksPerEpoch())
+var testnetV1 = MustNewInstance(2, 20, 4, numeric.MustNewDecFromStr("0.80"), genesis.TNFeechainAccounts, genesis.TNFoundationalAccounts, testnetReshardingEpoch, TestnetSchedule.BlocksPerEpoch())
+var testnetV2 = MustNewInstance(2, 100, 6, numeric.MustNewDecFromStr("0.80"), genesis.TNFeechainAccounts, genesis.TNFoundationalAccounts, testnetReshardingEpoch, TestnetSchedule.BlocksPerEpoch())
+var testnetV3 = MustNewInstance(2, 100, 7, numeric.MustNewDecFromStr("0.80"), genesis.TNFeechainAccounts, genesis.TNFoundationalAccounts, testnetReshardingEpoch, TestnetSchedule.BlocksPerEpoch())

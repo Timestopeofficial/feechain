@@ -7,7 +7,7 @@ import (
 	"github.com/coinbase/rosetta-sdk-go/server"
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/Timestopeofficial/feechain/eth/rpc"
-	"github.com/Timestopeofficial/feechain/hmy"
+	"github.com/Timestopeofficial/feechain/fch"
 	internal_common "github.com/Timestopeofficial/feechain/internal/common"
 	"github.com/Timestopeofficial/feechain/rosetta/common"
 	rpc2 "github.com/Timestopeofficial/feechain/rpc"
@@ -33,7 +33,7 @@ var CallMethod = []string{
 }
 
 type CallAPIService struct {
-	hmy                 *hmy.Harmony
+	fch                 *fch.Feechain
 	publicContractAPI   rpc.API
 	publicStakingAPI    rpc.API
 	publicBlockChainAPI rpc.API
@@ -82,17 +82,17 @@ func (c *CallAPIService) Call(
 
 }
 
-func NewCallAPIService(hmy *hmy.Harmony, limiterEnable bool, rateLimit int) server.CallAPIServicer {
+func NewCallAPIService(fch *fch.Feechain, limiterEnable bool, rateLimit int) server.CallAPIServicer {
 	return &CallAPIService{
-		hmy:                 hmy,
-		publicContractAPI:   rpc2.NewPublicContractAPI(hmy, rpc2.V2),
-		publicStakingAPI:    rpc2.NewPublicStakingAPI(hmy, rpc2.V2),
-		publicBlockChainAPI: rpc2.NewPublicBlockchainAPI(hmy, rpc2.V2, limiterEnable, rateLimit),
+		fch:                 fch,
+		publicContractAPI:   rpc2.NewPublicContractAPI(fch, rpc2.V2),
+		publicStakingAPI:    rpc2.NewPublicStakingAPI(fch, rpc2.V2),
+		publicBlockChainAPI: rpc2.NewPublicBlockchainAPI(fch, rpc2.V2, limiterEnable, rateLimit),
 	}
 }
 
 func (c *CallAPIService) getSuperCommittees() (*types.CallResponse, *types.Error) {
-	committees, err := c.hmy.GetSuperCommittees()
+	committees, err := c.fch.GetSuperCommittees()
 	if err != nil {
 		return nil, common.NewError(common.ErrGetStakingInfo, map[string]interface{}{
 			"message": errors.WithMessage(err, "get super committees error").Error(),
@@ -123,7 +123,7 @@ func (c *CallAPIService) getStakingNetworkInfo(
 }
 
 func (c *CallAPIService) getMedianRawStakeSnapshot() (*types.CallResponse, *types.Error) {
-	snapshot, err := c.hmy.GetMedianRawStakeSnapshot()
+	snapshot, err := c.fch.GetMedianRawStakeSnapshot()
 	if err != nil {
 		return nil, common.NewError(common.ErrGetStakingInfo, map[string]interface{}{
 			"message": errors.WithMessage(err, "get median raw stake snapshot error").Error(),
@@ -137,7 +137,7 @@ func (c *CallAPIService) getMedianRawStakeSnapshot() (*types.CallResponse, *type
 }
 
 func (c *CallAPIService) getCurrentUtilityMetrics() (*types.CallResponse, *types.Error) {
-	metric, err := c.hmy.GetCurrentUtilityMetrics()
+	metric, err := c.fch.GetCurrentUtilityMetrics()
 	if err != nil {
 		return nil, common.NewError(common.ErrGetStakingInfo, map[string]interface{}{
 			"message": errors.WithMessage(err, "get current utility metrics error").Error(),

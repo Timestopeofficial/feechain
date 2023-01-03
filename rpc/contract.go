@@ -15,8 +15,8 @@ import (
 	"github.com/Timestopeofficial/feechain/common/denominations"
 	"github.com/Timestopeofficial/feechain/core"
 	"github.com/Timestopeofficial/feechain/eth/rpc"
-	"github.com/Timestopeofficial/feechain/hmy"
-	hmyCommon "github.com/Timestopeofficial/feechain/internal/common"
+	"github.com/Timestopeofficial/feechain/fch"
+	fchCommon "github.com/Timestopeofficial/feechain/internal/common"
 	"github.com/Timestopeofficial/feechain/internal/utils"
 )
 
@@ -25,21 +25,21 @@ const (
 	defaultFromAddress = "0x0000000000000000000000000000000000000000"
 )
 
-// PublicContractService provides an API to access Harmony's contract services.
+// PublicContractService provides an API to access Feechain's contract services.
 // It offers only methods that operate on public data that is freely available to anyone.
 type PublicContractService struct {
-	hmy     *hmy.Harmony
+	fch     *fch.Feechain
 	version Version
 	// TEMP SOLUTION to rpc node spamming issue
 	limiterCall *rate.Limiter
 }
 
 // NewPublicContractAPI creates a new API for the RPC interface
-func NewPublicContractAPI(hmy *hmy.Harmony, version Version) rpc.API {
+func NewPublicContractAPI(fch *fch.Feechain, version Version) rpc.API {
 	return rpc.API{
 		Namespace: version.Namespace(),
 		Version:   APIVersion,
-		Service:   &PublicContractService{hmy, version, rate.NewLimiter(200, 1500)},
+		Service:   &PublicContractService{fch, version, rate.NewLimiter(200, 1500)},
 		Public:    true,
 	}
 }
@@ -78,7 +78,7 @@ func (s *PublicContractService) Call(
 	}
 
 	// Execute call
-	result, err := DoEVMCall(ctx, s.hmy, args, blockNum, CallTimeout)
+	result, err := DoEVMCall(ctx, s.fch, args, blockNum, CallTimeout)
 	if err != nil {
 		return nil, err
 	}
@@ -98,12 +98,12 @@ func (s *PublicContractService) GetCode(
 	blockNum := blockNumber.EthBlockNumber()
 
 	// Fetch state
-	address, err := hmyCommon.ParseAddr(addr)
+	address, err := fchCommon.ParseAddr(addr)
 	if err != nil {
 		DoMetricRPCQueryInfo(GetCode, FailedNumber)
 		return nil, err
 	}
-	state, _, err := s.hmy.StateAndHeaderByNumber(ctx, blockNum)
+	state, _, err := s.fch.StateAndHeaderByNumber(ctx, blockNum)
 	if state == nil || err != nil {
 		DoMetricRPCQueryInfo(GetCode, FailedNumber)
 		return nil, err
@@ -126,12 +126,12 @@ func (s *PublicContractService) GetStorageAt(
 	blockNum := blockNumber.EthBlockNumber()
 
 	// Fetch state
-	state, _, err := s.hmy.StateAndHeaderByNumber(ctx, blockNum)
+	state, _, err := s.fch.StateAndHeaderByNumber(ctx, blockNum)
 	if state == nil || err != nil {
 		DoMetricRPCQueryInfo(GetStorageAt, FailedNumber)
 		return nil, err
 	}
-	address, err := hmyCommon.ParseAddr(addr)
+	address, err := fchCommon.ParseAddr(addr)
 	if err != nil {
 		DoMetricRPCQueryInfo(GetStorageAt, FailedNumber)
 		return nil, err
@@ -144,7 +144,7 @@ func (s *PublicContractService) GetStorageAt(
 
 // DoEVMCall executes an EVM call
 func DoEVMCall(
-	ctx context.Context, hmy *hmy.Harmony, args CallArgs, blockNum rpc.BlockNumber,
+	ctx context.Context, fch *fch.Feechain, args CallArgs, blockNum rpc.BlockNumber,
 	timeout time.Duration,
 ) (core.ExecutionResult, error) {
 	defer func(start time.Time) {
@@ -154,14 +154,14 @@ func DoEVMCall(
 	}(time.Now())
 
 	// Fetch state
-	state, header, err := hmy.StateAndHeaderByNumber(ctx, blockNum)
+	state, header, err := fch.StateAndHeaderByNumber(ctx, blockNum)
 	if state == nil || err != nil {
 		DoMetricRPCQueryInfo(DoEvmCall, FailedNumber)
 		return core.ExecutionResult{}, err
 	}
 
 	// Create new call message
-	msg := args.ToMessage(hmy.RPCGasCap)
+	msg := args.ToMessage(fch.RPCGasCap)
 
 	// Setup context so it may be cancelled the call has completed
 	// or, in case of unmetered gas, setup a context with a timeout.
@@ -177,7 +177,7 @@ func DoEVMCall(
 	defer cancel()
 
 	// Get a new instance of the EVM.
-	evm, err := hmy.GetEVM(ctx, msg, state, header)
+	evm, err := fch.GetEVM(ctx, msg, state, header)
 	if err != nil {
 		DoMetricRPCQueryInfo(DoEvmCall, FailedNumber)
 		return core.ExecutionResult{}, err

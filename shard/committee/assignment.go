@@ -139,7 +139,7 @@ func prepareOrders(
 
 	// Avoid duplicate BLS keys as feechain nodes
 	instance := shard.Schedule.InstanceForEpoch(stakedReader.CurrentBlock().Epoch())
-	for _, account := range instance.HmyAccounts() {
+	for _, account := range instance.FchAccounts() {
 		pub := &bls_core.PublicKey{}
 		if err := pub.DeserializeHexStr(account.BLSPublicKey); err != nil {
 			continue
@@ -271,22 +271,22 @@ var (
 // This is the shard state computation logic before staking epoch.
 func preStakingEnabledCommittee(s shardingconfig.Instance) (*shard.State, error) {
 	shardNum := int(s.NumShards())
-	shardHarmonyNodes := s.NumHarmonyOperatedNodesPerShard()
+	shardFeechainNodes := s.NumFeechainOperatedNodesPerShard()
 	shardSize := s.NumNodesPerShard()
-	hmyAccounts := s.HmyAccounts()
+	fchAccounts := s.FchAccounts()
 	fnAccounts := s.FnAccounts()
 	shardState := &shard.State{}
 	// Shard state needs to be sorted by shard ID
 	for i := 0; i < shardNum; i++ {
 		com := shard.Committee{ShardID: uint32(i)}
-		for j := 0; j < shardHarmonyNodes; j++ {
+		for j := 0; j < shardFeechainNodes; j++ {
 			index := i + j*shardNum // The initial account to use for genesis nodes
 			pub := &bls_core.PublicKey{}
-			pub.DeserializeHexStr(hmyAccounts[index].BLSPublicKey)
+			pub.DeserializeHexStr(fchAccounts[index].BLSPublicKey)
 			pubKey := bls.SerializedPublicKey{}
 			pubKey.FromLibBLSPublicKey(pub)
 			// TODO: directly read address for bls too
-			addr, err := common2.ParseAddr(hmyAccounts[index].Address)
+			addr, err := common2.ParseAddr(fchAccounts[index].Address)
 			if err != nil {
 				return nil, err
 			}
@@ -298,8 +298,8 @@ func preStakingEnabledCommittee(s shardingconfig.Instance) (*shard.State, error)
 			com.Slots = append(com.Slots, curNodeID)
 		}
 		// add FN runner's key
-		for j := shardHarmonyNodes; j < shardSize; j++ {
-			index := i + (j-shardHarmonyNodes)*shardNum
+		for j := shardFeechainNodes; j < shardSize; j++ {
+			index := i + (j-shardFeechainNodes)*shardNum
 			pub := &bls_core.PublicKey{}
 			pub.DeserializeHexStr(fnAccounts[index].BLSPublicKey)
 			pubKey := bls.SerializedPublicKey{}
@@ -327,12 +327,12 @@ func eposStakedCommittee(
 	shardCount := int(s.NumShards())
 	shardState := &shard.State{}
 	shardState.Shards = make([]shard.Committee, shardCount)
-	hAccounts := s.HmyAccounts()
-	shardHarmonyNodes := s.NumHarmonyOperatedNodesPerShard()
+	hAccounts := s.FchAccounts()
+	shardFeechainNodes := s.NumFeechainOperatedNodesPerShard()
 
 	for i := 0; i < shardCount; i++ {
 		shardState.Shards[i] = shard.Committee{uint32(i), shard.SlotList{}}
-		for j := 0; j < shardHarmonyNodes; j++ {
+		for j := 0; j < shardFeechainNodes; j++ {
 			index := i + j*shardCount
 			pub := &bls_core.PublicKey{}
 			if err := pub.DeserializeHexStr(hAccounts[index].BLSPublicKey); err != nil {

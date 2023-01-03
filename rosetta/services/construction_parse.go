@@ -7,7 +7,7 @@ import (
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/pkg/errors"
 
-	hmyTypes "github.com/Timestopeofficial/feechain/core/types"
+	fchTypes "github.com/Timestopeofficial/feechain/core/types"
 	"github.com/Timestopeofficial/feechain/rosetta/common"
 )
 
@@ -15,16 +15,16 @@ import (
 func (s *ConstructAPI) ConstructionParse(
 	ctx context.Context, request *types.ConstructionParseRequest,
 ) (*types.ConstructionParseResponse, *types.Error) {
-	if err := assertValidNetworkIdentifier(request.NetworkIdentifier, s.hmy.ShardID); err != nil {
+	if err := assertValidNetworkIdentifier(request.NetworkIdentifier, s.fch.ShardID); err != nil {
 		return nil, err
 	}
 	wrappedTransaction, tx, rosettaError := unpackWrappedTransactionFromString(request.Transaction, request.Signed)
 	if rosettaError != nil {
 		return nil, rosettaError
 	}
-	if tx.ShardID() != s.hmy.ShardID {
+	if tx.ShardID() != s.fch.ShardID {
 		return nil, common.NewError(common.InvalidTransactionConstructionError, map[string]interface{}{
-			"message": fmt.Sprintf("transaction is for shard %v != shard %v", tx.ShardID(), s.hmy.ShardID),
+			"message": fmt.Sprintf("transaction is for shard %v != shard %v", tx.ShardID(), s.fch.ShardID),
 		})
 	}
 	if request.Signed {
@@ -51,7 +51,7 @@ func (s *ConstructAPI) ConstructionParse(
 
 // parseUnsignedTransaction ..
 func parseUnsignedTransaction(
-	ctx context.Context, wrappedTransaction *WrappedTransaction, tx hmyTypes.PoolTransaction,
+	ctx context.Context, wrappedTransaction *WrappedTransaction, tx fchTypes.PoolTransaction,
 ) (*types.ConstructionParseResponse, *types.Error) {
 	if wrappedTransaction == nil || tx == nil {
 		return nil, common.NewError(common.CatchAllError, map[string]interface{}{
@@ -65,7 +65,7 @@ func parseUnsignedTransaction(
 		})
 	}
 
-	intendedReceipt := &hmyTypes.Receipt{
+	intendedReceipt := &fchTypes.Receipt{
 		GasUsed: tx.GasLimit(),
 	}
 	formattedTx, rosettaError := FormatTransaction(
@@ -99,7 +99,7 @@ func parseUnsignedTransaction(
 
 // parseSignedTransaction ..
 func parseSignedTransaction(
-	ctx context.Context, wrappedTransaction *WrappedTransaction, tx hmyTypes.PoolTransaction,
+	ctx context.Context, wrappedTransaction *WrappedTransaction, tx fchTypes.PoolTransaction,
 ) (*types.ConstructionParseResponse, *types.Error) {
 	if wrappedTransaction == nil || tx == nil {
 		return nil, common.NewError(common.CatchAllError, map[string]interface{}{
@@ -107,7 +107,7 @@ func parseSignedTransaction(
 		})
 	}
 
-	intendedReceipt := &hmyTypes.Receipt{
+	intendedReceipt := &fchTypes.Receipt{
 		GasUsed: tx.GasLimit(),
 	}
 	formattedTx, rosettaError := FormatTransaction(

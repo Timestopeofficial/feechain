@@ -6,15 +6,9 @@ DATA="$DIR/data"
 LOGS="$DATA/logs"
 DATA_NAME="${DATA_NAME:=feechain_sharddb_0}"
 
-MAINNET_22816573_SNAPSHOT="release:pub.harmony.one/asadal.min.22816573/feechain_sharddb_0"
-
 case "$NETWORK" in
 asadal)
   CONFIG_PATH="-c /root/feechain-asadal.conf"
-  ;;
-asadal-22816573)
-  CONFIG_PATH="-c /root/feechain-asadal.conf"
-  rclone -P -L sync $MAINNET_22816573_SNAPSHOT $DATA/$DATA_NAME --transfers=64
   ;;
 testnet)
   CONFIG_PATH="-c /root/feechain-pstn.conf"

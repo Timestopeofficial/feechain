@@ -147,7 +147,7 @@ Note that all testing docker container binds a couple of ports to the host machi
 * `9798` - Shard 1 Rosetta (for an explorer)
 * `9899` - Shard 0 WS for an explorer
 * `9898` - Shard 1 WS for an explorer
-> This allows you to use curl, hmy CLI, postman, rosetta-cli, etc... on your host machine to play with or probe the localnet that was used for the test. 
+> This allows you to use curl, fch CLI, postman, rosetta-cli, etc... on your host machine to play with or probe the localnet that was used for the test. 
 
 ### Go tests
 To run this test, do:
@@ -195,11 +195,3 @@ make test-rosetta-attach
 - Cross-links
 - EPoS staking mechanism
 - Kademlia routing
-
-### Planned Features
-
-- Resharding
-- Integration with WASM
-- Fast state synchronization
-- Auditable privacy asset using ZK proof
-

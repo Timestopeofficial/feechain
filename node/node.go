@@ -10,11 +10,11 @@ import (
 	"time"
 
 	"github.com/ethereum/go-ethereum/rlp"
-	harmonyconfig "github.com/Timestopeofficial/feechain/internal/configs/harmony"
+	feechainconfig "github.com/Timestopeofficial/feechain/internal/configs/feechain"
 
 	"github.com/ethereum/go-ethereum/common"
 	protobuf "github.com/golang/protobuf/proto"
-	"github.com/harmony-one/abool"
+	"github.com/feechain-one/abool"
 	bls_core "github.com/Timestopeofficial/bls/ffi/go/bls"
 	lru "github.com/hashicorp/golang-lru"
 	libp2p_peer "github.com/libp2p/go-libp2p-core/peer"
@@ -106,7 +106,7 @@ type Node struct {
 	ContractAddresses            []common.Address
 	// Channel to notify consensus service to really start consensus
 	startConsensus chan struct{}
-	HarmonyConfig  *harmonyconfig.HarmonyConfig
+	FeechainConfig  *feechainconfig.FeechainConfig
 	// node configuration, including group ID, shard ID, etc
 	NodeConfig *nodeconfig.ConfigType
 	// Chain configuration.
@@ -156,7 +156,7 @@ func (node *Node) Beaconchain() *core.BlockChain {
 		utils.Logger().Error().Err(err).Msg("cannot get beaconchain")
 	}
 	// only available in validator node and shard 1-3
-	isEnablePruneBeaconChain := node.HarmonyConfig != nil && node.HarmonyConfig.General.EnablePruneBeaconChain
+	isEnablePruneBeaconChain := node.FeechainConfig != nil && node.FeechainConfig.General.EnablePruneBeaconChain
 	isNotBeaconChainValidator := node.NodeConfig.Role() == nodeconfig.Validator && node.NodeConfig.ShardID != shard.BeaconChainShardID
 	if isEnablePruneBeaconChain && isNotBeaconChainValidator {
 		bc.EnablePruneBeaconChainFeature()
@@ -605,7 +605,7 @@ func (node *Node) validateShardBoundMessage(
 }
 
 var (
-	errMsgHadNoHMYPayLoadAssumption      = errors.New("did not have sufficient size for hmy msg")
+	errMsgHadNoFCHPayLoadAssumption      = errors.New("did not have sufficient size for fch msg")
 	errConsensusMessageOnUnexpectedTopic = errors.New("received consensus on wrong topic")
 )
 
@@ -707,16 +707,16 @@ func (node *Node) StartPubSub() error {
 			// this is the validation function called to quickly validate every p2p message
 			func(ctx context.Context, peer libp2p_peer.ID, msg *libp2p_pubsub.Message) libp2p_pubsub.ValidationResult {
 				nodeP2PMessageCounterVec.With(prometheus.Labels{"type": "total"}).Inc()
-				hmyMsg := msg.GetData()
+				fchMsg := msg.GetData()
 
 				// first to validate the size of the p2p message
-				if len(hmyMsg) < p2pMsgPrefixSize {
+				if len(fchMsg) < p2pMsgPrefixSize {
 					// TODO (lc): block peers sending empty messages
 					nodeP2PMessageCounterVec.With(prometheus.Labels{"type": "invalid_size"}).Inc()
 					return libp2p_pubsub.ValidationReject
 				}
 
-				openBox := hmyMsg[p2pMsgPrefixSize:]
+				openBox := fchMsg[p2pMsgPrefixSize:]
 
 				// validate message category
 				switch proto.MessageCategory(openBox[proto.MessageCategoryBytes-1]) {
@@ -968,18 +968,18 @@ func New(
 	chainDBFactory shardchain.DBFactory,
 	blacklist map[common.Address]struct{},
 	isArchival map[uint32]bool,
-	harmonyconfig *harmonyconfig.HarmonyConfig,
+	feechainconfig *feechainconfig.FeechainConfig,
 ) *Node {
 	node := Node{}
 	node.unixTimeAtNodeStart = time.Now().Unix()
 	node.TransactionErrorSink = types.NewTransactionErrorSink()
-	// Get the node config that's created in the harmony.go program.
+	// Get the node config that's created in the feechain.go program.
 	if consensusObj != nil {
 		node.NodeConfig = nodeconfig.GetShardConfig(consensusObj.ShardID)
 	} else {
 		node.NodeConfig = nodeconfig.GetDefaultConfig()
 	}
-	node.HarmonyConfig = harmonyconfig
+	node.FeechainConfig = feechainconfig
 
 	copy(node.syncID[:], GenerateRandomString(SyncIDLength))
 	if host != nil {
@@ -1030,8 +1030,8 @@ func New(
 		node.BeaconBlockChannel = make(chan *types.Block)
 		txPoolConfig := core.DefaultTxPoolConfig
 
-		if harmonyconfig != nil {
-			txPoolConfig.AccountSlots = harmonyconfig.TxPool.AccountSlots
+		if feechainconfig != nil {
+			txPoolConfig.AccountSlots = feechainconfig.TxPool.AccountSlots
 		}
 
 		txPoolConfig.Blacklist = blacklist

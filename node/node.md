@@ -2,7 +2,7 @@
 
 ### Services
 
-In Harmony network, a node can be treated as one of the roles: validator, leader, beacon validator,
+In Feechain network, a node can be treated as one of the roles: validator, leader, beacon validator,
 beacon leader depending on its context. With each role, a node can run a certian set of services.
 
 For example, a leader needs to run explorer support service, syncing support

@@ -519,7 +519,7 @@ func distributeRewardBeforeAggregateEpoch(bc engine.ChainReader, state *state.DB
 	allSignersShare := numeric.ZeroDec()
 	for j := range payable {
 		voter := votingPower.Voters[payable[j].BLSPublicKey]
-		if !voter.IsHarmonyNode {
+		if !voter.IsFeechainNode {
 			voterShare := voter.OverallPercent
 			allSignersShare = allSignersShare.Add(voterShare)
 		}
@@ -527,7 +527,7 @@ func distributeRewardBeforeAggregateEpoch(bc engine.ChainReader, state *state.DB
 	for beaconMember := range payable {
 		blsKey := payable[beaconMember].BLSPublicKey
 		voter := votingPower.Voters[blsKey]
-		if !voter.IsHarmonyNode {
+		if !voter.IsFeechainNode {
 			snapshot, err := bc.ReadValidatorSnapshot(voter.EarningAccount)
 			if err != nil {
 				return network.EmptyPayout, err
@@ -608,7 +608,7 @@ func processOneCrossLink(bc engine.ChainReader, state *state.DB, cxLink types.Cr
 	allSignersShare := numeric.ZeroDec()
 	for j := range payableSigners {
 		voter := votingPower.Voters[payableSigners[j].BLSPublicKey]
-		if !voter.IsHarmonyNode {
+		if !voter.IsFeechainNode {
 			voterShare := voter.OverallPercent
 			allSignersShare = allSignersShare.Add(voterShare)
 		}
@@ -618,7 +618,7 @@ func processOneCrossLink(bc engine.ChainReader, state *state.DB, cxLink types.Cr
 	startTimeLocal = time.Now()
 	for j := range payableSigners {
 		voter := votingPower.Voters[payableSigners[j].BLSPublicKey]
-		if !voter.IsHarmonyNode && !voter.OverallPercent.IsZero() {
+		if !voter.IsFeechainNode && !voter.OverallPercent.IsZero() {
 			due := defaultReward.Mul(
 				voter.OverallPercent.Quo(allSignersShare),
 			)

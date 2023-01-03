@@ -80,7 +80,7 @@ var mainnetReshardingEpoch = []*big.Int{
 }
 
 var (
-	mainnetV0 = MustNewInstance(4, 6, 6, 	numeric.OneDec(), 								 genesis.HarmonyAccounts, genesis.FoundationalNodeAccounts, mainnetReshardingEpoch, MainnetSchedule.BlocksPerEpoch())
-	mainnetV1 = MustNewInstance(4, 85, 6, numeric.MustNewDecFromStr("0.84"), genesis.HarmonyAccounts, genesis.FoundationalNodeAccounts, mainnetReshardingEpoch, MainnetSchedule.BlocksPerEpoch())
-	mainnetV2 = MustNewInstance(4, 100, 7, numeric.MustNewDecFromStr("0.80"), genesis.HarmonyAccounts, genesis.FoundationalNodeAccounts, mainnetReshardingEpoch, MainnetSchedule.BlocksPerEpoch())
+	mainnetV0 = MustNewInstance(4, 6, 6, 	numeric.OneDec(), 								 genesis.FeechainAccounts, genesis.FoundationalNodeAccounts, mainnetReshardingEpoch, MainnetSchedule.BlocksPerEpoch())
+	mainnetV1 = MustNewInstance(4, 85, 6, numeric.MustNewDecFromStr("0.84"), genesis.FeechainAccounts, genesis.FoundationalNodeAccounts, mainnetReshardingEpoch, MainnetSchedule.BlocksPerEpoch())
+	mainnetV2 = MustNewInstance(4, 100, 7, numeric.MustNewDecFromStr("0.80"), genesis.FeechainAccounts, genesis.FoundationalNodeAccounts, mainnetReshardingEpoch, MainnetSchedule.BlocksPerEpoch())
 )

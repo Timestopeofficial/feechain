@@ -26,7 +26,7 @@ func ExternalSlotsAvailableForEpoch(epoch *big.Int) int {
 	instance := Schedule.InstanceForEpoch(epoch)
 	stakedSlots :=
 		(instance.NumNodesPerShard() -
-			instance.NumHarmonyOperatedNodesPerShard()) *
+			instance.NumFeechainOperatedNodesPerShard()) *
 			int(instance.NumShards())
 	if stakedSlots == 0 {
 		utils.Logger().Debug().

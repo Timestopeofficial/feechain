@@ -4,9 +4,9 @@ import (
 	"github.com/Timestopeofficial/feechain/consensus/quorum"
 	"github.com/Timestopeofficial/feechain/core/types"
 	"github.com/Timestopeofficial/feechain/eth/rpc"
-	"github.com/Timestopeofficial/feechain/hmy"
+	"github.com/Timestopeofficial/feechain/fch"
 	"github.com/Timestopeofficial/feechain/rosetta"
-	hmy_rpc "github.com/Timestopeofficial/feechain/rpc"
+	fch_rpc "github.com/Timestopeofficial/feechain/rpc"
 	rpc_common "github.com/Timestopeofficial/feechain/rpc/common"
 	"github.com/Timestopeofficial/feechain/rpc/filters"
 	"github.com/libp2p/go-libp2p-core/peer"
@@ -65,22 +65,22 @@ func (node *Node) ReportPlainErrorSink() types.TransactionErrorReports {
 
 // StartRPC start RPC service
 func (node *Node) StartRPC() error {
-	feechain := hmy.New(node, node.TxPool, node.CxPool, node.Consensus.ShardID)
+	feechain := fch.New(node, node.TxPool, node.CxPool, node.Consensus.ShardID)
 
 	// Gather all the possible APIs to surface
 	apis := node.APIs(feechain)
 
-	return hmy_rpc.StartServers(feechain, apis, node.NodeConfig.RPCServer)
+	return fch_rpc.StartServers(feechain, apis, node.NodeConfig.RPCServer)
 }
 
 // StopRPC stop RPC service
 func (node *Node) StopRPC() error {
-	return hmy_rpc.StopServers()
+	return fch_rpc.StopServers()
 }
 
 // StartRosetta start rosetta service
 func (node *Node) StartRosetta() error {
-	feechain := hmy.New(node, node.TxPool, node.CxPool, node.Consensus.ShardID)
+	feechain := fch.New(node, node.TxPool, node.CxPool, node.Consensus.ShardID)
 	return rosetta.StartServers(feechain, node.NodeConfig.RosettaServer, node.NodeConfig.RPCServer.RateLimiterEnabled, node.NodeConfig.RPCServer.RequestsPerSecond)
 }
 
@@ -91,13 +91,13 @@ func (node *Node) StopRosetta() error {
 
 // APIs return the collection of local RPC services.
 // NOTE, some of these services probably need to be moved to somewhere else.
-func (node *Node) APIs(feechain *hmy.Harmony) []rpc.API {
+func (node *Node) APIs(feechain *fch.Feechain) []rpc.API {
 	// Append all the local APIs and return
 	return []rpc.API{
-		hmy_rpc.NewPublicNetAPI(node.host, feechain.ChainID, hmy_rpc.V1),
-		hmy_rpc.NewPublicNetAPI(node.host, feechain.ChainID, hmy_rpc.V2),
-		hmy_rpc.NewPublicNetAPI(node.host, feechain.ChainID, hmy_rpc.Eth),
-		hmy_rpc.NewPublicWeb3API(),
+		fch_rpc.NewPublicNetAPI(node.host, feechain.ChainID, fch_rpc.V1),
+		fch_rpc.NewPublicNetAPI(node.host, feechain.ChainID, fch_rpc.V2),
+		fch_rpc.NewPublicNetAPI(node.host, feechain.ChainID, fch_rpc.Eth),
+		fch_rpc.NewPublicWeb3API(),
 		filters.NewPublicFilterAPI(feechain, false, "fch"),
 		filters.NewPublicFilterAPI(feechain, false, "eth"),
 	}
@@ -158,7 +158,7 @@ func (node *Node) SetNodeBackupMode(isBackup bool) bool {
 
 func (node *Node) GetConfig() rpc_common.Config {
 	return rpc_common.Config{
-		HarmonyConfig: *node.HarmonyConfig,
+		FeechainConfig: *node.FeechainConfig,
 		NodeConfig:    *node.NodeConfig,
 		ChainConfig:   node.chainConfig,
 	}

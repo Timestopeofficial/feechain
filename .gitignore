@@ -46,9 +46,6 @@ bc_config.json
 # leveldb local storage
 db/
 
-# harmony node keystore
-.hmykey
-
 # staking keystore
 .stakingkey
 
@@ -68,10 +65,10 @@ node_modules/
 test/.bnkey
 
 # exported keys
-.hmy/*.key
+# .fch/*.key
 
 # blspass
-blspass.txt
+# blspass.txt
 
 # local test db
 db-127.0.0.1-*
@@ -86,11 +83,11 @@ db-127.0.0.1-*
 coverage.txt
 
 # testdata directory
-harmony_db_*
+feechain_db_*
 explorer_storage_*
 
 # local blskeys for testing
-.hmy/blskeys
+.fch/blskeys
 
 # pprof profiles
 profiles/*.pb.gz

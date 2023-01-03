@@ -25,10 +25,10 @@ const (
 type instance struct {
 	numShards                       uint32
 	numNodesPerShard                int
-	numHarmonyOperatedNodesPerShard int
-	harmonyVotePercent              numeric.Dec
+	numFeechainOperatedNodesPerShard int
+	feechainVotePercent              numeric.Dec
 	externalVotePercent             numeric.Dec
-	hmyAccounts                     []genesis.DeployAccount
+	fchAccounts                     []genesis.DeployAccount
 	fnAccounts                      []genesis.DeployAccount
 	reshardingEpoch                 []*big.Int
 	blocksPerEpoch                  uint64
@@ -37,8 +37,8 @@ type instance struct {
 // NewInstance creates and validates a new sharding configuration based
 // upon given parameters.
 func NewInstance(
-	numShards uint32, numNodesPerShard, numHarmonyOperatedNodesPerShard int, harmonyVotePercent numeric.Dec,
-	hmyAccounts []genesis.DeployAccount,
+	numShards uint32, numNodesPerShard, numFeechainOperatedNodesPerShard int, feechainVotePercent numeric.Dec,
+	fchAccounts []genesis.DeployAccount,
 	fnAccounts []genesis.DeployAccount,
 	reshardingEpoch []*big.Int, blocksE uint64,
 ) (Instance, error) {
@@ -52,21 +52,21 @@ func NewInstance(
 			"each shard must have at least one node %d", numNodesPerShard,
 		)
 	}
-	if numHarmonyOperatedNodesPerShard < 0 {
+	if numFeechainOperatedNodesPerShard < 0 {
 		return nil, errors.Errorf(
-			"Feechain-operated nodes cannot be negative %d", numHarmonyOperatedNodesPerShard,
+			"Feechain-operated nodes cannot be negative %d", numFeechainOperatedNodesPerShard,
 		)
 	}
-	if numHarmonyOperatedNodesPerShard > numNodesPerShard {
+	if numFeechainOperatedNodesPerShard > numNodesPerShard {
 		return nil, errors.Errorf(""+
 			"number of Feechain-operated nodes cannot exceed "+
 			"overall number of nodes per shard %d %d",
-			numHarmonyOperatedNodesPerShard,
+			numFeechainOperatedNodesPerShard,
 			numNodesPerShard,
 		)
 	}
-	if harmonyVotePercent.LT(numeric.ZeroDec()) ||
-		harmonyVotePercent.GT(numeric.OneDec()) {
+	if feechainVotePercent.LT(numeric.ZeroDec()) ||
+		feechainVotePercent.GT(numeric.OneDec()) {
 		return nil, errors.Errorf("" +
 			"total voting power of feechain nodes should be within [0, 1]",
 		)
@@ -75,10 +75,10 @@ func NewInstance(
 	return instance{
 		numShards:                       numShards,
 		numNodesPerShard:                numNodesPerShard,
-		numHarmonyOperatedNodesPerShard: numHarmonyOperatedNodesPerShard,
-		harmonyVotePercent:              harmonyVotePercent,
-		externalVotePercent:             numeric.OneDec().Sub(harmonyVotePercent),
-		hmyAccounts:                     hmyAccounts,
+		numFeechainOperatedNodesPerShard: numFeechainOperatedNodesPerShard,
+		feechainVotePercent:              feechainVotePercent,
+		externalVotePercent:             numeric.OneDec().Sub(feechainVotePercent),
+		fchAccounts:                     fchAccounts,
 		fnAccounts:                      fnAccounts,
 		reshardingEpoch:                 reshardingEpoch,
 		blocksPerEpoch:                  blocksE,
@@ -90,15 +90,15 @@ func NewInstance(
 // It is intended to be used for static initialization.
 func MustNewInstance(
 	numShards uint32,
-	numNodesPerShard, numHarmonyOperatedNodesPerShard int,
-	harmonyVotePercent numeric.Dec,
-	hmyAccounts []genesis.DeployAccount,
+	numNodesPerShard, numFeechainOperatedNodesPerShard int,
+	feechainVotePercent numeric.Dec,
+	fchAccounts []genesis.DeployAccount,
 	fnAccounts []genesis.DeployAccount,
 	reshardingEpoch []*big.Int, blocksPerEpoch uint64,
 ) Instance {
 	sc, err := NewInstance(
-		numShards, numNodesPerShard, numHarmonyOperatedNodesPerShard, harmonyVotePercent,
-		hmyAccounts, fnAccounts, reshardingEpoch, blocksPerEpoch,
+		numShards, numNodesPerShard, numFeechainOperatedNodesPerShard, feechainVotePercent,
+		fchAccounts, fnAccounts, reshardingEpoch, blocksPerEpoch,
 	)
 	if err != nil {
 		panic(err)
@@ -116,9 +116,9 @@ func (sc instance) NumShards() uint32 {
 	return sc.numShards
 }
 
-// HarmonyVotePercent returns total percentage of voting power feechain nodes possess.
-func (sc instance) HarmonyVotePercent() numeric.Dec {
-	return sc.harmonyVotePercent
+// FeechainVotePercent returns total percentage of voting power feechain nodes possess.
+func (sc instance) FeechainVotePercent() numeric.Dec {
+	return sc.feechainVotePercent
 }
 
 // ExternalVotePercent returns total percentage of voting power external validators possess.
@@ -131,15 +131,15 @@ func (sc instance) NumNodesPerShard() int {
 	return sc.numNodesPerShard
 }
 
-// NumHarmonyOperatedNodesPerShard returns number of nodes in each shard
+// NumFeechainOperatedNodesPerShard returns number of nodes in each shard
 // that are operated by Feechain.
-func (sc instance) NumHarmonyOperatedNodesPerShard() int {
-	return sc.numHarmonyOperatedNodesPerShard
+func (sc instance) NumFeechainOperatedNodesPerShard() int {
+	return sc.numFeechainOperatedNodesPerShard
 }
 
-// HmyAccounts returns the list of Feechain accounts
-func (sc instance) HmyAccounts() []genesis.DeployAccount {
-	return sc.hmyAccounts
+// FchAccounts returns the list of Feechain accounts
+func (sc instance) FchAccounts() []genesis.DeployAccount {
+	return sc.fchAccounts
 }
 
 // FnAccounts returns the list of Foundational Node accounts
@@ -150,7 +150,7 @@ func (sc instance) FnAccounts() []genesis.DeployAccount {
 // FindAccount returns the deploy account based on the blskey, and if the account is a leader
 // or not in the bootstrapping process.
 func (sc instance) FindAccount(blsPubKey string) (bool, *genesis.DeployAccount) {
-	for i, item := range sc.hmyAccounts {
+	for i, item := range sc.fchAccounts {
 		if item.BLSPublicKey == blsPubKey {
 			item.ShardID = uint32(i) % sc.numShards
 			return uint32(i) < sc.numShards, &item

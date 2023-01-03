@@ -245,8 +245,8 @@ func TestTwoSecondsFirstBlock(t *testing.T) {
 
 func TestGetShardingStructure(t *testing.T) {
 	shardID := 0
-	numShard := 4
-	res := genShardingStructure(numShard, shardID, "http://s%d.t.hmy.io:9500", "ws://s%d.t.hmy.io:9800")
+	numShard := 2
+	res := genShardingStructure(numShard, shardID, "http://s%d.t.timestope.net:17500", "ws://s%d.t.timestope.net:17800")
 	if len(res) != 4 || !res[0]["current"].(bool) || res[1]["current"].(bool) || res[2]["current"].(bool) || res[3]["current"].(bool) {
 		t.Error("Error when generating sharding structure")
 	}
@@ -257,10 +257,10 @@ func TestGetShardingStructure(t *testing.T) {
 		if res[i]["shardID"].(int) != i {
 			t.Error("Error when generating sharding structure")
 		}
-		if res[i]["http"].(string) != fmt.Sprintf("http://s%d.t.hmy.io:9500", i) {
+		if res[i]["http"].(string) != fmt.Sprintf("http://s%d.t.timestope.net:17500", i) {
 			t.Error("Error when generating sharding structure")
 		}
-		if res[i]["ws"].(string) != fmt.Sprintf("ws://s%d.t.hmy.io:9800", i) {
+		if res[i]["ws"].(string) != fmt.Sprintf("ws://s%d.t.timestope.net:17800", i) {
 			t.Error("Error when generating sharding structure")
 		}
 	}

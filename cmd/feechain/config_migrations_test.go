@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	harmonyconfig "github.com/Timestopeofficial/feechain/internal/configs/harmony"
+	feechainconfig "github.com/Timestopeofficial/feechain/internal/configs/feechain"
 
 	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
 )
@@ -17,7 +17,7 @@ Version = "1.0.2"
   KMSConfigFile = ""
   KMSConfigSrcType = "shared"
   KMSEnabled = false
-  KeyDir = "./.hmy/blskeys"
+  KeyDir = "./.blskeys"
   KeyFiles = []
   MaxKeys = 10
   PassEnabled = true
@@ -49,13 +49,13 @@ Version = "1.0.2"
 [Network]
   BootNodes = ["/ip4/100.26.90.187/tcp/9874/p2p/Qmdfjtk6hPoyrH1zVD9PEH4zfWLo38dP2mDvvKXfh3tnEv","/ip4/54.213.43.194/tcp/9874/p2p/QmZJJx6AdaoEkGLrYG4JeLCKeCKDjnFz2wfHNHxAqFSGA9","/ip4/13.113.101.219/tcp/12019/p2p/QmQayinFSgMMw5cSpDUiD9pQ2WeP6WNmGxpZ6ou3mdVFJX","/ip4/99.81.170.167/tcp/12019/p2p/QmRVbTpEYup8dSaURZfF6ByrMTSKa4UyUzJhSjahFzRqNj"]
   DNSPort = 9000
-  DNSZone = "t.hmny.io"
+  DNSZone = "asadal.timestope.net"
   LegacySyncing = false
   NetworkType = "asadal"
 
 [P2P]
   IP = "0.0.0.0"
-  KeyFile = "./.hmykey"
+  KeyFile = "./.nkey"
   Port = 9000
 
 [Pprof]
@@ -66,7 +66,7 @@ Version = "1.0.2"
   DebugEnabled = false
 
 [TxPool]
-  BlacklistFile = "./.hmy/blacklist.txt"
+  BlacklistFile = "./blacklist.txt"
 
 [WS]
   Enabled = true
@@ -81,7 +81,7 @@ Version = "1.0.3"
   KMSConfigFile = ""
   KMSConfigSrcType = "shared"
   KMSEnabled = false
-  KeyDir = "./.hmy/blskeys"
+  KeyDir = "./.blskeys"
   KeyFiles = []
   MaxKeys = 10
   PassEnabled = true
@@ -114,13 +114,13 @@ Version = "1.0.3"
 [Network]
   BootNodes = ["/ip4/100.26.90.187/tcp/9874/p2p/Qmdfjtk6hPoyrH1zVD9PEH4zfWLo38dP2mDvvKXfh3tnEv","/ip4/54.213.43.194/tcp/9874/p2p/QmZJJx6AdaoEkGLrYG4JeLCKeCKDjnFz2wfHNHxAqFSGA9","/ip4/13.113.101.219/tcp/12019/p2p/QmQayinFSgMMw5cSpDUiD9pQ2WeP6WNmGxpZ6ou3mdVFJX","/ip4/99.81.170.167/tcp/12019/p2p/QmRVbTpEYup8dSaURZfF6ByrMTSKa4UyUzJhSjahFzRqNj"]
   DNSPort = 9000
-  DNSZone = "t.hmny.io"
+  DNSZone = "asadal.timestope.net"
   LegacySyncing = false
   NetworkType = "asadal"
 
 [P2P]
   IP = "0.0.0.0"
-  KeyFile = "./.hmykey"
+  KeyFile = "./.nkey"
   Port = 9000
 
 [Pprof]
@@ -131,7 +131,7 @@ Version = "1.0.3"
   DebugEnabled = false
 
 [TxPool]
-  BlacklistFile = "./.hmy/blacklist.txt"
+  BlacklistFile = "./blacklist.txt"
 
 [WS]
   Enabled = true
@@ -146,7 +146,7 @@ Version = "1.0.4"
   KMSConfigFile = ""
   KMSConfigSrcType = "shared"
   KMSEnabled = false
-  KeyDir = "./.hmy/blskeys"
+  KeyDir = "./.blskeys"
   KeyFiles = []
   MaxKeys = 10
   PassEnabled = true
@@ -177,15 +177,15 @@ Version = "1.0.4"
   Verbosity = 3
 
 [Network]
-  BootNodes = ["/dnsaddr/bootstrap.t.hmny.io"]
+  BootNodes = ["/dnsaddr/bootstrap.asadal.timestope.net"]
   DNSPort = 9000
-  DNSZone = "t.hmny.io"
+  DNSZone = "asadal.timestope.net"
   LegacySyncing = false
   NetworkType = "asadal"
 
 [P2P]
   IP = "0.0.0.0"
-  KeyFile = "./.hmykey"
+  KeyFile = "./.nkey"
   Port = 9000
 
 [Pprof]
@@ -208,7 +208,7 @@ Version = "1.0.4"
   MinPeers = 6
 
 [TxPool]
-  BlacklistFile = "./.hmy/blacklist.txt"
+  BlacklistFile = "./blacklist.txt"
 
 [WS]
   Enabled = true
@@ -223,7 +223,7 @@ Version = "1.0.4"
   KMSConfigFile = ""
   KMSConfigSrcType = "shared"
   KMSEnabled = false
-  KeyDir = "./.hmy/blskeys"
+  KeyDir = "./.blskeys"
   KeyFiles = []
   MaxKeys = 10
   PassEnabled = true
@@ -254,15 +254,15 @@ Version = "1.0.4"
   Verbosity = 3
 
 [Network]
-  BootNodes = ["/dnsaddr/bootstrap.t.hmny.io"]
+  BootNodes = ["/dnsaddr/bootstrap.asadal.timestope.net"]
   DNSPort = 9000
-  DNSZone = "t.hmny.io"
+  DNSZone = "asadal.timestope.net"
   LegacySyncing = false
   NetworkType = "asadal"
 
 [P2P]
   IP = "0.0.0.0"
-  KeyFile = "./.hmykey"
+  KeyFile = "./.nkey"
   Port = 9000
 
 [Pprof]
@@ -292,7 +292,7 @@ Version = "1.0.4"
   CacheSize = 512
 
 [TxPool]
-  BlacklistFile = "./.hmy/blacklist.txt"
+  BlacklistFile = "./blacklist.txt"
 
 [WS]
   Enabled = true
@@ -302,8 +302,8 @@ Version = "1.0.4"
 )
 
 func Test_migrateConf(t *testing.T) {
-	defConf := getDefaultHmyConfigCopy(nodeconfig.Mainnet)
-	legacyDefConf := getDefaultHmyConfigCopy(nodeconfig.Mainnet)
+	defConf := getDefaultFchConfigCopy(nodeconfig.Mainnet)
+	legacyDefConf := getDefaultFchConfigCopy(nodeconfig.Mainnet)
 	// Versions prior to 1.0.3 use different BootNodes
 	legacyDefConf.Network.BootNodes = []string{
 		"/ip4/100.26.90.187/tcp/9874/p2p/Qmdfjtk6hPoyrH1zVD9PEH4zfWLo38dP2mDvvKXfh3tnEv",
@@ -317,7 +317,7 @@ func Test_migrateConf(t *testing.T) {
 	tests := []struct {
 		name    string
 		args    args
-		want    harmonyconfig.HarmonyConfig
+		want    feechainconfig.FeechainConfig
 		wantErr bool
 	}{
 		{
@@ -349,7 +349,7 @@ func Test_migrateConf(t *testing.T) {
 			args: args{
 				confBytes: V1_0_4ConfigDownloaderOn,
 			},
-			want: func() harmonyconfig.HarmonyConfig {
+			want: func() feechainconfig.FeechainConfig {
 				hc := defConf
 				hc.Sync.Downloader = true
 				hc.Sync.Enabled = true

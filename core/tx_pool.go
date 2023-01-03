@@ -35,7 +35,7 @@ import (
 	"github.com/Timestopeofficial/feechain/core/state"
 	"github.com/Timestopeofficial/feechain/core/types"
 	"github.com/Timestopeofficial/feechain/core/vm"
-	hmyCommon "github.com/Timestopeofficial/feechain/internal/common"
+	fchCommon "github.com/Timestopeofficial/feechain/internal/common"
 	"github.com/Timestopeofficial/feechain/internal/utils"
 	"github.com/Timestopeofficial/feechain/shard"
 	staking "github.com/Timestopeofficial/feechain/staking/types"
@@ -381,7 +381,7 @@ func (pool *TxPool) loop() {
 				}
 				// Any non-locals old enough should be removed
 				if time.Since(pool.beats[addr]) > pool.config.Lifetime {
-					b32addr, err := hmyCommon.AddressToBech32(addr)
+					b32addr, err := fchCommon.AddressToBech32(addr)
 					if err != nil {
 						b32addr = "unknown"
 					}
@@ -702,14 +702,14 @@ func (pool *TxPool) validateTx(tx types.PoolTransaction, local bool) error {
 	// Make sure the transaction is signed properly
 	from, err := tx.SenderAddress()
 	if err != nil {
-		if b32, err := hmyCommon.AddressToBech32(from); err == nil {
+		if b32, err := fchCommon.AddressToBech32(from); err == nil {
 			return errors.WithMessagef(ErrInvalidSender, "transaction sender is %s", b32)
 		}
 		return ErrInvalidSender
 	}
 	// Make sure transaction does not have blacklisted addresses
 	if _, exists := (pool.config.Blacklist)[from]; exists {
-		if b32, err := hmyCommon.AddressToBech32(from); err == nil {
+		if b32, err := fchCommon.AddressToBech32(from); err == nil {
 			return errors.WithMessagef(ErrBlacklistFrom, "transaction sender is %s", b32)
 		}
 		return ErrBlacklistFrom
@@ -717,7 +717,7 @@ func (pool *TxPool) validateTx(tx types.PoolTransaction, local bool) error {
 	// Make sure transaction does not burn funds by sending funds to blacklisted address
 	if tx.To() != nil {
 		if _, exists := (pool.config.Blacklist)[*tx.To()]; exists {
-			if b32, err := hmyCommon.AddressToBech32(*tx.To()); err == nil {
+			if b32, err := fchCommon.AddressToBech32(*tx.To()); err == nil {
 				return errors.WithMessagef(ErrBlacklistTo, "transaction receiver is %s", b32)
 			}
 			return ErrBlacklistTo
@@ -776,7 +776,7 @@ func (pool *TxPool) validateTx(tx types.PoolTransaction, local bool) error {
 func (pool *TxPool) validateStakingTx(tx *staking.StakingTransaction) error {
 	// from address already validated
 	from, _ := tx.SenderAddress()
-	b32, _ := hmyCommon.AddressToBech32(from)
+	b32, _ := fchCommon.AddressToBech32(from)
 
 	switch tx.StakingType() {
 	case staking.DirectiveCreateValidator:

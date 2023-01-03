@@ -17,7 +17,7 @@ type pair struct {
 
 var (
 
-	// schedule is the Token Release Schedule of Harmony
+	// schedule is the Token Release Schedule
 	releasePlan = map[int64]numeric.Dec{
 		//2019
 		mustParse("2019-May-31"): numeric.MustNewDecFromStr("0.242864761904762"),

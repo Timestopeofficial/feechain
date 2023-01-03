@@ -54,8 +54,8 @@ while getopts "lbvp" OPTION; do
 	case $OPTION in
 	b)
 		NETWORK="betanet"
-		declare -A PORT=( [POST]="http://s0.b.hmny.io:9500/" [GET]="http://e0.b.hmny.io:5000/" )
-		BLOCK_0_HASH=$(curl --location --request POST "http://l0.b.hmny.io:9500" \
+		declare -A PORT=( [POST]="http://s0.t.timestope.net:9500/" [GET]="http://e0.t.timestope.net:5000/" )
+		BLOCK_0_HASH=$(curl --location --request POST "http://l0.t.timestope.net:9500" \
 			  --header "Content-Type: application/json" \
 			  --data "{\"jsonrpc\":\"2.0\",\"method\":\"fch_getBlockByNumber\",\"params\":[\"0x1\", true],\"id\":1}" | jq -r '.result.hash')
 		echo "BLOCK0HASH:"
@@ -64,13 +64,13 @@ while getopts "lbvp" OPTION; do
 		SIGNED_RAW_TRANSACTION=$(node ../dapp-examples/nodejs/apiTestSign.js)
 		echo "RAWTX"
 		echo "$SIGNED_RAW_TRANSACTION"
-		TRANSACTION_HASH=$(curl  --location --request POST "http://l0.b.hmny.io:9500" \
+		TRANSACTION_HASH=$(curl  --location --request POST "http://l0.t.timestope.net:9500" \
 			  --header "Content-Type: application/json" \
 			    --data "{\"jsonrpc\":\"2.0\",\"method\":\"fch_sendRawTransaction\",\"params\":[\""$SIGNED_RAW_TRANSACTION"\"],\"id\":1}" | jq -r '.result')
 		echo "TRANSACTION_HASH:"
 		echo $TRANSACTION_HASH
 		sleep 20s
-		TRANSACTION=$(curl --location --request POST "http://l0.b.hmny.io:9500" \
+		TRANSACTION=$(curl --location --request POST "http://l0.t.timestope.net:9500" \
 			  --header "Content-Type: application/json" \
 			  --data "{\"jsonrpc\":\"2.0\",\"method\":\"fch_getTransactionByHash\",\"params\":[\"$TRANSACTION_HASH\"],\"id\":1}")
 

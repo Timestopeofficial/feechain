@@ -16,7 +16,7 @@ import (
 	msg_pb "github.com/Timestopeofficial/feechain/api/proto/message"
 	"github.com/Timestopeofficial/feechain/core"
 	"github.com/Timestopeofficial/feechain/core/types"
-	"github.com/Timestopeofficial/feechain/hmy"
+	"github.com/Timestopeofficial/feechain/fch"
 	"github.com/Timestopeofficial/feechain/internal/chain"
 	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
 	"github.com/Timestopeofficial/feechain/internal/utils"
@@ -48,11 +48,11 @@ type Service struct {
 	server      *http.Server
 	messageChan chan *msg_pb.Message
 	blockchain  *core.BlockChain
-	backend     hmy.NodeAPI
+	backend     fch.NodeAPI
 }
 
 // New returns explorer service.
-func New(selfPeer *p2p.Peer, bc *core.BlockChain, backend hmy.NodeAPI) *Service {
+func New(selfPeer *p2p.Peer, bc *core.BlockChain, backend fch.NodeAPI) *Service {
 	dbPath := defaultDBPath(selfPeer.IP, selfPeer.Port)
 	storage, err := newStorage(bc, dbPath)
 	if err != nil {

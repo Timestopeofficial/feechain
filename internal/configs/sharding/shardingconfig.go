@@ -48,18 +48,18 @@ type Instance interface {
 	// NumNodesPerShard returns number of nodes in each shard.
 	NumNodesPerShard() int
 
-	// NumHarmonyOperatedNodesPerShard returns number of nodes in each shard
+	// NumFeechainOperatedNodesPerShard returns number of nodes in each shard
 	// that are operated by Feechain.
-	NumHarmonyOperatedNodesPerShard() int
+	NumFeechainOperatedNodesPerShard() int
 
-	// HarmonyVotePercent returns total percentage of voting power feechain nodes possess.
-	HarmonyVotePercent() numeric.Dec
+	// FeechainVotePercent returns total percentage of voting power feechain nodes possess.
+	FeechainVotePercent() numeric.Dec
 
 	// ExternalVotePercent returns total percentage of voting power external validators possess.
 	ExternalVotePercent() numeric.Dec
 
-	// HmyAccounts returns a list of Feechain accounts
-	HmyAccounts() []genesis.DeployAccount
+	// FchAccounts returns a list of Feechain accounts
+	FchAccounts() []genesis.DeployAccount
 
 	// FnAccounts returns a list of Foundational node accounts
 	FnAccounts() []genesis.DeployAccount

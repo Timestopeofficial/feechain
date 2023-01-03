@@ -15,7 +15,7 @@ import (
 	"github.com/ethereum/go-ethereum/rlp"
 	"github.com/pkg/errors"
 
-	hmyTypes "github.com/Timestopeofficial/feechain/core/types"
+	fchTypes "github.com/Timestopeofficial/feechain/core/types"
 	"github.com/Timestopeofficial/feechain/rosetta/common"
 	stakingTypes "github.com/Timestopeofficial/feechain/staking/types"
 )
@@ -37,7 +37,7 @@ type WrappedTransaction struct {
 // unpackWrappedTransactionFromString ..
 func unpackWrappedTransactionFromString(
 	str string, signed bool,
-) (*WrappedTransaction, hmyTypes.PoolTransaction, *types.Error) {
+) (*WrappedTransaction, fchTypes.PoolTransaction, *types.Error) {
 	wrappedTransaction := &WrappedTransaction{}
 	if err := json.Unmarshal([]byte(str), wrappedTransaction); err != nil {
 		return nil, nil, common.NewError(common.InvalidTransactionConstructionError, map[string]interface{}{
@@ -55,7 +55,7 @@ func unpackWrappedTransactionFromString(
 		})
 	}
 
-	var tx hmyTypes.PoolTransaction
+	var tx fchTypes.PoolTransaction
 	stream := rlp.NewStream(bytes.NewBuffer(wrappedTransaction.RLPBytes), 0)
 	if wrappedTransaction.IsStaking {
 		index := 0
@@ -68,7 +68,7 @@ func unpackWrappedTransactionFromString(
 				"message": errors.WithMessage(err, "rlp encoding error for staking transaction").Error(),
 			})
 		}
-		intendedReceipt := &hmyTypes.Receipt{
+		intendedReceipt := &fchTypes.Receipt{
 			GasUsed: stakingTx.GasLimit(),
 		}
 		formattedTx, rosettaError := FormatTransaction(
@@ -249,7 +249,7 @@ func unpackWrappedTransactionFromString(
 		stakingTransaction.SetRawSignature(stakingTx.RawSignatureValues())
 		tx = stakingTransaction
 	} else {
-		plainTx := &hmyTypes.Transaction{}
+		plainTx := &fchTypes.Transaction{}
 		if err := plainTx.DecodeRLP(stream); err != nil {
 			return nil, nil, common.NewError(common.InvalidTransactionConstructionError, map[string]interface{}{
 				"message": errors.WithMessage(err, "rlp encoding error for plain transaction").Error(),
@@ -264,7 +264,7 @@ func unpackWrappedTransactionFromString(
 func (s *ConstructAPI) ConstructionPayloads(
 	ctx context.Context, request *types.ConstructionPayloadsRequest,
 ) (*types.ConstructionPayloadsResponse, *types.Error) {
-	if err := assertValidNetworkIdentifier(request.NetworkIdentifier, s.hmy.ShardID); err != nil {
+	if err := assertValidNetworkIdentifier(request.NetworkIdentifier, s.fch.ShardID); err != nil {
 		return nil, err
 	}
 	if request.Metadata == nil {
@@ -305,15 +305,15 @@ func (s *ConstructAPI) ConstructionPayloads(
 			"message": "sender account identifier from operations does not match account identifier from public key",
 		})
 	}
-	if metadata.Transaction.FromShardID != nil && *metadata.Transaction.FromShardID != s.hmy.ShardID {
+	if metadata.Transaction.FromShardID != nil && *metadata.Transaction.FromShardID != s.fch.ShardID {
 		return nil, common.NewError(common.InvalidTransactionConstructionError, map[string]interface{}{
 			"message": fmt.Sprintf("transaction is for shard %v != shard %v",
-				*metadata.Transaction.FromShardID, s.hmy.ShardID,
+				*metadata.Transaction.FromShardID, s.fch.ShardID,
 			),
 		})
 	}
 
-	unsignedTx, rosettaError := ConstructTransaction(components, metadata, s.hmy.ShardID)
+	unsignedTx, rosettaError := ConstructTransaction(components, metadata, s.fch.ShardID)
 	if rosettaError != nil {
 		return nil, rosettaError
 	}
@@ -346,7 +346,7 @@ func (s *ConstructAPI) ConstructionPayloads(
 
 // getSigningPayload ..
 func (s *ConstructAPI) getSigningPayload(
-	tx hmyTypes.PoolTransaction, senderAccountID *types.AccountIdentifier,
+	tx fchTypes.PoolTransaction, senderAccountID *types.AccountIdentifier,
 ) (*types.SigningPayload, *types.Error) {
 	payload := &types.SigningPayload{
 		AccountIdentifier: senderAccountID,
@@ -355,8 +355,8 @@ func (s *ConstructAPI) getSigningPayload(
 	switch tx.(type) {
 	case *stakingTypes.StakingTransaction:
 		payload.Bytes = s.stakingSigner.Hash(tx.(*stakingTypes.StakingTransaction)).Bytes()
-	case *hmyTypes.Transaction:
-		payload.Bytes = s.signer.Hash(tx.(*hmyTypes.Transaction)).Bytes()
+	case *fchTypes.Transaction:
+		payload.Bytes = s.signer.Hash(tx.(*fchTypes.Transaction)).Bytes()
 	default:
 		return nil, common.NewError(common.CatchAllError, map[string]interface{}{
 			"message": "constructed unknown or unsupported transaction",
@@ -369,7 +369,7 @@ func (s *ConstructAPI) getSigningPayload(
 func (s *ConstructAPI) ConstructionCombine(
 	ctx context.Context, request *types.ConstructionCombineRequest,
 ) (*types.ConstructionCombineResponse, *types.Error) {
-	if err := assertValidNetworkIdentifier(request.NetworkIdentifier, s.hmy.ShardID); err != nil {
+	if err := assertValidNetworkIdentifier(request.NetworkIdentifier, s.fch.ShardID); err != nil {
 		return nil, err
 	}
 	wrappedTransaction, tx, rosettaError := unpackWrappedTransactionFromString(request.UnsignedTransaction, false)
@@ -381,9 +381,9 @@ func (s *ConstructAPI) ConstructionCombine(
 			"message": "require exactly 1 signature",
 		})
 	}
-	if tx.ShardID() != s.hmy.ShardID {
+	if tx.ShardID() != s.fch.ShardID {
 		return nil, common.NewError(common.InvalidTransactionConstructionError, map[string]interface{}{
-			"message": fmt.Sprintf("transaction is for shard %v != shard %v", tx.ShardID(), s.hmy.ShardID),
+			"message": fmt.Sprintf("transaction is for shard %v != shard %v", tx.ShardID(), s.fch.ShardID),
 		})
 	}
 
@@ -417,7 +417,7 @@ func (s *ConstructAPI) ConstructionCombine(
 	}
 
 	var err error
-	var signedTx hmyTypes.PoolTransaction
+	var signedTx fchTypes.PoolTransaction
 	if len(sig.Bytes) != SignedPayloadLength {
 		return nil, common.NewError(common.InvalidTransactionConstructionError, map[string]interface{}{
 			"message": fmt.Sprintf("invalid signature byte length, require len %v got len %v",
@@ -426,7 +426,7 @@ func (s *ConstructAPI) ConstructionCombine(
 	}
 	if stakingTx, ok := tx.(*stakingTypes.StakingTransaction); ok && wrappedTransaction.IsStaking {
 		signedTx, err = stakingTx.WithSignature(s.stakingSigner, sig.Bytes)
-	} else if plainTx, ok := tx.(*hmyTypes.Transaction); ok && !wrappedTransaction.IsStaking {
+	} else if plainTx, ok := tx.(*fchTypes.Transaction); ok && !wrappedTransaction.IsStaking {
 		signedTx, err = plainTx.WithSignature(s.signer, sig.Bytes)
 	} else {
 		return nil, common.NewError(common.CatchAllError, map[string]interface{}{

@@ -2,7 +2,7 @@ package helpers
 
 import (
 	"github.com/Timestopeofficial/bls/ffi/go/bls"
-	harmony_bls "github.com/Timestopeofficial/feechain/crypto/bls"
+	feechain_bls "github.com/Timestopeofficial/feechain/crypto/bls"
 	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
 	"github.com/Timestopeofficial/feechain/p2p"
 	libp2p_crypto "github.com/libp2p/go-libp2p-crypto"
@@ -70,7 +70,7 @@ func GenerateHost(address string, port string) (p2p.Host, *bls.PublicKey, error)
 
 // GeneratePeer - test helper to generate a new peer
 func GeneratePeer(address string, port string) (p2p.Peer, error) {
-	peerPrivateKey := harmony_bls.RandPrivateKey()
+	peerPrivateKey := feechain_bls.RandPrivateKey()
 	peerPublicKey := peerPrivateKey.GetPublicKey()
 	if peerPrivateKey == nil || peerPublicKey == nil {
 		return p2p.Peer{}, errors.New("failed to generate bls key for peer")

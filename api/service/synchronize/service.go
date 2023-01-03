@@ -2,7 +2,7 @@ package synchronize
 
 import (
 	"github.com/Timestopeofficial/feechain/core"
-	"github.com/Timestopeofficial/feechain/hmy/downloader"
+	"github.com/Timestopeofficial/feechain/fch/downloader"
 	"github.com/Timestopeofficial/feechain/p2p"
 )
 

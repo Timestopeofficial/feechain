@@ -1,2 +1,0 @@
-%_topdir    %(echo $HOME)/rpmbuild
-%_gpg_name  Leo Chen <leo@harmony.one>

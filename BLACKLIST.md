@@ -4,7 +4,7 @@ The black list is a newline delimited file of wallet addresses. It can also supp
 
 ## Default Location
 
-By default, the harmony binary looks for the file `./.hmy/blaklist.txt`.
+By default, the feechain binary looks for the file `./.fch/blaklist.txt`.
 
 ## Example File
 ```

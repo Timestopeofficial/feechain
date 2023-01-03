@@ -34,9 +34,9 @@ function build() {
 
 function setup() {
   # Setup blspass file
-  mkdir -p ${ROOT}/.hmy
-  if [[ ! -f "${ROOT}/.hmy/blspass.txt" ]]; then
-    touch "${ROOT}/.hmy/blspass.txt"
+  mkdir -p ${ROOT}/.fch
+  if [[ ! -f "${ROOT}/.fch/blspass.txt" ]]; then
+    touch "${ROOT}/.fch/blspass.txt"
   fi
 
   # Kill nodes if any
@@ -72,7 +72,7 @@ function launch_localnet() {
     verbosity=3
   fi
 
-  base_args=(--log_folder "${log_folder}" --min_peers "${MIN}" --bootnodes "${BN_MA}" "--network_type=$NETWORK" --blspass file:"${ROOT}/.hmy/blspass.txt" "--dns=false" "--verbosity=${verbosity}" "--p2p.security.max-conn-per-ip=100")
+  base_args=(--log_folder "${log_folder}" --min_peers "${MIN}" --bootnodes "${BN_MA}" "--network_type=$NETWORK" --blspass file:"${ROOT}/.fch/blspass.txt" "--dns=false" "--verbosity=${verbosity}" "--p2p.security.max-conn-per-ip=100")
   sleep 2
 
   # Start nodes

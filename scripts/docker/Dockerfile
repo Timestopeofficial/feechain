@@ -5,7 +5,7 @@ RUN apk add --no-cache bash libstdc++ gmp-dev libc6-compat bind-tools jq && ln -
 # default base port, rpc port and rest port
 EXPOSE 9000/tcp 9500/tcp 9800/tcp 6000/tcp
 
-VOLUME ["/feechain/feechain_db_0","/feechain/feechain_db_1","/feechain/feechain_db_2","/feechain/feechain_db_3","/feechain/log","/feechain/.hmy"]
+VOLUME ["/feechain/feechain_db_0","/feechain/feechain_db_1","/feechain/feechain_db_2","/feechain/feechain_db_3","/feechain/log","/feechain/.fch"]
 
 # Default BN for S3/asadal
 ENV NODE_BN_MNET "/ip4/100.26.90.187/tcp/9874/p2p/Qmdfjtk6hPoyrH1zVD9PEH4zfWLo38dP2mDvvKXfh3tnEv,/ip4/54.213.43.194/tcp/9874/p2p/QmZJJx6AdaoEkGLrYG4JeLCKeCKDjnFz2wfHNHxAqFSGA9,/ip4/13.113.101.219/tcp/12019/p2p/QmQayinFSgMMw5cSpDUiD9pQ2WeP6WNmGxpZ6ou3mdVFJX,/ip4/99.81.170.167/tcp/12019/p2p/QmRVbTpEYup8dSaURZfF6ByrMTSKa4UyUzJhSjahFzRqNj"
@@ -19,7 +19,7 @@ ENV NODE_BN_OSTN "/ip4/54.86.126.90/tcp/9880/p2p/Qmdfjtk6hPoyrH1zVD9PEH4zfWLo38d
 ENV NODE_PORT "9000"
 ENV NODE_BLSKEY ""
 ENV NODE_BLSPASS ""
-ENV NODE_DNS_ZONE "t.hmny.io"
+ENV NODE_DNS_ZONE "asadal.timestope.net"
 ENV NODE_RPC "true"
 ENV NODE_BLACKLIST ""
 ENV NODE_NETWORK_TYPE "asadal"

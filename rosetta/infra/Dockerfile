@@ -7,16 +7,16 @@ RUN apt update -y && \
 
 ENV GOPATH=/root/go
 ENV GO111MODULE=on
-ENV HMY_PATH=${GOPATH}/src/github.com/Timestopeofficial
-RUN mkdir -p $HMY_PATH
+ENV FCH_PATH=${GOPATH}/src/github.com/Timestopeofficial
+RUN mkdir -p $FCH_PATH
 
-WORKDIR $HMY_PATH
+WORKDIR $FCH_PATH
 
 RUN git clone https://github.com/Timestopeofficial/feechain.git && \
     git clone https://github.com/Timestopeofficial/bls.git && \
     git clone https://github.com/Timestopeofficial/mcl.git
 
-WORKDIR $HMY_PATH/feechain
+WORKDIR $FCH_PATH/feechain
 
 RUN go mod download
 
@@ -29,7 +29,7 @@ RUN make linux_static && \
 
 RUN cp ./rosetta/infra/feechain-pstn.conf /root/feechain-pstn.conf && \
     cp ./rosetta/infra/feechain-mainnet.conf /root/feechain-mainnet.conf && \
-    cp ./.hmy/rosetta_local_fix.csv /root/rosetta_local_fix.csv
+    cp ./.fch/rosetta_local_fix.csv /root/rosetta_local_fix.csv
 
 # Execution
 FROM ubuntu:20.04

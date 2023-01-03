@@ -59,15 +59,15 @@ func TestCompute(t *testing.T) {
 	expectedRoster := NewRoster(shard.BeaconChainShardID)
 	// Calculated when generated
 	expectedRoster.TotalEffectiveStake = totalStake
-	expectedRoster.HMYSlotCount = int64(feechainNodes)
+	expectedRoster.FCHSlotCount = int64(feechainNodes)
 
-	asDecHMYSlotCount := numeric.NewDec(expectedRoster.HMYSlotCount)
+	asDecFCHSlotCount := numeric.NewDec(expectedRoster.FCHSlotCount)
 	ourPercentage := numeric.ZeroDec()
 	theirPercentage := numeric.ZeroDec()
 
 	staked := slotList
 	for i := range staked {
-		member := AccommodateHarmonyVote{
+		member := AccommodateFeechainVote{
 			PureStakedVote: PureStakedVote{
 				EarningAccount: staked[i].EcdsaAddress,
 				Identity:       staked[i].BLSPublicKey,
@@ -75,11 +75,11 @@ func TestCompute(t *testing.T) {
 				EffectiveStake: numeric.ZeroDec(),
 			},
 			OverallPercent: numeric.ZeroDec(),
-			IsHarmonyNode:  false,
+			IsFeechainNode:  false,
 		}
 
 		// Real Staker
-		feechainPercent := shard.Schedule.InstanceForEpoch(big.NewInt(3)).HarmonyVotePercent()
+		feechainPercent := shard.Schedule.InstanceForEpoch(big.NewInt(3)).FeechainVotePercent()
 		externalPercent := shard.Schedule.InstanceForEpoch(big.NewInt(3)).ExternalVotePercent()
 		if e := staked[i].EffectiveStake; e != nil {
 			member.EffectiveStake = member.EffectiveStake.Add(*e)
@@ -87,8 +87,8 @@ func TestCompute(t *testing.T) {
 			member.OverallPercent = member.GroupPercent.Mul(externalPercent)
 			theirPercentage = theirPercentage.Add(member.OverallPercent)
 		} else { // Our node
-			member.IsHarmonyNode = true
-			member.OverallPercent = feechainPercent.Quo(asDecHMYSlotCount)
+			member.IsFeechainNode = true
+			member.OverallPercent = feechainPercent.Quo(asDecFCHSlotCount)
 			member.GroupPercent = member.OverallPercent.Quo(feechainPercent)
 			ourPercentage = ourPercentage.Add(member.OverallPercent)
 		}
@@ -137,11 +137,11 @@ func compareRosters(a, b *Roster, t *testing.T) bool {
 	return a.OurVotingPowerTotalPercentage.Equal(b.OurVotingPowerTotalPercentage) &&
 		a.TheirVotingPowerTotalPercentage.Equal(b.TheirVotingPowerTotalPercentage) &&
 		a.TotalEffectiveStake.Equal(b.TotalEffectiveStake) &&
-		a.HMYSlotCount == b.HMYSlotCount && voterMatch
+		a.FCHSlotCount == b.FCHSlotCount && voterMatch
 }
 
-func compareStakedVoter(a, b *AccommodateHarmonyVote) bool {
-	return a.IsHarmonyNode == b.IsHarmonyNode &&
+func compareStakedVoter(a, b *AccommodateFeechainVote) bool {
+	return a.IsFeechainNode == b.IsFeechainNode &&
 		a.EarningAccount == b.EarningAccount &&
 		a.OverallPercent.Equal(b.OverallPercent) &&
 		a.EffectiveStake.Equal(b.EffectiveStake)

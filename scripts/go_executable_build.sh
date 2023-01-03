@@ -7,14 +7,11 @@ SRC[feechain]=./cmd/feechain
 SRC[bootnode]=./cmd/bootnode
 
 BINDIR=bin
-BUCKET=unique-bucket-bin
-PUBBUCKET=pub.harmony.one
 REL=
 GOOS=linux
 GOARCH=$(uname -m)
 GOARCH=${GOARCH/x86_64/amd64}
 GOARCH=${GOARCH/aarch64/arm64}
-FOLDER=${WHOAMI:-$USER}
 RACE=
 TRACEPTR=
 VERBOSE=
@@ -62,8 +59,6 @@ OPTIONS:
    -p profile     aws profile name
    -a arch        set build arch (default: $GOARCH)
    -o os          set build OS (default: $GOOS, windows is supported)
-   -b bucket      set the upload bucket name (default: $BUCKET)
-   -f folder      set the upload folder name in the bucket (default: $FOLDER)
    -r             enable -race build option (default: $RACE)
    -t             full analysis on {pointer} build option (default: $TRACEPTR)
    -v             verbose build process (default: $VERBOSE)
@@ -73,8 +68,6 @@ OPTIONS:
 
 ACTION:
    build       build binaries only (default action)
-   upload      upload binaries to s3
-   release     upload binaries to release bucket
 
    feechain|bootnode|
                only build the specified binary
@@ -86,9 +79,6 @@ EXAMPLES:
 
 # build windows binaries
    $ME -o windows
-
-# upload binaries to my s3 bucket, 0908 folder
-   $ME -b mybucket -f 0908 upload
 
 EOF
    exit 1
@@ -176,88 +166,6 @@ function set_gcflags
    fi
 }
 
-function upload
-{
-   AWSCLI=aws
-
-   if [ -n "$PROFILE" ]; then
-      AWSCLI+=" --profile $PROFILE"
-   fi
-
-   if [ "$STATIC" != "true" ]; then
-      for lib in "${!LIB[@]}"; do
-         if [ -e ${LIB[$lib]} ]; then
-            $AWSCLI s3 cp ${LIB[$lib]} s3://${BUCKET}/$FOLDER/$lib --acl public-read
-         else
-            echo "!! MISSING ${LIB[$lib]} !!"
-         fi
-      done
-   else
-      FOLDER+='/static'
-   fi
-
-   for bin in "${!SRC[@]}"; do
-      [ -e $BINDIR/$bin ] && $AWSCLI s3 cp $BINDIR/$bin s3://${BUCKET}/$FOLDER/$bin --acl public-read
-   done
-
-   # copy node.sh
-   $AWSCLI s3 cp scripts/node.sh s3://${BUCKET}/$FOLDER/node.sh --acl public-read
-
-   [ -e $BINDIR/md5sum.txt ] && $AWSCLI s3 cp $BINDIR/md5sum.txt s3://${BUCKET}/$FOLDER/md5sum.txt --acl public-read
-}
-
-function release
-{
-   AWSCLI=aws
-
-   if [ -n "$PROFILE" ]; then
-      AWSCLI+=" --profile $PROFILE"
-   fi
-
-   OS=$(uname -s)
-   REL=$FOLDER
-   if [ "$REL" = "asadal" ]; then
-      echo "DO NOT release asadal binary"
-      exit 1
-   fi
-
-   case "$OS" in
-      "Linux")
-         FOLDER=release/linux-x86_64/$REL ;;
-      "Darwin")
-         FOLDER=release/darwin-x86_64/$REL ;;
-      *)
-         echo "Unsupported OS: $OS"
-         return ;;
-   esac
-
-   if [ "$STATIC" != "true" ]; then
-      for lib in "${!LIB[@]}"; do
-         if [ -e ${LIB[$lib]} ]; then
-            $AWSCLI s3 cp ${LIB[$lib]} s3://${PUBBUCKET}/$FOLDER/$lib --acl public-read
-         else
-            echo "!! MISSING ${LIB[$lib]} !!"
-         fi
-      done
-   else
-      FOLDER+='/static'
-   fi
-
-   for bin in "${!SRC[@]}"; do
-      if [ -e $BINDIR/$bin ]; then
-         $AWSCLI s3 cp $BINDIR/$bin s3://${PUBBUCKET}/$FOLDER/$bin --acl public-read
-      else
-         echo "!! MISSGING $bin !!"
-      fi
-   done
-
-   # copy node.sh
-   $AWSCLI s3 cp scripts/node.sh s3://${PUBBUCKET}/$FOLDER/node.sh --acl public-read
-
-   [ -e $BINDIR/md5sum.txt ] && $AWSCLI s3 cp $BINDIR/md5sum.txt s3://${PUBBUCKET}/$FOLDER/md5sum.txt --acl public-read
-}
-
-
 ################################ MAIN FUNCTION ##############################
 while getopts "hp:a:o:b:f:rtvsdS" option; do
    case $option in
@@ -265,8 +173,6 @@ while getopts "hp:a:o:b:f:rtvsdS" option; do
       p) PROFILE=$OPTARG ;;
       a) GOARCH=$OPTARG ;;
       o) GOOS=$OPTARG ;;
-      b) BUCKET=$OPTARG ;;
-      f) FOLDER=$OPTARG ;;
       r) RACE=-race ;;
       t) TRACEPTR='-gcflags=all=-d=checkptr' ;;
       v) VERBOSE='-v -x' ;;
@@ -284,8 +190,6 @@ ACTION=${1:-build}
 
 case "$ACTION" in
    "build") build_only ;;
-   "upload") upload ;;
-   "release") release ;;
    "feechain"|"bootnode") build_only $ACTION ;;
    *) usage ;;
 esac

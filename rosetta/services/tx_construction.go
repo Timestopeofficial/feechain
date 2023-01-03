@@ -13,7 +13,7 @@ import (
 	types2 "github.com/Timestopeofficial/feechain/staking/types"
 	"github.com/pkg/errors"
 
-	hmyTypes "github.com/Timestopeofficial/feechain/core/types"
+	fchTypes "github.com/Timestopeofficial/feechain/core/types"
 	"github.com/Timestopeofficial/feechain/rosetta/common"
 )
 
@@ -26,7 +26,7 @@ type TransactionMetadata struct {
 	// ContractAccountIdentifier is the 'main' contract account ID associated with a transaction
 	ContractAccountIdentifier *types.AccountIdentifier `json:"contract_account_identifier,omitempty"`
 	Data                      *string                  `json:"data,omitempty"`
-	Logs                      []*hmyTypes.Log          `json:"logs,omitempty"`
+	Logs                      []*fchTypes.Log          `json:"logs,omitempty"`
 	// SlotPubKeys SlotPubKeyToAdd SlotPubKeyToRemove are all hex representation of bls public key
 	SlotPubKeys        []string `json:"slot_pub_keys,omitempty"`
 	SlotKeySigs        []string `json:"slot_key_sigs,omitempty"`
@@ -52,7 +52,7 @@ func (t *TransactionMetadata) UnmarshalFromInterface(metaData interface{}) error
 // ConstructTransaction object (unsigned).
 func ConstructTransaction(
 	components *OperationComponents, metadata *ConstructMetadata, sourceShardID uint32,
-) (response hmyTypes.PoolTransaction, rosettaError *types.Error) {
+) (response fchTypes.PoolTransaction, rosettaError *types.Error) {
 	if components == nil || metadata == nil {
 		return nil, common.NewError(common.CatchAllError, map[string]interface{}{
 			"message": "nil components or metadata",
@@ -65,7 +65,7 @@ func ConstructTransaction(
 		})
 	}
 
-	var tx hmyTypes.PoolTransaction
+	var tx fchTypes.PoolTransaction
 	switch components.Type {
 	case common.NativeCrossShardTransferOperation:
 		if tx, rosettaError = constructCrossShardTransaction(components, metadata, sourceShardID); rosettaError != nil {
@@ -110,7 +110,7 @@ func ConstructTransaction(
 // constructCrossShardTransaction ..
 func constructCrossShardTransaction(
 	components *OperationComponents, metadata *ConstructMetadata, sourceShardID uint32,
-) (hmyTypes.PoolTransaction, *types.Error) {
+) (fchTypes.PoolTransaction, *types.Error) {
 	if components.To == nil {
 		return nil, common.NewError(common.InvalidTransactionConstructionError, map[string]interface{}{
 			"message": "cross shard transfer requires a receiver",
@@ -145,7 +145,7 @@ func constructCrossShardTransaction(
 			})
 		}
 	}
-	return hmyTypes.NewCrossShardTransaction(
+	return fchTypes.NewCrossShardTransaction(
 		metadata.Nonce, &to, *metadata.Transaction.FromShardID, *metadata.Transaction.ToShardID,
 		components.Amount, metadata.GasLimit, metadata.GasPrice, data,
 	), nil
@@ -154,7 +154,7 @@ func constructCrossShardTransaction(
 // constructContractCreationTransaction ..
 func constructContractCreationTransaction(
 	components *OperationComponents, metadata *ConstructMetadata, sourceShardID uint32,
-) (hmyTypes.PoolTransaction, *types.Error) {
+) (fchTypes.PoolTransaction, *types.Error) {
 	if metadata.Transaction.Data == nil {
 		return nil, common.NewError(common.InvalidTransactionConstructionError, map[string]interface{}{
 			"message": "contract creation requires data, but none found in transaction metadata",
@@ -166,14 +166,14 @@ func constructContractCreationTransaction(
 			"message": errors.WithMessage(err, "improper data format for transaction data").Error(),
 		})
 	}
-	return hmyTypes.NewContractCreation(
+	return fchTypes.NewContractCreation(
 		metadata.Nonce, sourceShardID, components.Amount, metadata.GasLimit, metadata.GasPrice, data,
 	), nil
 }
 
 func constructCreateValidatorTransaction(
 	components *OperationComponents, metadata *ConstructMetadata,
-) (hmyTypes.PoolTransaction, *types.Error) {
+) (fchTypes.PoolTransaction, *types.Error) {
 	createValidatorMsg := components.StakingMessage.(common.CreateValidatorOperationMetadata)
 	validatorAddr, err := common2.Bech32ToAddress(createValidatorMsg.ValidatorAddress)
 	if err != nil {
@@ -240,7 +240,7 @@ func constructCreateValidatorTransaction(
 
 func constructEditValidatorTransaction(
 	components *OperationComponents, metadata *ConstructMetadata,
-) (hmyTypes.PoolTransaction, *types.Error) {
+) (fchTypes.PoolTransaction, *types.Error) {
 	editValidatorMsg := components.StakingMessage.(common.EditValidatorOperationMetadata)
 	validatorAddr, err := common2.Bech32ToAddress(editValidatorMsg.ValidatorAddress)
 	if err != nil {
@@ -307,7 +307,7 @@ func constructEditValidatorTransaction(
 
 func constructDelegateTransaction(
 	components *OperationComponents, metadata *ConstructMetadata,
-) (hmyTypes.PoolTransaction, *types.Error) {
+) (fchTypes.PoolTransaction, *types.Error) {
 	delegaterMsg := components.StakingMessage.(common.DelegateOperationMetadata)
 	delegatorAddr, err := common2.Bech32ToAddress(delegaterMsg.DelegatorAddress)
 	if err != nil {
@@ -342,7 +342,7 @@ func constructDelegateTransaction(
 
 func constructUndelegateTransaction(
 	components *OperationComponents, metadata *ConstructMetadata,
-) (hmyTypes.PoolTransaction, *types.Error) {
+) (fchTypes.PoolTransaction, *types.Error) {
 	undelegaterMsg := components.StakingMessage.(common.UndelegateOperationMetadata)
 	delegatorAddr, err := common2.Bech32ToAddress(undelegaterMsg.DelegatorAddress)
 	if err != nil {
@@ -377,7 +377,7 @@ func constructUndelegateTransaction(
 
 func constructCollectRewardsTransaction(
 	components *OperationComponents, metadata *ConstructMetadata,
-) (hmyTypes.PoolTransaction, *types.Error) {
+) (fchTypes.PoolTransaction, *types.Error) {
 	collectRewardsMsg := components.StakingMessage.(common.CollectRewardsMetadata)
 	delegatorAddr, err := common2.Bech32ToAddress(collectRewardsMsg.DelegatorAddress)
 	if err != nil {
@@ -405,7 +405,7 @@ func constructCollectRewardsTransaction(
 // constructPlainTransaction ..
 func constructPlainTransaction(
 	components *OperationComponents, metadata *ConstructMetadata, sourceShardID uint32,
-) (hmyTypes.PoolTransaction, *types.Error) {
+) (fchTypes.PoolTransaction, *types.Error) {
 	if components.To == nil {
 		return nil, common.NewError(common.InvalidTransactionConstructionError, map[string]interface{}{
 			"message": "cross shard transfer requires a receiver",
@@ -425,7 +425,7 @@ func constructPlainTransaction(
 			})
 		}
 	}
-	return hmyTypes.NewTransaction(
+	return fchTypes.NewTransaction(
 		metadata.Nonce, to, sourceShardID, components.Amount, metadata.GasLimit, metadata.GasPrice, data,
 	), nil
 }

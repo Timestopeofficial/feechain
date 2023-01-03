@@ -11,7 +11,7 @@ import (
 	"github.com/Timestopeofficial/feechain/block"
 	"github.com/Timestopeofficial/feechain/core/types"
 	"github.com/Timestopeofficial/feechain/eth/rpc"
-	hmy_rpc "github.com/Timestopeofficial/feechain/rpc"
+	fch_rpc "github.com/Timestopeofficial/feechain/rpc"
 )
 
 var (
@@ -56,7 +56,7 @@ func NewPublicFilterAPI(backend Backend, lightMode bool, namespace string) rpc.A
 
 	return rpc.API{
 		Namespace: namespace,
-		Version:   hmy_rpc.APIVersion,
+		Version:   fch_rpc.APIVersion,
 		Service:   api,
 		Public:    true,
 	}
@@ -96,8 +96,8 @@ func (api *PublicFilterAPI) timeoutLoop() {
 //
 // https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_newpendingtransactionfilter
 func (api *PublicFilterAPI) NewPendingTransactionFilter() rpc.ID {
-	timer := hmy_rpc.DoMetricRPCRequest(hmy_rpc.NewPendingTransactionFilter)
-	defer hmy_rpc.DoRPCRequestDuration(hmy_rpc.NewPendingTransactionFilter, timer)
+	timer := fch_rpc.DoMetricRPCRequest(fch_rpc.NewPendingTransactionFilter)
+	defer fch_rpc.DoRPCRequestDuration(fch_rpc.NewPendingTransactionFilter, timer)
 
 	var (
 		pendingTxs   = make(chan []common.Hash)
@@ -132,8 +132,8 @@ func (api *PublicFilterAPI) NewPendingTransactionFilter() rpc.ID {
 // NewPendingTransactions creates a subscription that is triggered each time a transaction
 // enters the transaction pool and was signed from one of the transactions this nodes manages.
 func (api *PublicFilterAPI) NewPendingTransactions(ctx context.Context) (*rpc.Subscription, error) {
-	timer := hmy_rpc.DoMetricRPCRequest(hmy_rpc.NewPendingTransactions)
-	defer hmy_rpc.DoRPCRequestDuration(hmy_rpc.NewPendingTransactions, timer)
+	timer := fch_rpc.DoMetricRPCRequest(fch_rpc.NewPendingTransactions)
+	defer fch_rpc.DoRPCRequestDuration(fch_rpc.NewPendingTransactions, timer)
 
 	notifier, supported := rpc.NotifierFromContext(ctx)
 	if !supported {
@@ -172,8 +172,8 @@ func (api *PublicFilterAPI) NewPendingTransactions(ctx context.Context) (*rpc.Su
 //
 // https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_newblockfilter
 func (api *PublicFilterAPI) NewBlockFilter() rpc.ID {
-	timer := hmy_rpc.DoMetricRPCRequest(hmy_rpc.NewBlockFilter)
-	defer hmy_rpc.DoRPCRequestDuration(hmy_rpc.NewBlockFilter, timer)
+	timer := fch_rpc.DoMetricRPCRequest(fch_rpc.NewBlockFilter)
+	defer fch_rpc.DoRPCRequestDuration(fch_rpc.NewBlockFilter, timer)
 
 	var (
 		headers   = make(chan *block.Header)
@@ -207,8 +207,8 @@ func (api *PublicFilterAPI) NewBlockFilter() rpc.ID {
 
 // NewHeads send a notification each time a new (header) block is appended to the chain.
 func (api *PublicFilterAPI) NewHeads(ctx context.Context) (*rpc.Subscription, error) {
-	timer := hmy_rpc.DoMetricRPCRequest(hmy_rpc.NewHeads)
-	defer hmy_rpc.DoRPCRequestDuration(hmy_rpc.NewHeads, timer)
+	timer := fch_rpc.DoMetricRPCRequest(fch_rpc.NewHeads)
+	defer fch_rpc.DoRPCRequestDuration(fch_rpc.NewHeads, timer)
 	notifier, supported := rpc.NotifierFromContext(ctx)
 	if !supported {
 		return &rpc.Subscription{}, rpc.ErrNotificationsUnsupported
@@ -245,8 +245,8 @@ func (api *PublicFilterAPI) NewHeads(ctx context.Context) (*rpc.Subscription, er
 //
 // https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getfilterchanges
 func (api *PublicFilterAPI) GetFilterChanges(id rpc.ID) (interface{}, error) {
-	timer := hmy_rpc.DoMetricRPCRequest(hmy_rpc.GetFilterChanges)
-	defer hmy_rpc.DoRPCRequestDuration(hmy_rpc.GetFilterChanges, timer)
+	timer := fch_rpc.DoMetricRPCRequest(fch_rpc.GetFilterChanges)
+	defer fch_rpc.DoRPCRequestDuration(fch_rpc.GetFilterChanges, timer)
 
 	api.filtersMu.Lock()
 	defer api.filtersMu.Unlock()
@@ -294,8 +294,8 @@ func returnLogs(logs []*types.Log) []*types.Log {
 
 // Logs creates a subscription that fires for all new log that match the given filter criteria.
 func (api *PublicFilterAPI) Logs(ctx context.Context, crit FilterCriteria) (*rpc.Subscription, error) {
-	timer := hmy_rpc.DoMetricRPCRequest(hmy_rpc.Logs)
-	defer hmy_rpc.DoRPCRequestDuration(hmy_rpc.Logs, timer)
+	timer := fch_rpc.DoMetricRPCRequest(fch_rpc.Logs)
+	defer fch_rpc.DoRPCRequestDuration(fch_rpc.Logs, timer)
 	notifier, supported := rpc.NotifierFromContext(ctx)
 	if !supported {
 		return &rpc.Subscription{}, rpc.ErrNotificationsUnsupported
@@ -346,8 +346,8 @@ func (api *PublicFilterAPI) Logs(ctx context.Context, crit FilterCriteria) (*rpc
 //
 // https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_newfilter
 func (api *PublicFilterAPI) NewFilter(crit FilterCriteria) (rpc.ID, error) {
-	timer := hmy_rpc.DoMetricRPCRequest(hmy_rpc.NewFilter)
-	defer hmy_rpc.DoRPCRequestDuration(hmy_rpc.NewFilter, timer)
+	timer := fch_rpc.DoMetricRPCRequest(fch_rpc.NewFilter)
+	defer fch_rpc.DoRPCRequestDuration(fch_rpc.NewFilter, timer)
 
 	logs := make(chan []*types.Log)
 	logsSub, err := api.events.SubscribeLogs(ethereum.FilterQuery(crit), logs)
@@ -384,8 +384,8 @@ func (api *PublicFilterAPI) NewFilter(crit FilterCriteria) (rpc.ID, error) {
 //
 // https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getlogs
 func (api *PublicFilterAPI) GetLogs(ctx context.Context, crit FilterCriteria) ([]*types.Log, error) {
-	timer := hmy_rpc.DoMetricRPCRequest(hmy_rpc.GetLogs)
-	defer hmy_rpc.DoRPCRequestDuration(hmy_rpc.GetLogs, timer)
+	timer := fch_rpc.DoMetricRPCRequest(fch_rpc.GetLogs)
+	defer fch_rpc.DoRPCRequestDuration(fch_rpc.GetLogs, timer)
 
 	var filter *Filter
 	if crit.BlockHash != nil {
@@ -411,7 +411,7 @@ func (api *PublicFilterAPI) GetLogs(ctx context.Context, crit FilterCriteria) ([
 	// Run the filter and return all the logs
 	logs, err := filter.Logs(ctx)
 	if err != nil {
-		hmy_rpc.DoMetricRPCQueryInfo(hmy_rpc.GetLogs, hmy_rpc.FailedNumber)
+		fch_rpc.DoMetricRPCQueryInfo(fch_rpc.GetLogs, fch_rpc.FailedNumber)
 		return nil, err
 	}
 	return returnLogs(logs), err
@@ -421,8 +421,8 @@ func (api *PublicFilterAPI) GetLogs(ctx context.Context, crit FilterCriteria) ([
 //
 // https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_uninstallfilter
 func (api *PublicFilterAPI) UninstallFilter(id rpc.ID) bool {
-	timer := hmy_rpc.DoMetricRPCRequest(hmy_rpc.UninstallFilter)
-	defer hmy_rpc.DoRPCRequestDuration(hmy_rpc.UninstallFilter, timer)
+	timer := fch_rpc.DoMetricRPCRequest(fch_rpc.UninstallFilter)
+	defer fch_rpc.DoRPCRequestDuration(fch_rpc.UninstallFilter, timer)
 
 	api.filtersMu.Lock()
 	f, found := api.filters[id]
@@ -442,8 +442,8 @@ func (api *PublicFilterAPI) UninstallFilter(id rpc.ID) bool {
 //
 // https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getfilterlogs
 func (api *PublicFilterAPI) GetFilterLogs(ctx context.Context, id rpc.ID) ([]*types.Log, error) {
-	timer := hmy_rpc.DoMetricRPCRequest(hmy_rpc.GetFilterLogs)
-	defer hmy_rpc.DoRPCRequestDuration(hmy_rpc.GetFilterLogs, timer)
+	timer := fch_rpc.DoMetricRPCRequest(fch_rpc.GetFilterLogs)
+	defer fch_rpc.DoRPCRequestDuration(fch_rpc.GetFilterLogs, timer)
 
 	api.filtersMu.Lock()
 	f, found := api.filters[id]
@@ -473,7 +473,7 @@ func (api *PublicFilterAPI) GetFilterLogs(ctx context.Context, id rpc.ID) ([]*ty
 	// Run the filter and return all the logs
 	logs, err := filter.Logs(ctx)
 	if err != nil {
-		hmy_rpc.DoMetricRPCQueryInfo(hmy_rpc.GetFilterLogs, hmy_rpc.FailedNumber)
+		fch_rpc.DoMetricRPCQueryInfo(fch_rpc.GetFilterLogs, fch_rpc.FailedNumber)
 		return nil, err
 	}
 	return returnLogs(logs), nil

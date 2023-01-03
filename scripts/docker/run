@@ -82,7 +82,7 @@ myip
 # setup runtime environment
 setup_env
 
-keydir=/feechain/.hmy
+keydir=/feechain/.fch
 
 args=(
       -log_folder "/feechain/log"

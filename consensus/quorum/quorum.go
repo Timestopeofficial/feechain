@@ -75,7 +75,7 @@ type ParticipantTracker interface {
 	IndexOf(bls.SerializedPublicKey) int
 	ParticipantsCount() int64
 	NthNext(*bls.PublicKeyWrapper, int) (bool, *bls.PublicKeyWrapper)
-	NthNextHmy(shardingconfig.Instance, *bls.PublicKeyWrapper, int) (bool, *bls.PublicKeyWrapper)
+	NthNextFch(shardingconfig.Instance, *bls.PublicKeyWrapper, int) (bool, *bls.PublicKeyWrapper)
 	FirstParticipant(shardingconfig.Instance) *bls.PublicKeyWrapper
 	UpdateParticipants(pubKeys []bls.PublicKeyWrapper)
 }
@@ -230,15 +230,15 @@ func (s *cIdentities) NthNext(pubKey *bls.PublicKeyWrapper, next int) (bool, *bl
 	return found, &s.publicKeys[idx]
 }
 
-// NthNextHmy return the Nth next pubkey of Feechain nodes, next can be negative number
-func (s *cIdentities) NthNextHmy(instance shardingconfig.Instance, pubKey *bls.PublicKeyWrapper, next int) (bool, *bls.PublicKeyWrapper) {
+// NthNextFch return the Nth next pubkey of Feechain nodes, next can be negative number
+func (s *cIdentities) NthNextFch(instance shardingconfig.Instance, pubKey *bls.PublicKeyWrapper, next int) (bool, *bls.PublicKeyWrapper) {
 	found := false
 
 	idx := s.IndexOf(pubKey.Bytes)
 	if idx != -1 {
 		found = true
 	}
-	numNodes := instance.NumHarmonyOperatedNodesPerShard()
+	numNodes := instance.NumFeechainOperatedNodesPerShard()
 	// sanity check to avoid out of bound access
 	if numNodes <= 0 || numNodes > len(s.publicKeys) {
 		numNodes = len(s.publicKeys)

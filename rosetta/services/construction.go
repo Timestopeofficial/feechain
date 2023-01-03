@@ -11,8 +11,8 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 
 	"github.com/Timestopeofficial/feechain/common/denominations"
-	hmyTypes "github.com/Timestopeofficial/feechain/core/types"
-	"github.com/Timestopeofficial/feechain/hmy"
+	fchTypes "github.com/Timestopeofficial/feechain/core/types"
+	"github.com/Timestopeofficial/feechain/fch"
 	"github.com/Timestopeofficial/feechain/rosetta/common"
 	stakingTypes "github.com/Timestopeofficial/feechain/staking/types"
 )
@@ -24,17 +24,17 @@ const (
 
 // ConstructAPI implements the server.ConstructAPIServicer interface.
 type ConstructAPI struct {
-	hmy           *hmy.Harmony
-	signer        hmyTypes.Signer
+	fch           *fch.Feechain
+	signer        fchTypes.Signer
 	stakingSigner stakingTypes.Signer
 }
 
 // NewConstructionAPI creates a new instance of a ConstructAPI.
-func NewConstructionAPI(hmy *hmy.Harmony) server.ConstructionAPIServicer {
+func NewConstructionAPI(fch *fch.Feechain) server.ConstructionAPIServicer {
 	return &ConstructAPI{
-		hmy:           hmy,
-		signer:        hmyTypes.NewEIP155Signer(new(big.Int).SetUint64(hmy.ChainID)),
-		stakingSigner: stakingTypes.NewEIP155Signer(new(big.Int).SetUint64(hmy.ChainID)),
+		fch:           fch,
+		signer:        fchTypes.NewEIP155Signer(new(big.Int).SetUint64(fch.ChainID)),
+		stakingSigner: stakingTypes.NewEIP155Signer(new(big.Int).SetUint64(fch.ChainID)),
 	}
 }
 
@@ -42,7 +42,7 @@ func NewConstructionAPI(hmy *hmy.Harmony) server.ConstructionAPIServicer {
 func (s *ConstructAPI) ConstructionDerive(
 	ctx context.Context, request *types.ConstructionDeriveRequest,
 ) (*types.ConstructionDeriveResponse, *types.Error) {
-	if err := assertValidNetworkIdentifier(request.NetworkIdentifier, s.hmy.ShardID); err != nil {
+	if err := assertValidNetworkIdentifier(request.NetworkIdentifier, s.fch.ShardID); err != nil {
 		return nil, err
 	}
 	address, rosettaError := getAddressFromPublicKey(request.PublicKey)

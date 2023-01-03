@@ -281,7 +281,7 @@ func NewCxReceipt(cx *types.CXReceipt, blockHash common.Hash, blockNumber uint64
 
 // NewTransaction returns a transaction that will serialize to the RPC
 // representation, with the given location metadata set (if available).
-// Note that all txs on Harmony are replay protected (post EIP155 epoch).
+// Note that all txs on Feechain are replay protected (post EIP155 epoch).
 func NewTransaction(
 	tx *types.Transaction, blockHash common.Hash,
 	blockNumber uint64, timestamp uint64, index uint64,

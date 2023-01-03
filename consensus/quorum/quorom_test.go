@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	bls_core "github.com/Timestopeofficial/bls/ffi/go/bls"
-	harmony_bls "github.com/Timestopeofficial/feechain/crypto/bls"
+	feechain_bls "github.com/Timestopeofficial/feechain/crypto/bls"
 	shardingconfig "github.com/Timestopeofficial/feechain/internal/configs/sharding"
 	"github.com/Timestopeofficial/feechain/shard"
 	"github.com/stretchr/testify/assert"
@@ -54,11 +54,11 @@ func TestAddingQuoromParticipants(t *testing.T) {
 
 	assert.Equal(t, int64(0), decider.ParticipantsCount())
 
-	blsKeys := []harmony_bls.PublicKeyWrapper{}
+	blsKeys := []feechain_bls.PublicKeyWrapper{}
 	keyCount := int64(5)
 	for i := int64(0); i < keyCount; i++ {
-		blsKey := harmony_bls.RandPrivateKey()
-		wrapper := harmony_bls.PublicKeyWrapper{Object: blsKey.GetPublicKey()}
+		blsKey := feechain_bls.RandPrivateKey()
+		wrapper := feechain_bls.PublicKeyWrapper{Object: blsKey.GetPublicKey()}
 		wrapper.Bytes.FromLibBLSPublicKey(wrapper.Object)
 		blsKeys = append(blsKeys, wrapper)
 	}

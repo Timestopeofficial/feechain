@@ -22,9 +22,9 @@ const (
 	partnerVdfDifficulty = 10000 // This takes about 20s to finish the vdf
 
 	// PartnerHTTPPattern is the http pattern for partner.
-	PartnerHTTPPattern = "https://api.s%d.ps.hmny.io"
+	PartnerHTTPPattern = "https://api.s%d.ps.timestope.net"
 	// PartnerWSPattern is the websocket pattern for partner.
-	PartnerWSPattern = "wss://ws.s%d.ps.hmny.io"
+	PartnerWSPattern = "wss://ws.s%d.ps.timestope.net"
 )
 
 func (ps partnerSchedule) InstanceForEpoch(epoch *big.Int) Instance {
@@ -76,5 +76,5 @@ var partnerReshardingEpoch = []*big.Int{
 	params.PartnerChainConfig.StakingEpoch,
 }
 
-var partnerV0 = MustNewInstance(2, 5, 5, numeric.OneDec(), genesis.TNHarmonyAccounts, genesis.TNFoundationalAccounts, partnerReshardingEpoch, PartnerSchedule.BlocksPerEpoch())
-var partnerV1 = MustNewInstance(2, 5, 4, numeric.MustNewDecFromStr("0.9"), genesis.TNHarmonyAccounts, genesis.TNFoundationalAccounts, partnerReshardingEpoch, PartnerSchedule.BlocksPerEpoch())
+var partnerV0 = MustNewInstance(2, 5, 5, numeric.OneDec(), genesis.TNFeechainAccounts, genesis.TNFoundationalAccounts, partnerReshardingEpoch, PartnerSchedule.BlocksPerEpoch())
+var partnerV1 = MustNewInstance(2, 5, 4, numeric.MustNewDecFromStr("0.9"), genesis.TNFeechainAccounts, genesis.TNFoundationalAccounts, partnerReshardingEpoch, PartnerSchedule.BlocksPerEpoch())

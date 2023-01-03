@@ -19,7 +19,7 @@ import (
 	"github.com/Timestopeofficial/feechain/core/rawdb"
 	"github.com/Timestopeofficial/feechain/core/state"
 	"github.com/Timestopeofficial/feechain/core/types"
-	"github.com/Timestopeofficial/feechain/hmy"
+	"github.com/Timestopeofficial/feechain/fch"
 	"github.com/Timestopeofficial/feechain/internal/cli"
 
 	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
@@ -276,7 +276,7 @@ func (db *KakashiDB) GetBlockByNumber(number uint64) *types.Block {
 
 func (db *KakashiDB) indexerDataDump(block *types.Block) {
 	fmt.Println("indexerDataDump:")
-	bloomIndexer := hmy.NewBloomIndexer(db, params.BloomBitsBlocks, params.BloomConfirms)
+	bloomIndexer := fch.NewBloomIndexer(db, params.BloomBitsBlocks, params.BloomConfirms)
 	bloomIndexer.Close() // just stop event loop
 	section, blkno, blkhash := bloomIndexer.Sections()
 	bloomIndexer.AddCheckpoint(section-1, blkhash)

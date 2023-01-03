@@ -10,7 +10,7 @@ import (
 // CreateEnvViper creates viper to read variables from system enviroment
 func CreateEnvViper() *viper.Viper {
 	envViper := viper.New()
-	envViper.SetEnvPrefix("HMY") // will be uppercased automatically
+	envViper.SetEnvPrefix("FCH") // will be uppercased automatically
 	envViper.AutomaticEnv()
 
 	return envViper

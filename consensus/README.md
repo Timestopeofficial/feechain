@@ -1,10 +1,9 @@
-Consensus package includes the Harmony BFT consensus protocol code, which uses BLS-based
-multi-signature to cosign the new block. The details are
-in Harmony's new [consensus protocol design](https://talk.harmony.one/t/bls-based-practical-bft-consensus/131).
+Consensus package includes the BFT consensus protocol code, which uses BLS-based
+multi-signature to cosign the new block.
 
-## Introduction to Harmony BFT with BLS signatures
+## Introduction to BFT with BLS signatures
 
-Harmony BFT consensus protocol consist of normal mode and view changing mode which is same
+BFT consensus protocol consist of normal mode and view changing mode which is same
 as the PBFT(practical byzantine fault tolerance) protocol. The difference is we use the
 BLS aggregated signature to reduce O(N^2) communications to O(N), which is more efficient
 and scalable to traditional PBFT. For brevity, we will still call the whole process as PBFT.

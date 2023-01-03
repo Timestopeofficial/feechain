@@ -23,7 +23,7 @@ import (
 	"github.com/Timestopeofficial/feechain/api/service/synchronize"
 	"github.com/Timestopeofficial/feechain/core"
 	"github.com/Timestopeofficial/feechain/core/types"
-	"github.com/Timestopeofficial/feechain/hmy/downloader"
+	"github.com/Timestopeofficial/feechain/fch/downloader"
 	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
 	"github.com/Timestopeofficial/feechain/internal/utils"
 	"github.com/Timestopeofficial/feechain/node/worker"

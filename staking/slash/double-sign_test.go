@@ -746,10 +746,10 @@ func makeEmptyRecordWithSignerKey(pub bls.SerializedPublicKey) Record {
 
 func makeVotingPower(m map[bls.SerializedPublicKey]numeric.Dec) *votepower.Roster {
 	r := &votepower.Roster{
-		Voters: make(map[bls.SerializedPublicKey]*votepower.AccommodateHarmonyVote),
+		Voters: make(map[bls.SerializedPublicKey]*votepower.AccommodateFeechainVote),
 	}
 	for pub, pct := range m {
-		r.Voters[pub] = &votepower.AccommodateHarmonyVote{
+		r.Voters[pub] = &votepower.AccommodateFeechainVote{
 			PureStakedVote: votepower.PureStakedVote{GroupPercent: pct},
 		}
 	}

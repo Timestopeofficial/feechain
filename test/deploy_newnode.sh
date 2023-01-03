@@ -95,10 +95,10 @@ log_folder="tmp_log/log-$t"
 mkdir -p $log_folder
 LOG_FILE=$log_folder/r.log
 
-HMY_OPT=
+FCH_OPT=
 # Change to the beacon chain output from deploy.sh
-HMY_OPT2=
-HMY_OPT3=
+FCH_OPT2=
+FCH_OPT3=
 
 unset -v latest_bootnode_log
 latest_bootnode_log=$(ls -tr "${ROOT}"/tmp_log/log-*/bootnode.log | tail -1)
@@ -117,11 +117,11 @@ case "${bn_ma}" in
 	;;
 esac
 echo "autodetected boot node multiaddr: ${bn_ma}"
-HMY_OPT2="-bootnodes ${bn_ma}"
+FCH_OPT2="-bootnodes ${bn_ma}"
 
 for i in 0{1..5} # {10..99}
 do
     echo "launching new node $i ..."
-    ($DRYRUN $ROOT/bin/feechain -ip 127.0.0.1 -port 91$i -log_folder $log_folder -is_newnode $DB -account_index $i -min_peers $MIN $HMY_OPT $HMY_OPT2 $HMY_OPT3 -key /tmp/127.0.0.1-91$i.key 2>&1 | tee -a $LOG_FILE ) &
+    ($DRYRUN $ROOT/bin/feechain -ip 127.0.0.1 -port 91$i -log_folder $log_folder -is_newnode $DB -account_index $i -min_peers $MIN $FCH_OPT $FCH_OPT2 $FCH_OPT3 -key /tmp/127.0.0.1-91$i.key 2>&1 | tee -a $LOG_FILE ) &
     sleep 5
 done

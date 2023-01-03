@@ -21,7 +21,7 @@ import (
 	"github.com/Timestopeofficial/feechain/core/types"
 	internal_bls "github.com/Timestopeofficial/feechain/crypto/bls"
 	"github.com/Timestopeofficial/feechain/eth/rpc"
-	"github.com/Timestopeofficial/feechain/hmy"
+	"github.com/Timestopeofficial/feechain/fch"
 	"github.com/Timestopeofficial/feechain/internal/chain"
 	internal_common "github.com/Timestopeofficial/feechain/internal/common"
 	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
@@ -35,10 +35,10 @@ import (
 	stakingReward "github.com/Timestopeofficial/feechain/staking/reward"
 )
 
-// PublicBlockchainService provides an API to access the Harmony blockchain.
+// PublicBlockchainService provides an API to access the Feechain blockchain.
 // It offers only methods that operate on public data that is freely available to anyone.
 type PublicBlockchainService struct {
-	hmy             *hmy.Harmony
+	fch             *fch.Feechain
 	version         Version
 	limiter         *rate.Limiter
 	rpcBlockFactory rpc_common.BlockFactory
@@ -55,7 +55,7 @@ const (
 )
 
 // NewPublicBlockchainAPI creates a new API for the RPC interface
-func NewPublicBlockchainAPI(hmy *hmy.Harmony, version Version, limiterEnable bool, limit int) rpc.API {
+func NewPublicBlockchainAPI(fch *fch.Feechain, version Version, limiterEnable bool, limit int) rpc.API {
 	var limiter *rate.Limiter
 	if limiterEnable {
 		limiter = rate.NewLimiter(rate.Limit(limit), limit)
@@ -66,7 +66,7 @@ func NewPublicBlockchainAPI(hmy *hmy.Harmony, version Version, limiterEnable boo
 	}
 
 	s := &PublicBlockchainService{
-		hmy:                             hmy,
+		fch:                             fch,
 		version:                         version,
 		limiter:                         limiter,
 		limiterGetStakingNetworkInfo:    rate.NewLimiter(5, 10),
@@ -99,9 +99,9 @@ func (s *PublicBlockchainService) ChainId(ctx context.Context) (interface{}, err
 	// Format return base on version
 	switch s.version {
 	case V1:
-		return hexutil.Uint64(s.hmy.ChainID), nil
+		return hexutil.Uint64(s.fch.ChainID), nil
 	case V2:
-		return s.hmy.ChainID, nil
+		return s.fch.ChainID, nil
 	case Eth:
 		ethChainID := nodeconfig.GetDefaultConfig().GetNetworkType().ChainConfig().EthCompatibleChainID
 		return hexutil.Uint64(ethChainID.Uint64()), nil
@@ -113,7 +113,7 @@ func (s *PublicBlockchainService) ChainId(ctx context.Context) (interface{}, err
 // Accounts returns the collection of accounts this node manages
 // While this JSON-RPC method is supported, it will not return any accounts.
 // Similar to e.g. Infura "unlocking" accounts isn't supported.
-// Instead, users should send already signed raw transactions using hmy_sendRawTransaction or eth_sendRawTransaction
+// Instead, users should send already signed raw transactions using fch_sendRawTransaction or eth_sendRawTransaction
 func (s *PublicBlockchainService) Accounts() []common.Address {
 	return []common.Address{}
 }
@@ -126,7 +126,7 @@ func (s *PublicBlockchainService) getBalanceByBlockNumber(
 	if err != nil {
 		return nil, err
 	}
-	balance, err := s.hmy.GetBalance(ctx, addr, blockNum)
+	balance, err := s.fch.GetBalance(ctx, addr, blockNum)
 	if err != nil {
 		return nil, err
 	}
@@ -136,7 +136,7 @@ func (s *PublicBlockchainService) getBalanceByBlockNumber(
 // BlockNumber returns the block number of the chain head.
 func (s *PublicBlockchainService) BlockNumber(ctx context.Context) (interface{}, error) {
 	// Fetch latest header
-	header, err := s.hmy.HeaderByNumber(ctx, rpc.LatestBlockNumber)
+	header, err := s.fch.HeaderByNumber(ctx, rpc.LatestBlockNumber)
 	if err != nil {
 		return nil, err
 	}
@@ -195,16 +195,16 @@ func (s *PublicBlockchainService) GetBlockByNumber(
 	}
 	var blockNum uint64
 	if blockNumber.EthBlockNumber() == rpc.LatestBlockNumber {
-		blockNum = s.hmy.BlockChain.CurrentHeader().Number().Uint64()
+		blockNum = s.fch.BlockChain.CurrentHeader().Number().Uint64()
 	} else {
 		blockNum = uint64(blockNumber.EthBlockNumber().Int64())
 	}
 
-	blk := s.hmy.BlockChain.GetBlockByNumber(blockNum)
+	blk := s.fch.BlockChain.GetBlockByNumber(blockNum)
 	// Some Ethereum tools (such as Truffle) rely on being able to query for future blocks without the chain returning errors.
 	// These tools implement retry mechanisms that will query & retry for a given block until it has been finalized.
 	// Throwing an error like "requested block number greater than current block number" breaks this retry functionality.
-	// Disable isBlockGreaterThanLatest checks for Ethereum RPC:s, but keep them in place for legacy hmy_ RPC:s for now to ensure backwards compatibility
+	// Disable isBlockGreaterThanLatest checks for Ethereum RPC:s, but keep them in place for legacy fch_ RPC:s for now to ensure backwards compatibility
 	if blk == nil {
 		DoMetricRPCQueryInfo(GetBlockByNumber, FailedNumber)
 		if s.version == Eth {
@@ -244,7 +244,7 @@ func (s *PublicBlockchainService) GetBlockByHash(
 	}
 
 	// Fetch the block
-	blk, err := s.hmy.GetBlock(ctx, blockHash)
+	blk, err := s.fch.GetBlock(ctx, blockHash)
 	if err != nil || blk == nil {
 		DoMetricRPCQueryInfo(GetBlockByHash, FailedNumber)
 		return nil, err
@@ -298,7 +298,7 @@ func (s *PublicBlockchainService) GetBlocks(
 	blockStart := blockNumberStart.Int64()
 	blockEnd := blockNumberEnd.Int64()
 	if blockNumberEnd.EthBlockNumber() == rpc.LatestBlockNumber {
-		blockEnd = s.hmy.BlockChain.CurrentHeader().Number().Int64()
+		blockEnd = s.fch.BlockChain.CurrentHeader().Number().Int64()
 	}
 	if blockEnd >= blockStart && blockEnd-blockStart > rpcGetBlocksLimit {
 		return nil, fmt.Errorf("GetBlocks query must be smaller than size %v", rpcGetBlocksLimit)
@@ -314,7 +314,7 @@ func (s *PublicBlockchainService) GetBlocks(
 		}
 
 		blockNum := BlockNumber(i)
-		if blockNum.Int64() > s.hmy.CurrentBlock().Number().Int64() {
+		if blockNum.Int64() > s.fch.CurrentBlock().Number().Int64() {
 			break
 		}
 		// rpcBlock is already formatted according to version
@@ -336,7 +336,7 @@ func (s *PublicBlockchainService) IsLastBlock(ctx context.Context, blockNum uint
 	timer := DoMetricRPCRequest(IsLastBlock)
 	defer DoRPCRequestDuration(IsLastBlock, timer)
 
-	if !isBeaconShard(s.hmy) {
+	if !isBeaconShard(s.fch) {
 		return false, ErrNotBeaconShard
 	}
 	return shard.Schedule.IsLastBlock(blockNum), nil
@@ -347,7 +347,7 @@ func (s *PublicBlockchainService) EpochLastBlock(ctx context.Context, epoch uint
 	timer := DoMetricRPCRequest(EpochLastBlock)
 	defer DoRPCRequestDuration(EpochLastBlock, timer)
 
-	if !isBeaconShard(s.hmy) {
+	if !isBeaconShard(s.fch) {
 		return 0, ErrNotBeaconShard
 	}
 	return shard.Schedule.EpochLastBlock(epoch), nil
@@ -366,19 +366,19 @@ func (s *PublicBlockchainService) GetBlockSigners(
 		return nil, errors.New("cannot get signer keys for pending blocks")
 	}
 	// Ensure correct block
-	if blockNum.Int64() == 0 || blockNum.Int64() >= s.hmy.CurrentBlock().Number().Int64() {
+	if blockNum.Int64() == 0 || blockNum.Int64() >= s.fch.CurrentBlock().Number().Int64() {
 		return []string{}, nil
 	}
-	if isBlockGreaterThanLatest(s.hmy, blockNum) {
+	if isBlockGreaterThanLatest(s.fch, blockNum) {
 		return nil, ErrRequestedBlockTooHigh
 	}
 	var bn uint64
 	if blockNum == rpc.LatestBlockNumber {
-		bn = s.hmy.CurrentBlock().NumberU64()
+		bn = s.fch.CurrentBlock().NumberU64()
 	} else {
 		bn = uint64(blockNum.Int64())
 	}
-	blk := s.hmy.BlockChain.GetBlockByNumber(bn)
+	blk := s.fch.BlockChain.GetBlockByNumber(bn)
 	if blk == nil {
 		return nil, errors.New("unknown block")
 	}
@@ -399,15 +399,15 @@ func (s *PublicBlockchainService) GetBlockSignerKeys(
 		return nil, errors.New("cannot get signer keys for pending blocks")
 	}
 	// Ensure correct block
-	if blockNum.Int64() == 0 || blockNum.Int64() >= s.hmy.CurrentBlock().Number().Int64() {
+	if blockNum.Int64() == 0 || blockNum.Int64() >= s.fch.CurrentBlock().Number().Int64() {
 		return []string{}, nil
 	}
-	if isBlockGreaterThanLatest(s.hmy, blockNum) {
+	if isBlockGreaterThanLatest(s.fch, blockNum) {
 		return nil, ErrRequestedBlockTooHigh
 	}
 	var bn uint64
 	if blockNum == rpc.LatestBlockNumber {
-		bn = s.hmy.CurrentBlock().NumberU64()
+		bn = s.fch.CurrentBlock().NumberU64()
 	} else {
 		bn = uint64(blockNum.Int64())
 	}
@@ -422,12 +422,12 @@ func (s *PublicBlockchainService) GetBlockReceipts(
 	timer := DoMetricRPCRequest(GetBlockReceipts)
 	defer DoRPCRequestDuration(GetBlockReceipts, timer)
 
-	block, err := s.hmy.GetBlock(ctx, blockHash)
+	block, err := s.fch.GetBlock(ctx, blockHash)
 	if err != nil {
 		return nil, err
 	}
 
-	receipts, err := s.hmy.GetReceipts(ctx, blockHash)
+	receipts, err := s.fch.GetReceipts(ctx, blockHash)
 	if err != nil {
 		return nil, err
 	}
@@ -498,14 +498,14 @@ func (s *PublicBlockchainService) IsBlockSigner(
 	if blockNum.Int64() == 0 {
 		return false, nil
 	}
-	if isBlockGreaterThanLatest(s.hmy, blockNum) {
+	if isBlockGreaterThanLatest(s.fch, blockNum) {
 		return false, ErrRequestedBlockTooHigh
 	}
 	var bn uint64
 	if blockNum == rpc.PendingBlockNumber {
 		return false, errors.New("no signing data for pending block number")
 	} else if blockNum == rpc.LatestBlockNumber {
-		bn = s.hmy.BlockChain.CurrentBlock().NumberU64()
+		bn = s.fch.BlockChain.CurrentBlock().NumberU64()
 	} else {
 		bn = uint64(blockNum.Int64())
 	}
@@ -523,14 +523,14 @@ func (s *PublicBlockchainService) GetSignedBlocks(
 	defer DoRPCRequestDuration(GetSignedBlocks, timer)
 
 	// Fetch the number of signed blocks within default period
-	curEpoch := s.hmy.CurrentBlock().Epoch()
+	curEpoch := s.fch.CurrentBlock().Epoch()
 	var totalSigned uint64
-	if !s.hmy.ChainConfig().IsStaking(curEpoch) {
+	if !s.fch.ChainConfig().IsStaking(curEpoch) {
 		// calculate signed before staking epoch
 		totalSigned := uint64(0)
 		lastBlock := uint64(0)
-		blockHeight := s.hmy.CurrentBlock().Number().Uint64()
-		instance := shard.Schedule.InstanceForEpoch(s.hmy.CurrentBlock().Epoch())
+		blockHeight := s.fch.CurrentBlock().Number().Uint64()
+		instance := shard.Schedule.InstanceForEpoch(s.fch.CurrentBlock().Epoch())
 		if blockHeight >= instance.BlocksPerEpoch() {
 			lastBlock = blockHeight - instance.BlocksPerEpoch() + 1
 		}
@@ -545,11 +545,11 @@ func (s *PublicBlockchainService) GetSignedBlocks(
 		if err != nil {
 			return nil, err
 		}
-		curVal, err := s.hmy.BlockChain.ReadValidatorInformation(ethAddr)
+		curVal, err := s.fch.BlockChain.ReadValidatorInformation(ethAddr)
 		if err != nil {
 			return nil, err
 		}
-		prevVal, err := s.hmy.BlockChain.ReadValidatorSnapshot(ethAddr)
+		prevVal, err := s.fch.BlockChain.ReadValidatorSnapshot(ethAddr)
 		if err != nil {
 			return nil, err
 		}
@@ -577,7 +577,7 @@ func (s *PublicBlockchainService) GetEpoch(ctx context.Context) (interface{}, er
 	defer DoRPCRequestDuration(GetEpoch, timer)
 
 	// Fetch Header
-	header, err := s.hmy.HeaderByNumber(ctx, rpc.LatestBlockNumber)
+	header, err := s.fch.HeaderByNumber(ctx, rpc.LatestBlockNumber)
 	if err != nil {
 		return "", err
 	}
@@ -600,7 +600,7 @@ func (s *PublicBlockchainService) GetLeader(ctx context.Context) (string, error)
 	defer DoRPCRequestDuration(GetLeader, timer)
 
 	// Fetch Header
-	blk := s.hmy.BlockChain.CurrentBlock()
+	blk := s.fch.BlockChain.CurrentBlock()
 	// Response output is the same for all versions
 	leader := s.helper.GetLeader(blk)
 	return leader, nil
@@ -620,17 +620,17 @@ func (s *PublicBlockchainService) GetShardingStructure(
 	}
 
 	// Get header and number of shards.
-	epoch := s.hmy.CurrentBlock().Epoch()
+	epoch := s.fch.CurrentBlock().Epoch()
 	numShard := shard.Schedule.InstanceForEpoch(epoch).NumShards()
 
 	// Return sharding structure for each case (response output is the same for all versions)
-	return shard.Schedule.GetShardingStructure(int(numShard), int(s.hmy.ShardID)), nil
+	return shard.Schedule.GetShardingStructure(int(numShard), int(s.fch.ShardID)), nil
 }
 
 // GetShardID returns shard ID of the requested node.
 func (s *PublicBlockchainService) GetShardID(ctx context.Context) (int, error) {
 	// Response output is the same for all versions
-	return int(s.hmy.ShardID), nil
+	return int(s.fch.ShardID), nil
 }
 
 // GetBalanceByBlockNumber returns balance by block number
@@ -644,7 +644,7 @@ func (s *PublicBlockchainService) GetBalanceByBlockNumber(
 	blockNum := blockNumber.EthBlockNumber()
 
 	// Fetch balance
-	if isBlockGreaterThanLatest(s.hmy, blockNum) {
+	if isBlockGreaterThanLatest(s.fch, blockNum) {
 		DoMetricRPCQueryInfo(GetBalanceByBlockNumber, FailedNumber)
 		return nil, ErrRequestedBlockTooHigh
 	}
@@ -677,14 +677,14 @@ func (s *PublicBlockchainService) LatestHeader(ctx context.Context) (StructuredR
 	}
 
 	// Fetch Header
-	header, err := s.hmy.HeaderByNumber(ctx, rpc.LatestBlockNumber)
+	header, err := s.fch.HeaderByNumber(ctx, rpc.LatestBlockNumber)
 	if err != nil {
 		DoMetricRPCQueryInfo(LatestHeader, FailedNumber)
 		return nil, err
 	}
 
 	// Response output is the same for all versions
-	leader := s.hmy.GetLeaderAddress(header.Coinbase(), header.Epoch())
+	leader := s.fch.GetLeaderAddress(header.Coinbase(), header.Epoch())
 	return NewStructuredResponse(NewHeaderInformation(header, leader))
 }
 
@@ -695,7 +695,7 @@ func (s *PublicBlockchainService) GetLatestChainHeaders(
 	// Response output is the same for all versions
 	timer := DoMetricRPCRequest(GetLatestChainHeaders)
 	defer DoRPCRequestDuration(GetLatestChainHeaders, timer)
-	return NewStructuredResponse(s.hmy.GetLatestChainHeaders())
+	return NewStructuredResponse(s.fch.GetLatestChainHeaders())
 }
 
 // GetLastCrossLinks ..
@@ -711,13 +711,13 @@ func (s *PublicBlockchainService) GetLastCrossLinks(
 		return nil, err
 	}
 
-	if !isBeaconShard(s.hmy) {
+	if !isBeaconShard(s.fch) {
 		DoMetricRPCQueryInfo(GetLastCrossLinks, FailedNumber)
 		return nil, ErrNotBeaconShard
 	}
 
 	// Fetch crosslinks
-	crossLinks, err := s.hmy.GetLastCrossLinks()
+	crossLinks, err := s.fch.GetLastCrossLinks()
 	if err != nil {
 		DoMetricRPCQueryInfo(GetLastCrossLinks, FailedNumber)
 		return nil, err
@@ -753,16 +753,16 @@ func (s *PublicBlockchainService) GetHeaderByNumber(
 	blockNum := blockNumber.EthBlockNumber()
 
 	// Ensure valid block number
-	if s.version != Eth && isBlockGreaterThanLatest(s.hmy, blockNum) {
+	if s.version != Eth && isBlockGreaterThanLatest(s.fch, blockNum) {
 		DoMetricRPCQueryInfo(GetHeaderByNumber, FailedNumber)
 		return nil, ErrRequestedBlockTooHigh
 	}
 
 	// Fetch Header
-	header, err := s.hmy.HeaderByNumber(ctx, blockNum)
+	header, err := s.fch.HeaderByNumber(ctx, blockNum)
 	if header != nil && err == nil {
 		// Response output is the same for all versions
-		leader := s.hmy.GetLeaderAddress(header.Coinbase(), header.Epoch())
+		leader := s.fch.GetLeaderAddress(header.Coinbase(), header.Epoch())
 		return NewStructuredResponse(NewHeaderInformation(header, leader))
 	}
 	return nil, err
@@ -807,17 +807,17 @@ func (s *PublicBlockchainService) GetProof(
 	blockNum := blockNumber.EthBlockNumber()
 
 	// Ensure valid block number
-	if s.version != Eth && isBlockGreaterThanLatest(s.hmy, blockNum) {
+	if s.version != Eth && isBlockGreaterThanLatest(s.fch, blockNum) {
 		err = ErrRequestedBlockTooHigh
 		return
 	}
 
 	// Fetch Header
-	header, err := s.hmy.HeaderByNumber(ctx, blockNum)
+	header, err := s.fch.HeaderByNumber(ctx, blockNum)
 	if header == nil && err != nil {
 		return
 	}
-	state, err := s.hmy.BeaconChain.StateAt(header.Root())
+	state, err := s.fch.BeaconChain.StateAt(header.Root())
 	if state == nil || err != nil {
 		return
 	}
@@ -893,13 +893,13 @@ func (s *PublicBlockchainService) GetHeaderByNumberRLPHex(
 	blockNum := blockNumber.EthBlockNumber()
 
 	// Ensure valid block number
-	if s.version != Eth && isBlockGreaterThanLatest(s.hmy, blockNum) {
+	if s.version != Eth && isBlockGreaterThanLatest(s.fch, blockNum) {
 		DoMetricRPCQueryInfo(GetHeaderByNumberRLPHex, FailedNumber)
 		return "", ErrRequestedBlockTooHigh
 	}
 
 	// Fetch Header
-	header, err := s.hmy.HeaderByNumber(ctx, blockNum)
+	header, err := s.fch.HeaderByNumber(ctx, blockNum)
 	if header != nil && err == nil {
 		// Response output is the same for all versions
 		val, _ := rlp.EncodeToBytes(header)
@@ -921,13 +921,13 @@ func (s *PublicBlockchainService) GetCurrentUtilityMetrics(
 		return nil, err
 	}
 
-	if !isBeaconShard(s.hmy) {
+	if !isBeaconShard(s.fch) {
 		DoMetricRPCQueryInfo(GetCurrentUtilityMetrics, FailedNumber)
 		return nil, ErrNotBeaconShard
 	}
 
 	// Fetch metrics
-	metrics, err := s.hmy.GetCurrentUtilityMetrics()
+	metrics, err := s.fch.GetCurrentUtilityMetrics()
 	if err != nil {
 		DoMetricRPCQueryInfo(GetCurrentUtilityMetrics, FailedNumber)
 		return nil, err
@@ -950,13 +950,13 @@ func (s *PublicBlockchainService) GetSuperCommittees(
 		return nil, err
 	}
 
-	if !isBeaconShard(s.hmy) {
+	if !isBeaconShard(s.fch) {
 		DoMetricRPCQueryInfo(GetSuperCommittees, FailedNumber)
 		return nil, ErrNotBeaconShard
 	}
 
 	// Fetch super committees
-	cmt, err := s.hmy.GetSuperCommittees()
+	cmt, err := s.fch.GetSuperCommittees()
 	if err != nil {
 		DoMetricRPCQueryInfo(GetSuperCommittees, FailedNumber)
 		return nil, err
@@ -981,7 +981,7 @@ func (s *PublicBlockchainService) GetCurrentBadBlocks(
 
 	// Fetch bad blocks and format
 	badBlocks := []StructuredResponse{}
-	for _, blk := range s.hmy.GetCurrentBadBlocks() {
+	for _, blk := range s.fch.GetCurrentBadBlocks() {
 		// Response output is the same for all versions
 		fmtBadBlock, err := NewStructuredResponse(blk)
 		if err != nil {
@@ -1000,7 +1000,7 @@ func (s *PublicBlockchainService) GetTotalSupply(
 ) (numeric.Dec, error) {
 	timer := DoMetricRPCRequest(GetTotalSupply)
 	defer DoRPCRequestDuration(GetTotalSupply, timer)
-	return stakingReward.GetTotalTokens(s.hmy.BlockChain)
+	return stakingReward.GetTotalTokens(s.fch.BlockChain)
 }
 
 // GetCirculatingSupply ...
@@ -1009,7 +1009,7 @@ func (s *PublicBlockchainService) GetCirculatingSupply(
 ) (numeric.Dec, error) {
 	timer := DoMetricRPCRequest(GetCirculatingSupply)
 	defer DoRPCRequestDuration(GetCirculatingSupply, timer)
-	return chain.GetCirculatingSupply(s.hmy.BlockChain)
+	return chain.GetCirculatingSupply(s.fch.BlockChain)
 }
 
 // GetStakingNetworkInfo ..
@@ -1025,17 +1025,17 @@ func (s *PublicBlockchainService) GetStakingNetworkInfo(
 		return nil, err
 	}
 
-	if !isBeaconShard(s.hmy) {
+	if !isBeaconShard(s.fch) {
 		DoMetricRPCQueryInfo(GetStakingNetworkInfo, FailedNumber)
 		return nil, ErrNotBeaconShard
 	}
-	totalStaking := s.hmy.GetTotalStakingSnapshot()
-	header, err := s.hmy.HeaderByNumber(ctx, rpc.LatestBlockNumber)
+	totalStaking := s.fch.GetTotalStakingSnapshot()
+	header, err := s.fch.HeaderByNumber(ctx, rpc.LatestBlockNumber)
 	if err != nil {
 		DoMetricRPCQueryInfo(GetStakingNetworkInfo, FailedNumber)
 		return nil, err
 	}
-	medianSnapshot, err := s.hmy.GetMedianRawStakeSnapshot()
+	medianSnapshot, err := s.fch.GetMedianRawStakeSnapshot()
 	if err != nil {
 		DoMetricRPCQueryInfo(GetStakingNetworkInfo, FailedNumber)
 		return nil, err
@@ -1075,7 +1075,7 @@ const (
 func (s *PublicBlockchainService) InSync(ctx context.Context) (bool, error) {
 	timer := DoMetricRPCRequest(InSync)
 	defer DoRPCRequestDuration(InSync, timer)
-	inSync, _, diff := s.hmy.NodeAPI.SyncStatus(s.hmy.BlockChain.ShardID())
+	inSync, _, diff := s.fch.NodeAPI.SyncStatus(s.fch.BlockChain.ShardID())
 	if !inSync && diff <= inSyncTolerance {
 		inSync = true
 	}
@@ -1086,7 +1086,7 @@ func (s *PublicBlockchainService) InSync(ctx context.Context) (bool, error) {
 func (s *PublicBlockchainService) BeaconInSync(ctx context.Context) (bool, error) {
 	timer := DoMetricRPCRequest(BeaconInSync)
 	defer DoRPCRequestDuration(BeaconInSync, timer)
-	inSync, _, diff := s.hmy.NodeAPI.SyncStatus(s.hmy.BeaconChain.ShardID())
+	inSync, _, diff := s.fch.NodeAPI.SyncStatus(s.fch.BeaconChain.ShardID())
 	if !inSync && diff <= inSyncTolerance {
 		inSync = true
 	}
@@ -1128,12 +1128,12 @@ func (s *PublicBlockchainService) GetFullHeader(
 	blockNum := blockNumber.EthBlockNumber()
 
 	// Ensure valid block number
-	if isBlockGreaterThanLatest(s.hmy, blockNum) {
+	if isBlockGreaterThanLatest(s.fch, blockNum) {
 		return nil, ErrRequestedBlockTooHigh
 	}
 
 	// Fetch Header
-	header, err := s.hmy.HeaderByNumber(ctx, blockNum)
+	header, err := s.fch.HeaderByNumber(ctx, blockNum)
 	if err != nil {
 		return nil, err
 	}
@@ -1157,7 +1157,7 @@ func (s *PublicBlockchainService) GetFullHeader(
 	return response, nil
 }
 
-func isBlockGreaterThanLatest(hmy *hmy.Harmony, blockNum rpc.BlockNumber) bool {
+func isBlockGreaterThanLatest(fch *fch.Feechain, blockNum rpc.BlockNumber) bool {
 	// rpc.BlockNumber is int64 (latest = -1. pending = -2) and currentBlockNum is uint64.
 	if blockNum == rpc.PendingBlockNumber {
 		return true
@@ -1165,13 +1165,13 @@ func isBlockGreaterThanLatest(hmy *hmy.Harmony, blockNum rpc.BlockNumber) bool {
 	if blockNum == rpc.LatestBlockNumber {
 		return false
 	}
-	return uint64(blockNum) > hmy.CurrentBlock().NumberU64()
+	return uint64(blockNum) > fch.CurrentBlock().NumberU64()
 }
 
 func (s *PublicBlockchainService) SetNodeToBackupMode(ctx context.Context, isBackup bool) (bool, error) {
 	timer := DoMetricRPCRequest(SetNodeToBackupMode)
 	defer DoRPCRequestDuration(SetNodeToBackupMode, timer)
-	return s.hmy.NodeAPI.SetNodeBackupMode(isBackup), nil
+	return s.fch.NodeAPI.SetNodeBackupMode(isBackup), nil
 }
 
 const (
@@ -1186,7 +1186,7 @@ type (
 	// rpc_common.BlockDataProvider
 	bcServiceHelper struct {
 		version Version
-		hmy     *hmy.Harmony
+		fch     *fch.Feechain
 		cache   *bcServiceCache
 	}
 
@@ -1208,7 +1208,7 @@ func (s *PublicBlockchainService) newHelper() *bcServiceHelper {
 	}
 	return &bcServiceHelper{
 		version: s.version,
-		hmy:     s.hmy,
+		fch:     s.fch,
 		cache:   cache,
 	}
 }
@@ -1218,7 +1218,7 @@ func (helper *bcServiceHelper) GetLeader(b *types.Block) string {
 	if ok && x != nil {
 		return x.(string)
 	}
-	leader := helper.hmy.GetLeaderAddress(b.Coinbase(), b.Epoch())
+	leader := helper.fch.GetLeaderAddress(b.Coinbase(), b.Epoch())
 	helper.cache.leaderCache.Add(b.NumberU64(), leader)
 	return leader
 }
@@ -1301,7 +1301,7 @@ func (helper *bcServiceHelper) getSignerData(bn uint64) (*signerData, error) {
 	if ok && x != nil {
 		return x.(*signerData), nil
 	}
-	sd, err := getSignerData(helper.hmy, bn)
+	sd, err := getSignerData(helper.fch, bn)
 	if err != nil {
 		return nil, errors.Wrap(err, "getSignerData")
 	}
@@ -1309,8 +1309,8 @@ func (helper *bcServiceHelper) getSignerData(bn uint64) (*signerData, error) {
 	return sd, nil
 }
 
-func getSignerData(hmy *hmy.Harmony, number uint64) (*signerData, error) {
-	slots, mask, err := hmy.GetBlockSigners(context.Background(), rpc.BlockNumber(number))
+func getSignerData(fch *fch.Feechain, number uint64) (*signerData, error) {
+	slots, mask, err := fch.GetBlockSigners(context.Background(), rpc.BlockNumber(number))
 	if err != nil {
 		return nil, err
 	}

@@ -13,7 +13,6 @@ import (
 	"github.com/Timestopeofficial/feechain/numeric"
 )
 
-// medium.com/Timestopeofficial/introducing-harmonys-effective-proof-of-stake-epos-2d39b4b8d58
 var (
 	two         = numeric.NewDecFromBigInt(big.NewInt(2))
 	c, _        = numeric.NewDecFromStr("0.15")

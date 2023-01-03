@@ -9,14 +9,14 @@ import (
 	"time"
 
 	"github.com/Timestopeofficial/feechain/internal/cli"
-	harmonyconfig "github.com/Timestopeofficial/feechain/internal/configs/harmony"
+	feechainconfig "github.com/Timestopeofficial/feechain/internal/configs/feechain"
 	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
 	"github.com/pelletier/go-toml"
 	"github.com/spf13/cobra"
 )
 
 // TODO: use specific type wise validation instead of general string types assertion.
-func validateHarmonyConfig(config harmonyconfig.HarmonyConfig) error {
+func validateFeechainConfig(config feechainconfig.FeechainConfig) error {
 	var accepts []string
 
 	nodeType := config.General.NodeType
@@ -59,7 +59,7 @@ func validateHarmonyConfig(config harmonyconfig.HarmonyConfig) error {
 	return nil
 }
 
-func sanityFixHarmonyConfig(hc *harmonyconfig.HarmonyConfig) {
+func sanityFixFeechainConfig(hc *feechainconfig.FeechainConfig) {
 	// When running sync downloader, set sync.Enabled to true
 	if hc.Sync.Downloader && !hc.Sync.Enabled {
 		fmt.Println("Set Sync.Enabled to true when running stream downloader")
@@ -77,10 +77,10 @@ func checkStringAccepted(flag string, val string, accepts []string) error {
 	return fmt.Errorf("unknown arg for %s: %s (%v)", flag, val, acceptsStr)
 }
 
-func getDefaultDNSSyncConfig(nt nodeconfig.NetworkType) harmonyconfig.DnsSync {
+func getDefaultDNSSyncConfig(nt nodeconfig.NetworkType) feechainconfig.DnsSync {
 	zone := nodeconfig.GetDefaultDNSZone(nt)
 	port := nodeconfig.GetDefaultDNSPort(nt)
-	dnsSync := harmonyconfig.DnsSync{
+	dnsSync := feechainconfig.DnsSync{
 		Port:          port,
 		Zone:          zone,
 		LegacySyncing: false,
@@ -103,9 +103,9 @@ func getDefaultDNSSyncConfig(nt nodeconfig.NetworkType) harmonyconfig.DnsSync {
 	return dnsSync
 }
 
-func getDefaultNetworkConfig(nt nodeconfig.NetworkType) harmonyconfig.NetworkConfig {
+func getDefaultNetworkConfig(nt nodeconfig.NetworkType) feechainconfig.NetworkConfig {
 	bn := nodeconfig.GetDefaultBootNodes(nt)
-	return harmonyconfig.NetworkConfig{
+	return feechainconfig.NetworkConfig{
 		NetworkType: string(nt),
 		BootNodes:   bn,
 	}
@@ -132,7 +132,7 @@ func parseNetworkType(nt string) nodeconfig.NetworkType {
 	}
 }
 
-func getDefaultSyncConfig(nt nodeconfig.NetworkType) harmonyconfig.SyncConfig {
+func getDefaultSyncConfig(nt nodeconfig.NetworkType) feechainconfig.SyncConfig {
 	switch nt {
 	case nodeconfig.Mainnet:
 		return defaultMainnetSyncConfig
@@ -167,9 +167,9 @@ var updateConfigCmd = &cobra.Command{
 
 func dumpConfig(cmd *cobra.Command, args []string) {
 	nt := getNetworkType(cmd)
-	config := getDefaultHmyConfigCopy(nt)
+	config := getDefaultFchConfigCopy(nt)
 
-	if err := writeHarmonyConfigToFile(config, args[0]); err != nil {
+	if err := writeFeechainConfigToFile(config, args[0]); err != nil {
 		fmt.Println(err)
 		os.Exit(128)
 	}
@@ -220,14 +220,14 @@ func promptConfigUpdate() bool {
 	}
 }
 
-func loadHarmonyConfig(file string) (harmonyconfig.HarmonyConfig, string, error) {
+func loadFeechainConfig(file string) (feechainconfig.FeechainConfig, string, error) {
 	b, err := ioutil.ReadFile(file)
 	if err != nil {
-		return harmonyconfig.HarmonyConfig{}, "", err
+		return feechainconfig.FeechainConfig{}, "", err
 	}
 	config, migratedVer, err := migrateConf(b)
 	if err != nil {
-		return harmonyconfig.HarmonyConfig{}, "", err
+		return feechainconfig.FeechainConfig{}, "", err
 	}
 
 	return config, migratedVer, nil
@@ -247,14 +247,14 @@ func updateConfigFile(file string) error {
 	if err != nil {
 		return err
 	}
-	if err := writeHarmonyConfigToFile(config, file); err != nil {
+	if err := writeFeechainConfigToFile(config, file); err != nil {
 		return err
 	}
 	fmt.Printf("Successfully migrated %s from %s to %s \n", file, migratedFromVer, config.Version)
 	return nil
 }
 
-func writeHarmonyConfigToFile(config harmonyconfig.HarmonyConfig, file string) error {
+func writeFeechainConfigToFile(config feechainconfig.FeechainConfig, file string) error {
 	b, err := toml.Marshal(config)
 	if err != nil {
 		return err

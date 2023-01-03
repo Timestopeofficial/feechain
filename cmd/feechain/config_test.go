@@ -8,15 +8,15 @@ import (
 	"reflect"
 	"testing"
 
-	harmonyconfig "github.com/Timestopeofficial/feechain/internal/configs/harmony"
+	feechainconfig "github.com/Timestopeofficial/feechain/internal/configs/feechain"
 
 	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
 )
 
-type testCfgOpt func(config *harmonyconfig.HarmonyConfig)
+type testCfgOpt func(config *feechainconfig.FeechainConfig)
 
-func makeTestConfig(nt nodeconfig.NetworkType, opt testCfgOpt) harmonyconfig.HarmonyConfig {
-	cfg := getDefaultHmyConfigCopy(nt)
+func makeTestConfig(nt nodeconfig.NetworkType, opt testCfgOpt) feechainconfig.FeechainConfig {
+	cfg := getDefaultFchConfigCopy(nt)
 	if opt != nil {
 		opt(&cfg)
 	}
@@ -38,7 +38,7 @@ Version = "1.0.4"
   KMSConfigFile = ""
   KMSConfigSrcType = "shared"
   KMSEnabled = false
-  KeyDir = "./.hmy/blskeys"
+  KeyDir = "./.blskeys"
   KeyFiles = []
   MaxKeys = 10
   PassEnabled = true
@@ -67,14 +67,14 @@ Version = "1.0.4"
   Verbosity = 3
 
 [Network]
-  BootNodes = ["/dnsaddr/bootstrap.t.hmny.io"]
+  BootNodes = ["/dnsaddr/bootstrap.asadal.timestope.net"]
   DNSPort = 9000
-  DNSZone = "t.hmny.io"
+  DNSZone = "asadal.timestope.net"
   LegacySyncing = false
   NetworkType = "asadal"
 
 [P2P]
-  KeyFile = "./.hmykey"
+  KeyFile = "./.nkey"
   Port = 9000
 
 [Pprof]
@@ -82,7 +82,7 @@ Version = "1.0.4"
   ListenAddr = "127.0.0.1:6060"
 
 [TxPool]
-  BlacklistFile = "./.hmy/blacklist.txt"
+  BlacklistFile = "./blacklist.txt"
 
 [Sync]
   Downloader = false
@@ -115,11 +115,11 @@ Version = "1.0.4"
 	if err != nil {
 		t.Fatal(err)
 	}
-	config, migratedFrom, err := loadHarmonyConfig(file)
+	config, migratedFrom, err := loadFeechainConfig(file)
 	if err != nil {
 		t.Fatal(err)
 	}
-	defConf := getDefaultHmyConfigCopy(nodeconfig.Mainnet)
+	defConf := getDefaultFchConfigCopy(nodeconfig.Mainnet)
 	if config.HTTP.RosettaEnabled {
 		t.Errorf("Expected rosetta http server to be disabled when loading old config")
 	}
@@ -144,7 +144,7 @@ func TestPersistConfig(t *testing.T) {
 	os.MkdirAll(testDir, 0777)
 
 	tests := []struct {
-		config harmonyconfig.HarmonyConfig
+		config feechainconfig.FeechainConfig
 	}{
 		{
 			config: makeTestConfig("asadal", nil),
@@ -153,7 +153,7 @@ func TestPersistConfig(t *testing.T) {
 			config: makeTestConfig("devnet", nil),
 		},
 		{
-			config: makeTestConfig("asadal", func(cfg *harmonyconfig.HarmonyConfig) {
+			config: makeTestConfig("asadal", func(cfg *feechainconfig.FeechainConfig) {
 				consensus := getDefaultConsensusConfigCopy()
 				cfg.Consensus = &consensus
 
@@ -164,7 +164,7 @@ func TestPersistConfig(t *testing.T) {
 				cfg.Revert = &revert
 
 				webHook := "web hook"
-				cfg.Legacy = &harmonyconfig.LegacyConfig{
+				cfg.Legacy = &feechainconfig.LegacyConfig{
 					WebHookConfig:         &webHook,
 					TPBroadcastInvalidTxn: &trueBool,
 				}
@@ -177,10 +177,10 @@ func TestPersistConfig(t *testing.T) {
 	for i, test := range tests {
 		file := filepath.Join(testDir, fmt.Sprintf("%d.conf", i))
 
-		if err := writeHarmonyConfigToFile(test.config, file); err != nil {
+		if err := writeFeechainConfigToFile(test.config, file); err != nil {
 			t.Fatal(err)
 		}
-		config, _, err := loadHarmonyConfig(file)
+		config, _, err := loadFeechainConfig(file)
 		if err != nil {
 			t.Fatal(err)
 		}

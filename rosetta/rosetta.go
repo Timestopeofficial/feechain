@@ -13,7 +13,7 @@ import (
 	"github.com/coinbase/rosetta-sdk-go/server"
 	"github.com/coinbase/rosetta-sdk-go/types"
 
-	"github.com/Timestopeofficial/feechain/hmy"
+	"github.com/Timestopeofficial/feechain/fch"
 	nodeconfig "github.com/Timestopeofficial/feechain/internal/configs/node"
 	"github.com/Timestopeofficial/feechain/internal/utils"
 	"github.com/Timestopeofficial/feechain/rosetta/common"
@@ -24,26 +24,26 @@ var listener net.Listener
 
 // StartServers starts the rosetta http server
 // TODO (dm): optimize rosetta to use single flight & use extra caching type DB to avoid re-processing data
-func StartServers(hmy *hmy.Harmony, config nodeconfig.RosettaServerConfig, limiterEnable bool, rateLimit int) error {
+func StartServers(fch *fch.Feechain, config nodeconfig.RosettaServerConfig, limiterEnable bool, rateLimit int) error {
 	if !config.HTTPEnabled {
 		utils.Logger().Info().Msg("Rosetta http server disabled...")
 		return nil
 	}
 
-	network, err := common.GetNetwork(hmy.ShardID)
+	network, err := common.GetNetwork(fch.ShardID)
 	if err != nil {
 		return err
 	}
 	serverAsserter, err := asserter.NewServer(
 		append(common.PlainOperationTypes, common.StakingOperationTypes...),
-		nodeconfig.GetShardConfig(hmy.ShardID).Role() == nodeconfig.ExplorerNode,
+		nodeconfig.GetShardConfig(fch.ShardID).Role() == nodeconfig.ExplorerNode,
 		[]*types.NetworkIdentifier{network}, services.CallMethod, false, "",
 	)
 	if err != nil {
 		return err
 	}
 
-	router := recoverMiddleware(server.CorsMiddleware(loggerMiddleware(getRouter(serverAsserter, hmy, limiterEnable, rateLimit))))
+	router := recoverMiddleware(server.CorsMiddleware(loggerMiddleware(getRouter(serverAsserter, fch, limiterEnable, rateLimit))))
 	utils.Logger().Info().
 		Int("port", config.HTTPPort).
 		Str("ip", config.HTTPIp).
@@ -77,16 +77,16 @@ func newHTTPServer(handler http.Handler) *http.Server {
 	}
 }
 
-func getRouter(asserter *asserter.Asserter, hmy *hmy.Harmony, limiterEnable bool, rateLimit int) http.Handler {
+func getRouter(asserter *asserter.Asserter, fch *fch.Feechain, limiterEnable bool, rateLimit int) http.Handler {
 	return server.NewRouter(
-		server.NewAccountAPIController(services.NewAccountAPI(hmy), asserter),
-		server.NewBlockAPIController(services.NewBlockAPI(hmy), asserter),
-		server.NewMempoolAPIController(services.NewMempoolAPI(hmy), asserter),
-		server.NewNetworkAPIController(services.NewNetworkAPI(hmy), asserter),
-		server.NewConstructionAPIController(services.NewConstructionAPI(hmy), asserter),
-		server.NewCallAPIController(services.NewCallAPIService(hmy, limiterEnable, rateLimit), asserter),
-		server.NewEventsAPIController(services.NewEventAPI(hmy), asserter),
-		server.NewSearchAPIController(services.NewSearchAPI(hmy), asserter),
+		server.NewAccountAPIController(services.NewAccountAPI(fch), asserter),
+		server.NewBlockAPIController(services.NewBlockAPI(fch), asserter),
+		server.NewMempoolAPIController(services.NewMempoolAPI(fch), asserter),
+		server.NewNetworkAPIController(services.NewNetworkAPI(fch), asserter),
+		server.NewConstructionAPIController(services.NewConstructionAPI(fch), asserter),
+		server.NewCallAPIController(services.NewCallAPIService(fch, limiterEnable, rateLimit), asserter),
+		server.NewEventsAPIController(services.NewEventAPI(fch), asserter),
+		server.NewSearchAPIController(services.NewSearchAPI(fch), asserter),
 	)
 }
 

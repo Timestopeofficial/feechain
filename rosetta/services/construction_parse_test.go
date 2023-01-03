@@ -10,14 +10,14 @@ import (
 	"github.com/coinbase/rosetta-sdk-go/parser"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	hmytypes "github.com/Timestopeofficial/feechain/core/types"
+	fchtypes "github.com/Timestopeofficial/feechain/core/types"
 	internalCommon "github.com/Timestopeofficial/feechain/internal/common"
 	stakingTypes "github.com/Timestopeofficial/feechain/staking/types"
 	"github.com/Timestopeofficial/feechain/test/helpers"
 )
 
 var (
-	tempTestSigner        = hmytypes.NewEIP155Signer(big.NewInt(0))
+	tempTestSigner        = fchtypes.NewEIP155Signer(big.NewInt(0))
 	tempTestStakingSigner = stakingTypes.NewEIP155Signer(big.NewInt(0))
 )
 
@@ -37,14 +37,14 @@ func TestParseUnsignedTransaction(t *testing.T) {
 	if rosettaError != nil {
 		t.Fatal(rosettaError)
 	}
-	refTestReceipt := &hmytypes.Receipt{
+	refTestReceipt := &fchtypes.Receipt{
 		GasUsed: testTx.GasLimit(),
 	}
 	refFormattedTx, rosettaError := FormatTransaction(testTx, refTestReceipt, &ContractInfo{}, false)
 	if rosettaError != nil {
 		t.Fatal(rosettaError)
 	}
-	refUnsignedTx := hmytypes.NewCrossShardTransaction(
+	refUnsignedTx := fchtypes.NewCrossShardTransaction(
 		testTx.Nonce(), &refSender, testTx.ShardID(), testTx.ToShardID(), testTx.Value(),
 		testTx.GasLimit(), gasPrice, testTx.Data(),
 	)
@@ -125,7 +125,7 @@ func TestParseSignedTransaction(t *testing.T) {
 	if rosettaError != nil {
 		t.Fatal(rosettaError)
 	}
-	refTestReceipt := &hmytypes.Receipt{
+	refTestReceipt := &fchtypes.Receipt{
 		GasUsed: testTx.GasLimit(),
 	}
 	refFormattedTx, rosettaError := FormatTransaction(testTx, refTestReceipt, &ContractInfo{}, true)

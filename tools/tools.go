@@ -4,7 +4,7 @@
 //
 // +build tools
 
-// Package tools provides build tools necessary for Harmony.
+// Package tools provides build tools necessary for Feechain.
 package tools
 
 // Put only installable tools into this list.

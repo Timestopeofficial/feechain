@@ -22,7 +22,7 @@ RESOLVE="\
   \"event_action\": \"resolve\",\
   \"dedup_key\": \"$IP\"\
 }"
-KEY="${HMY_PAGERDUTY_KEY}"
+KEY="${FCH_PAGERDUTY_KEY}"
 HEADER="X-Routing-Key: $KEY"
 POSTURL="https://events.pagerduty.com/v2/enqueue"
 

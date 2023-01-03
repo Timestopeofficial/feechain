@@ -77,15 +77,15 @@ type PureStakedVote struct {
 	RawStake       numeric.Dec             `json:"raw-stake"`
 }
 
-// AccommodateHarmonyVote ..
-type AccommodateHarmonyVote struct {
+// AccommodateFeechainVote ..
+type AccommodateFeechainVote struct {
 	PureStakedVote
-	IsHarmonyNode  bool        `json:"-"`
+	IsFeechainNode  bool        `json:"-"`
 	OverallPercent numeric.Dec `json:"overall-percent"`
 }
 
 // String ..
-func (v AccommodateHarmonyVote) String() string {
+func (v AccommodateFeechainVote) String() string {
 	s, _ := json.Marshal(v)
 	return string(s)
 }
@@ -94,12 +94,12 @@ type topLevelRegistry struct {
 	OurVotingPowerTotalPercentage   numeric.Dec
 	TheirVotingPowerTotalPercentage numeric.Dec
 	TotalEffectiveStake             numeric.Dec
-	HMYSlotCount                    int64
+	FCHSlotCount                    int64
 }
 
 // Roster ..
 type Roster struct {
-	Voters map[bls.SerializedPublicKey]*AccommodateHarmonyVote
+	Voters map[bls.SerializedPublicKey]*AccommodateFeechainVote
 	topLevelRegistry
 	ShardID      uint32
 	OrderedSlots []bls.SerializedPublicKey
@@ -112,7 +112,7 @@ func (r Roster) String() string {
 
 // VoteOnSubcomittee ..
 type VoteOnSubcomittee struct {
-	AccommodateHarmonyVote
+	AccommodateFeechainVote
 	ShardID uint32
 }
 
@@ -142,9 +142,9 @@ func AggregateRosters(
 
 	for _, roster := range rosters {
 		for _, voteCard := range roster.Voters {
-			if !voteCard.IsHarmonyNode {
+			if !voteCard.IsFeechainNode {
 				voterID := VoteOnSubcomittee{
-					AccommodateHarmonyVote: *voteCard,
+					AccommodateFeechainVote: *voteCard,
 					ShardID:                roster.ShardID,
 				}
 				result[voteCard.EarningAccount] = append(
@@ -168,21 +168,21 @@ func Compute(subComm *shard.Committee, epoch *big.Int) (*Roster, error) {
 		if e := staked[i].EffectiveStake; e != nil {
 			roster.TotalEffectiveStake = roster.TotalEffectiveStake.Add(*e)
 		} else {
-			roster.HMYSlotCount++
+			roster.FCHSlotCount++
 		}
 	}
 
-	asDecHMYSlotCount := numeric.NewDec(roster.HMYSlotCount)
+	asDecFCHSlotCount := numeric.NewDec(roster.FCHSlotCount)
 	// TODO Check for duplicate BLS Keys
 	ourPercentage := numeric.ZeroDec()
 	theirPercentage := numeric.ZeroDec()
-	var lastStakedVoter *AccommodateHarmonyVote
+	var lastStakedVoter *AccommodateFeechainVote
 
-	feechainPercent := shard.Schedule.InstanceForEpoch(epoch).HarmonyVotePercent()
+	feechainPercent := shard.Schedule.InstanceForEpoch(epoch).FeechainVotePercent()
 	externalPercent := shard.Schedule.InstanceForEpoch(epoch).ExternalVotePercent()
 
 	for i := range staked {
-		member := AccommodateHarmonyVote{
+		member := AccommodateFeechainVote{
 			PureStakedVote: PureStakedVote{
 				EarningAccount: staked[i].EcdsaAddress,
 				Identity:       staked[i].BLSPublicKey,
@@ -191,7 +191,7 @@ func Compute(subComm *shard.Committee, epoch *big.Int) (*Roster, error) {
 				RawStake:       numeric.ZeroDec(),
 			},
 			OverallPercent: numeric.ZeroDec(),
-			IsHarmonyNode:  false,
+			IsFeechainNode:  false,
 		}
 
 		// Real Staker
@@ -202,8 +202,8 @@ func Compute(subComm *shard.Committee, epoch *big.Int) (*Roster, error) {
 			theirPercentage = theirPercentage.Add(member.OverallPercent)
 			lastStakedVoter = &member
 		} else { // Our node
-			member.IsHarmonyNode = true
-			member.OverallPercent = feechainPercent.Quo(asDecHMYSlotCount)
+			member.IsFeechainNode = true
+			member.OverallPercent = feechainPercent.Quo(asDecFCHSlotCount)
 			member.GroupPercent = member.OverallPercent.Quo(feechainPercent)
 			ourPercentage = ourPercentage.Add(member.OverallPercent)
 		}
@@ -240,7 +240,7 @@ func Compute(subComm *shard.Committee, epoch *big.Int) (*Roster, error) {
 
 // NewRoster ..
 func NewRoster(shardID uint32) *Roster {
-	m := map[bls.SerializedPublicKey]*AccommodateHarmonyVote{}
+	m := map[bls.SerializedPublicKey]*AccommodateFeechainVote{}
 	return &Roster{
 		Voters: m,
 		topLevelRegistry: topLevelRegistry{
