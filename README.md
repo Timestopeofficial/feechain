@@ -1,7 +1,4 @@
 # Feechain
-## General Documentation
-
-## API Guide
 ## Requirements
 
 ### **Go 1.16.3**
