@@ -156,31 +156,6 @@ make test-go
 ``` 
 This test runs the go tests along with go lint, go fmt, go imports, go mod, and go generate checks.
 
-### RPC tests
-To run this test, do:
-```bash
-make test-rpc
-```
-This test starts a localnet (within the Docker container), **ensures it reaches a consensus**, and runs a series of tests to ensure correct RPC behavior.
-This test also acts as a preliminary integration test (more through tests are done on the testnets).
-
-If you wish to debug further with the localnet after the tests are done, open a new shell and run:
-```bash
-make test-rpc-attach
-```
-> This will open a shell in the docker container that is running the Node API tests.
-
-### Rosetta tests
-To run this test, do:
-```bash
-make test-rosetta
-```
-This test starts a localnet (within the Docker container), **ensures it reaches a consensus**, and runs the Construction & Data API checks using the [rosetta-cli](https://github.com/coinbase/rosetta-cli).
-This test also acts as a preliminary integration test (more through tests are done on the testnets).
-Similar to the RPC tests, if you wish to debug further with the localnet after the tests are done, open a new shell and run:
-```bash
-make test-rosetta-attach
-```
 ## Development Status
 
 ### Finished Features
