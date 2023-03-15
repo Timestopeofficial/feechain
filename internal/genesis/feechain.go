@@ -28,7 +28,7 @@ var FeechainAccounts = []DeployAccount{
 	{Index: "23", Address: "fee1lmn8aglzfqe3wkckh8fp0jyfj3hfls3g2rkrlp", BLSPublicKey: "baea5fef86932ae61d7861f51a0ab8d0452516270eeaca6bf16f495a473c9658d2c6c1bf64be995e527e26d625591f92"},
 	{Index: "24", Address: "fee1qqz9vtyrssah0f8w929g52n42pvqd6s564tdes", BLSPublicKey: "e6c426a1c497b8991bea40854ef9ba87df6a3c3b960077cbcd0ce342ff82875a030fed065d3c393a9032d60682a7b011"},
 	{Index: "25", Address: "fee1qqpaey3asn9zaqjcgs2qf73nw287na8754vghx", BLSPublicKey: "c27d57314ab2c59b9e86e783cdd85c34e70c588f8f37c81ab01c228dae3124bb451c6b21cf6e7f3a452ede0c44e64699"},
-	{Index: "26", Address: "0x00071b40c91e03A2F742972d643082fec35Fe50f", BLSPublicKey: "9c8bb0022c8f40a0ac24f4ea6f1611cee8d932c09230cd61e9e80d1097c98f6e92b7894a1a6c6984c5128878e7f5700c"},
+	{Index: "26", Address: "fee1qqr3ksxfrcp69a6zjukkgvyzlmp4leg0fjpx2j", BLSPublicKey: "9c8bb0022c8f40a0ac24f4ea6f1611cee8d932c09230cd61e9e80d1097c98f6e92b7894a1a6c6984c5128878e7f5700c"},
 	{Index: "27", Address: "fee1qqrxl9syt8506csjlxarrjpp2ysf7v9kpc0vvx", BLSPublicKey: "5053f5d5f4bd680e686f76a72bd996b94073afaba73b3b8a8b65d913f5e597a8557e22a1b7bbf8e6159badf2d5087c03"},
 	{Index: "28", Address: "fee1pfcz8pyk4xm8yawgm9609rrz6d73q39gaq04sx", BLSPublicKey: "e4119f228e8eef04faf877c05a92be908549bae3c3076ef656be9d8bf56a9cab453c768146eab34d9d42e2d05d454f8a"},
 	{Index: "29", Address: "fee1xp95v3xgmae5j84dwqgexlva26ad07h36ap272", BLSPublicKey: "aa0d9e58a5b2e86cd32ed01d3ebc1cb4fbd655b643dad0f6fb6e010353c0f0e6c6077cf2fb6a23c869c471da599e9203"},
