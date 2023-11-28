@@ -79,7 +79,7 @@ var (
 		StakingEpoch:               big.NewInt(1),
 		PreStakingEpoch:            big.NewInt(0),
 		QuickUnlockEpoch:           big.NewInt(0), // => Ignore.
-		FiveSecondsEpoch:           2647,
+		FiveSecondsEpoch:           big.NewInt(2647),
 		TwoSecondsEpoch:            EpochTBD, 		 
 		SixtyPercentEpoch:          big.NewInt(0), // => Ignore.
 		RedelegationEpoch:          big.NewInt(0), // => Ignore
