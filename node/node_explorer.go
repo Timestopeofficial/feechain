@@ -32,7 +32,6 @@ var (
 
 // explorerMessageHandler passes received message in node_handler to explorer service
 func (node *Node) explorerMessageHandler(ctx context.Context, msg *msg_pb.Message) error {
-	utils.Logger().Info().Str(">>>>>>>>> msg: ", msg.String()).Msg("explorerMessageHandler")
 	if msg.Type == msg_pb.MessageType_COMMITTED {
 		recvMsg, err := node.Consensus.ParseFBFTMessage(msg)
 		if err != nil {
@@ -75,8 +74,6 @@ func (node *Node) explorerMessageHandler(ctx context.Context, msg *msg_pb.Messag
 			return errFailVerifyMultiSign
 		}
 
-		utils.Logger().Info().Msg("explorerMessageHandler MessageType_COMMITTED")
-
 		block.SetCurrentCommitSig(recvMsg.Payload)
 		node.AddNewBlockForExplorer(block)
 		node.commitBlockForExplorer(block)
@@ -114,7 +111,6 @@ func (node *Node) explorerMessageHandler(ctx context.Context, msg *msg_pb.Messag
 				utils.Logger().Error().Err(err).Msg("[Explorer] Failed finding a valid committed message.")
 				return errFailFindingValidCommit
 			}
-			utils.Logger().Info().Msg("explorerMessageHandler MessageType_PREPARED")
 
 			blockObj.SetCurrentCommitSig(committedMsg.Payload)
 			node.AddNewBlockForExplorer(blockObj)

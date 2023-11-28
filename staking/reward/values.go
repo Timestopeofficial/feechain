@@ -21,16 +21,11 @@ var (
 	StakedBlocks = numeric.NewDecFromBigInt(new(big.Int).Mul(
 		big.NewInt(99), big.NewInt(denominations.One),
 	))
-	// FiveSecStakedBlocks is the flat-rate block reward after epoch 230.
-	// 17.5 ONE per block
-	// FiveSecStakedBlocks = numeric.NewDecFromBigInt(new(big.Int).Mul(
-	// 	big.NewInt(17.5*denominations.Nano), big.NewInt(denominations.Nano),
-	// ))
-	// TwoSecStakedBlocks is the flat-rate block reward after epoch 360.
-	// 7 ONE per block
-	// TwoSecStakedBlocks = numeric.NewDecFromBigInt(new(big.Int).Mul(
-	// 	big.NewInt(7*denominations.Nano), big.NewInt(denominations.Nano),
-	// ))
+	// FiveSecStakedBlocks is the flat-rate block reward.
+	// 5 FEE per block
+	FiveSecStakedBlocks = numeric.NewDecFromBigInt(new(big.Int).Mul(
+		big.NewInt(5*denominations.Nano), big.NewInt(denominations.Nano),
+	))
 
 	// TotalInitialTokens is the total amount of tokens (in ONE) at block 0 of the network.
 	// This should be set/change on the node's init according to the core.GenesisSpec.

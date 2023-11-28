@@ -159,6 +159,10 @@ func AccumulateRewardsAndCountSigs(
 		bc.CurrentHeader().ShardID() == shard.BeaconChainShardID {
 		defaultReward := stakingReward.StakedBlocks
 
+		if bc.Config().IsFiveSeconds(header.Epoch()) {
+			defaultReward = stakingReward.FiveSecStakedBlocks
+		}
+		
 		// the block reward is adjusted accordingly based on 5s and 3s block time forks
 		// if bc.Config().ChainID == params.TestnetChainID && bc.Config().FiveSecondsEpoch.Cmp(big.NewInt(16500)) == 0 {
 		// 	// Testnet:
