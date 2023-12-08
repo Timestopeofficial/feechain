@@ -23,7 +23,7 @@ import (
 	"testing"
 
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/Timestopeofficial/taggedrlp"
+	"github.com/harmony-one/taggedrlp"
 
 	"github.com/Timestopeofficial/feechain/block"
 	blockfactory "github.com/Timestopeofficial/feechain/block/factory"

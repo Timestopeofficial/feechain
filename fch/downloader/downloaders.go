@@ -1,7 +1,7 @@
 package downloader
 
 import (
-	"github.com/Timestopeofficial/abool"
+	"github.com/harmony-one/abool"
 	"github.com/Timestopeofficial/feechain/core"
 	"github.com/Timestopeofficial/feechain/p2p"
 )

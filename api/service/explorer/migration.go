@@ -7,7 +7,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/Timestopeofficial/abool"
+	"github.com/harmony-one/abool"
 	"github.com/Timestopeofficial/feechain/internal/utils"
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog"

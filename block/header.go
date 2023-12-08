@@ -16,7 +16,7 @@ import (
 	v2 "github.com/Timestopeofficial/feechain/block/v2"
 	v3 "github.com/Timestopeofficial/feechain/block/v3"
 	"github.com/Timestopeofficial/feechain/crypto/hash"
-	"github.com/Timestopeofficial/taggedrlp"
+	"github.com/harmony-one/taggedrlp"
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog"
 )

@@ -469,7 +469,7 @@ func stakingCreateValidatorTransaction(key *ecdsa.PrivateKey) (*stakingTypes.Sta
 		return nil, common2.Hash{}, err
 	}
 	copy(sig[:], sigg)
-	validator, _ := common.Bech32ToAddress("0x0B585F8DaEfBC68a311FbD4cB20d9174aD174016")
+	validator, _ := common.Bech32ToAddress("fee1pdv9lrdwl0rg5vglh4xtyrv3wjk3wsqk0ktp96")
 	stakePayloadMaker := func() (stakingTypes.Directive, interface{}) {
 		return stakingTypes.DirectiveCreateValidator, stakingTypes.CreateValidator{
 			Description: stakingTypes.Description{
