@@ -45,7 +45,7 @@ var (
 		AggregatedRewardEpoch:      big.NewInt(3), // => Ignore
 		StakingEpoch:               big.NewInt(1),
 		PreStakingEpoch:            big.NewInt(0),
-		QuickUnlockEpoch:           big.NewInt(0), // => Ignore.
+		QuickUnlockEpoch:           big.NewInt(453),
 		FiveSecondsEpoch:           big.NewInt(448),
 		TwoSecondsEpoch:            EpochTBD, 		 
 		SixtyPercentEpoch:          big.NewInt(0), // => Ignore.
@@ -78,7 +78,7 @@ var (
 		AggregatedRewardEpoch:      big.NewInt(3), // => Ignore
 		StakingEpoch:               big.NewInt(1),
 		PreStakingEpoch:            big.NewInt(0),
-		QuickUnlockEpoch:           big.NewInt(0), // => Ignore.
+		QuickUnlockEpoch:           EpochTBD,
 		FiveSecondsEpoch:           big.NewInt(2725),
 		TwoSecondsEpoch:            EpochTBD, 		 
 		SixtyPercentEpoch:          big.NewInt(0), // => Ignore.
@@ -112,7 +112,7 @@ var (
 		AggregatedRewardEpoch:      big.NewInt(3),
 		StakingEpoch:               big.NewInt(2),
 		PreStakingEpoch:            big.NewInt(1),
-		QuickUnlockEpoch:           big.NewInt(0),
+		QuickUnlockEpoch:           EpochTBD,
 		FiveSecondsEpoch:           big.NewInt(0),
 		TwoSecondsEpoch:            big.NewInt(0),
 		SixtyPercentEpoch:          big.NewInt(0),
@@ -146,7 +146,7 @@ var (
 		AggregatedRewardEpoch:      big.NewInt(3),
 		StakingEpoch:               big.NewInt(2),
 		PreStakingEpoch:            big.NewInt(1),
-		QuickUnlockEpoch:           big.NewInt(0),
+		QuickUnlockEpoch:           EpochTBD,
 		FiveSecondsEpoch:           big.NewInt(0),
 		TwoSecondsEpoch:            big.NewInt(0),
 		SixtyPercentEpoch:          big.NewInt(4),
@@ -180,7 +180,7 @@ var (
 		AggregatedRewardEpoch:      big.NewInt(3),
 		StakingEpoch:               big.NewInt(2),
 		PreStakingEpoch:            big.NewInt(1),
-		QuickUnlockEpoch:           big.NewInt(0),
+		QuickUnlockEpoch:           EpochTBD,
 		FiveSecondsEpoch:           big.NewInt(0),
 		TwoSecondsEpoch:            big.NewInt(0),
 		SixtyPercentEpoch:          big.NewInt(10),
@@ -213,7 +213,7 @@ var (
 		AggregatedRewardEpoch:      big.NewInt(3),
 		StakingEpoch:               big.NewInt(2),
 		PreStakingEpoch:            big.NewInt(0),
-		QuickUnlockEpoch:           big.NewInt(0),
+		QuickUnlockEpoch:           EpochTBD,
 		FiveSecondsEpoch:           big.NewInt(0),
 		TwoSecondsEpoch:            big.NewInt(3),
 		SixtyPercentEpoch:          EpochTBD, // Never enable it for localnet as localnet has no external validator setup

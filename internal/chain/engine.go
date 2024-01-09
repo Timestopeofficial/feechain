@@ -757,5 +757,8 @@ func GetLockPeriodInEpoch(chain engine.ChainReader, epoch *big.Int) int {
 	// 	lockPeriod = staking.LockPeriodInEpochV2
 	// }
 	// return lockPeriod
+	if chain.Config().IsQuickUnlock(epoch) {
+		return staking.LockPeriodInEpochV2
+	}
 	return staking.LockPeriodInEpoch
 }

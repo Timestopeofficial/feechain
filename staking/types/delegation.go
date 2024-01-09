@@ -20,7 +20,7 @@ const (
 	// LockPeriodInEpoch is the number of epochs a undelegated token needs to be before it's released to the delegator's balance
 	LockPeriodInEpoch = 7
 	// LockPeriodInEpochV2 there is no extended locking time besides the current epoch time.
-	// LockPeriodInEpochV2 = 0
+	LockPeriodInEpochV2 = 0
 )
 
 // Delegation represents the bond with tokens held by an account. It is
