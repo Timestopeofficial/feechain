@@ -23,9 +23,9 @@ var (
 	))
 	// FiveSecStakedBlocks is the flat-rate block reward.
 	// 5 FEE per block
-	// FiveSecStakedBlocks = numeric.NewDecFromBigInt(new(big.Int).Mul(
-	// 	big.NewInt(5*denominations.Nano), big.NewInt(denominations.Nano),
-	// ))
+	FiveSecStakedBlocks = numeric.NewDecFromBigInt(new(big.Int).Mul(
+		big.NewInt(5*denominations.Nano), big.NewInt(denominations.Nano),
+	))
 
 	// TotalInitialTokens is the total amount of tokens (in ONE) at block 0 of the network.
 	// This should be set/change on the node's init according to the core.GenesisSpec.

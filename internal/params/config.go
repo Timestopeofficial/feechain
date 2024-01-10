@@ -78,7 +78,7 @@ var (
 		AggregatedRewardEpoch:      big.NewInt(3), // => Ignore
 		StakingEpoch:               big.NewInt(1),
 		PreStakingEpoch:            big.NewInt(0),
-		QuickUnlockEpoch:           EpochTBD,
+		QuickUnlockEpoch:           big.NewInt(2840),
 		FiveSecondsEpoch:           big.NewInt(2725),
 		TwoSecondsEpoch:            EpochTBD, 		 
 		SixtyPercentEpoch:          big.NewInt(0), // => Ignore.
