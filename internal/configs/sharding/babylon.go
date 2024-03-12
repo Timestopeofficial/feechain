@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	blocksPerEpoch     = 28800
+	babylonBlocksPerEpoch     = 28800
 
 	babylonVdfDifficulty = 50000 // This takes about 100s to finish the vdf
 
@@ -36,7 +36,7 @@ func (ms babylonSchedule) InstanceForEpoch(epoch *big.Int) Instance {
 }
 
 func (ms babylonSchedule) BlocksPerEpoch() uint64 {
-	return blocksPerEpoch
+	return babylonBlocksPerEpoch
 }
 
 func (ms babylonSchedule) CalcEpochNumber(blockNum uint64) *big.Int {
@@ -75,6 +75,6 @@ var babylonReshardingEpoch = []*big.Int{
 }
 
 var (
-	babylonV0 = MustNewInstance(2, 6, 6, 	numeric.OneDec(), 								 genesis.BabylonAccounts, genesis.BabylonFnAccounts, babylonReshardingEpoch, BabylonSchedule.BlocksPerEpoch())
-	babylonV1 = MustNewInstance(2, 85, 6, numeric.MustNewDecFromStr("0.84"), genesis.BabylonAccounts, genesis.BabylonFnAccounts, babylonReshardingEpoch, BabylonSchedule.BlocksPerEpoch())
+	babylonV0 = MustNewInstance(2, 10, 10, 	numeric.OneDec(), 								 genesis.BabylonAccounts, genesis.BabylonFnAccounts, babylonReshardingEpoch, BabylonSchedule.BlocksPerEpoch())
+	babylonV1 = MustNewInstance(2, 100, 10, numeric.MustNewDecFromStr("0.84"), genesis.BabylonAccounts, genesis.BabylonFnAccounts, babylonReshardingEpoch, BabylonSchedule.BlocksPerEpoch())
 )
