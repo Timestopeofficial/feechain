@@ -49,6 +49,7 @@ type NetworkType string
 // TODO: replace this with iota. Leave the string parsing in command line
 const (
 	Mainnet   = "asadal"
+	Babylon   = "babylon"
 	Testnet   = "testnet"
 	Pangaea   = "pangaea"
 	Partner   = "partner"
@@ -332,6 +333,8 @@ func (t NetworkType) ChainConfig() params.ChainConfig {
 	switch t {
 	case Mainnet:
 		return *params.MainnetChainConfig
+	case Babylon:
+		return *params.BabylonChainConfig
 	case Pangaea:
 		return *params.PangaeaChainConfig
 	case Partner:

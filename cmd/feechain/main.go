@@ -466,6 +466,8 @@ func nodeconfigSetShardSchedule(config feechainconfig.FeechainConfig) {
 	switch config.Network.NetworkType {
 	case nodeconfig.Mainnet:
 		shard.Schedule = shardingconfig.MainnetSchedule
+	case nodeconfig.Babylon:
+		shard.Schedule = shardingconfig.BabylonSchedule
 	case nodeconfig.Testnet:
 		shard.Schedule = shardingconfig.TestnetSchedule
 	case nodeconfig.Pangaea:

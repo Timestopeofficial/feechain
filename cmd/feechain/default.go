@@ -144,6 +144,18 @@ var (
 		DiscBatch:      8,
 	}
 
+	defaultBabylonSyncConfig = feechainconfig.SyncConfig{
+		Enabled:        false,
+		Downloader:     false,
+		Concurrency:    4,
+		MinPeers:       4,
+		InitStreams:    4,
+		DiscSoftLowCap: 8,
+		DiscHardLowCap: 6,
+		DiscHighCap:    128,
+		DiscBatch:      8,
+	}
+
 	defaultTestNetSyncConfig = feechainconfig.SyncConfig{
 		Enabled:        true,
 		Downloader:     false,

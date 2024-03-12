@@ -106,5 +106,8 @@ func getNetworkName() string {
 	if shard.Schedule.GetNetworkID() == shardingconfig.MainNet {
 		return "Asadal"
 	}
+	if shard.Schedule.GetNetworkID() == shardingconfig.Babylon {
+		return "Babylon"
+	}
 	return "Testnet"
 }

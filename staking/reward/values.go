@@ -59,6 +59,10 @@ func getPreStakingRewardsFromBlockNumber(id shardingconfig.NetworkID, blockNum *
 		lastBlockInEpoch = new(big.Int).SetUint64(shardingconfig.MainnetSchedule.EpochLastBlock(
 			params.MainnetChainConfig.StakingEpoch.Uint64() - 1,
 		))
+	case shardingconfig.Babylon:
+		lastBlockInEpoch = new(big.Int).SetUint64(shardingconfig.BabylonSchedule.EpochLastBlock(
+			params.BabylonChainConfig.StakingEpoch.Uint64() - 1,
+		))
 	case shardingconfig.TestNet:
 		lastBlockInEpoch = new(big.Int).SetUint64(shardingconfig.TestnetSchedule.EpochLastBlock(
 			params.TestnetChainConfig.StakingEpoch.Uint64() - 1,
@@ -90,6 +94,13 @@ var (
 			getPreStakingRewardsFromBlockNumber(shardingconfig.MainNet, big.NewInt(28800)),
 			getPreStakingRewardsFromBlockNumber(shardingconfig.MainNet, big.NewInt(28800)),
 			getPreStakingRewardsFromBlockNumber(shardingconfig.MainNet, big.NewInt(28800)),
+		},
+		shardingconfig.Babylon: {
+			// Below are all of the last blocks of pre-staking era for babylon.
+			getPreStakingRewardsFromBlockNumber(shardingconfig.Babylon, big.NewInt(28800)),
+			getPreStakingRewardsFromBlockNumber(shardingconfig.Babylon, big.NewInt(28800)),
+			getPreStakingRewardsFromBlockNumber(shardingconfig.Babylon, big.NewInt(28800)),
+			getPreStakingRewardsFromBlockNumber(shardingconfig.Babylon, big.NewInt(28800)),
 		},
 		shardingconfig.TestNet: {
 			// Below are all of the placeholders 'last blocks' of pre-staking era for testnet.

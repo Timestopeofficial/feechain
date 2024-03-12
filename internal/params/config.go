@@ -11,6 +11,7 @@ import (
 // Well-known chain IDs.
 var (
 	MainnetChainID            = big.NewInt(101)
+	BabylonChainID            = big.NewInt(106)
 	TestnetChainID            = big.NewInt(102)
 	PangaeaChainID            = big.NewInt(103)
 	PartnerChainID            = big.NewInt(104)
@@ -20,6 +21,7 @@ var (
 
 	// EthMainnetShard0ChainID to be reserved unique chain ID for eth compatible chains.
 	EthMainnetShard0ChainID            = big.NewInt(1682841000)
+	EthBabylonShard0ChainID            = big.NewInt(1682848000)
 	EthTestnetShard0ChainID            = big.NewInt(1682842000)
 	EthPangaeaShard0ChainID            = big.NewInt(1682843000)
 	EthPartnerShard0ChainID            = big.NewInt(1682844000)
@@ -47,6 +49,39 @@ var (
 		PreStakingEpoch:            big.NewInt(0),
 		QuickUnlockEpoch:           big.NewInt(453),
 		FiveSecondsEpoch:           big.NewInt(448),
+		TwoSecondsEpoch:            EpochTBD, 		 
+		SixtyPercentEpoch:          big.NewInt(0), // => Ignore.
+		RedelegationEpoch:          big.NewInt(0), // => Ignore
+		NoEarlyUnlockEpoch:         big.NewInt(0), // => Ignore.
+		VRFEpoch:                   big.NewInt(0), // => Ignore.
+		PrevVRFEpoch:               big.NewInt(0), // => Ignore.
+		MinDelegation100Epoch:      big.NewInt(0), // => Ignore.
+		MinCommissionRateEpoch:     big.NewInt(0), // => Ignore.
+		MinCommissionPromoPeriod:   big.NewInt(100),
+		EPoSBound35Epoch:           big.NewInt(0), // => Ignore.
+		EIP155Epoch:                big.NewInt(0), // => Ignore.
+		S3Epoch:                    big.NewInt(0), // => Ignore.
+		DataCopyFixEpoch:           big.NewInt(0), // => Ignore.
+		IstanbulEpoch:              big.NewInt(0), // => Ignore.
+		ReceiptLogEpoch:            big.NewInt(0), // => Ignore.
+		SHA3Epoch:                  big.NewInt(0), // => Ignore.
+		HIP6And8Epoch:              big.NewInt(0), // => Ignore.
+		StakingPrecompileEpoch:     big.NewInt(0), // => Ignore.
+	}
+
+	// BabylonChainConfig is the chain parameters to run a node on the babylon network.
+	BabylonChainConfig = &ChainConfig{
+		ChainID:                    BabylonChainID,
+		EthCompatibleChainID:       EthBabylonShard0ChainID,
+		EthCompatibleShard0ChainID: EthBabylonShard0ChainID,
+		EthCompatibleEpoch:         big.NewInt(0), // => Ignore
+		CrossTxEpoch:               big.NewInt(0), // => Ignore
+		CrossLinkEpoch:             big.NewInt(0), // => Ignore
+		AggregatedRewardEpoch:      big.NewInt(3), // => Ignore
+		StakingEpoch:               big.NewInt(1),
+		PreStakingEpoch:            big.NewInt(0),
+		QuickUnlockEpoch:           EpochTBD,
+		FiveSecondsEpoch:           EpochTBD,
 		TwoSecondsEpoch:            EpochTBD, 		 
 		SixtyPercentEpoch:          big.NewInt(0), // => Ignore.
 		RedelegationEpoch:          big.NewInt(0), // => Ignore
@@ -584,6 +619,7 @@ func (c *ChainConfig) IsStakingPrecompile(epoch *big.Int) bool {
 func UpdateEthChainIDByShard(shardID uint32) {
 	once.Do(func() {
 		MainnetChainConfig.EthCompatibleChainID = big.NewInt(0).Add(MainnetChainConfig.EthCompatibleChainID, big.NewInt(int64(shardID)))
+		BabylonChainConfig.EthCompatibleChainID = big.NewInt(0).Add(BabylonChainConfig.EthCompatibleChainID, big.NewInt(int64(shardID)))
 		TestnetChainConfig.EthCompatibleChainID = big.NewInt(0).Add(TestnetChainConfig.EthCompatibleChainID, big.NewInt(int64(shardID)))
 		PangaeaChainConfig.EthCompatibleChainID = big.NewInt(0).Add(PangaeaChainConfig.EthCompatibleChainID, big.NewInt(int64(shardID)))
 		PartnerChainConfig.EthCompatibleChainID = big.NewInt(0).Add(PartnerChainConfig.EthCompatibleChainID, big.NewInt(int64(shardID)))

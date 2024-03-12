@@ -102,6 +102,12 @@ func NewGenesisSpec(netType nodeconfig.NetworkType, shardID uint32) *Genesis {
 			foundationAddress := common.HexToAddress("0xfee66D0724Ce45D67664699AfbEe3BadF3Fe923a")
 			genesisAlloc[foundationAddress] = GenesisAccount{Balance: GenesisFund}
 		}
+	case nodeconfig.Babylon:
+		chainConfig = *params.BabylonChainConfig
+		if shardID == 0 {
+			foundationAddress := common.HexToAddress("0xfee66D0724Ce45D67664699AfbEe3BadF3Fe923a")
+			genesisAlloc[foundationAddress] = GenesisAccount{Balance: GenesisFund}
+		}
 	case nodeconfig.Pangaea:
 		chainConfig = *params.PangaeaChainConfig
 	case nodeconfig.Partner:
@@ -113,7 +119,7 @@ func NewGenesisSpec(netType nodeconfig.NetworkType, shardID uint32) *Genesis {
 	}
 
 	// All non-asadal chains get test accounts
-	if netType != nodeconfig.Mainnet {
+	if netType != nodeconfig.Mainnet && netType != nodeconfig.Babylon {
 		gasLimit = params.TestGenesisGasLimit
 		// Smart contract deployer account used to deploy initial smart contract
 		// contractDeployerKey, _ := ecdsa.GenerateKey(
@@ -333,6 +339,9 @@ func (g *Genesis) MustCommit(db ethdb.Database) *types.Block {
 func GetGenesisSpec(shardID uint32) *Genesis {
 	if shard.Schedule.GetNetworkID() == shardingconfig.MainNet {
 		return NewGenesisSpec(nodeconfig.Mainnet, shardID)
+	}
+	if shard.Schedule.GetNetworkID() == shardingconfig.Babylon {
+		return NewGenesisSpec(nodeconfig.Babylon, shardID)
 	}
 	if shard.Schedule.GetNetworkID() == shardingconfig.LocalNet {
 		return NewGenesisSpec(nodeconfig.Localnet, shardID)

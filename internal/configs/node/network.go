@@ -6,6 +6,11 @@ var (
 		"/ip4/89.233.108.44/tcp/28175/p2p/QmZKsSuz714uDhLcNLCurPLG9E1R8UBRJ9KaGXCBzK9jhe",
 	}
 
+	babylonBootNodes = []string{
+		"/ip4/107.155.65.131/tcp/28175/p2p/QmYAppojcNmbVu6Wb2CvQRwKns1TuKAP1S7KxpBxf8NS3F",
+		"/ip4/89.233.108.44/tcp/28175/p2p/QmZKsSuz714uDhLcNLCurPLG9E1R8UBRJ9KaGXCBzK9jhe",
+	}
+
 	testnetBootNodes = []string{
 		"/ip4/107.155.65.131/tcp/28175/p2p/QmYAppojcNmbVu6Wb2CvQRwKns1TuKAP1S7KxpBxf8NS3F",
 		"/ip4/89.233.108.44/tcp/28175/p2p/QmZKsSuz714uDhLcNLCurPLG9E1R8UBRJ9KaGXCBzK9jhe",
@@ -31,6 +36,7 @@ var (
 
 const (
 	mainnetDNSZone   = "asadal.timestope.net"
+	babylonDNSZone   = "babylone.mojaik.com"
 	testnetDNSZone   = "t.timestope.net"
 	pangaeaDNSZone   = "p.timestope.net"
 	partnerDNSZone   = "pa.timestope.net"
@@ -96,6 +102,8 @@ func GetDefaultBootNodes(networkType NetworkType) []string {
 	switch networkType {
 	case Mainnet:
 		return mainnetBootNodes
+	case Babylon:
+		return babylonBootNodes
 	case Testnet:
 		return testnetBootNodes
 	case Pangaea:
@@ -115,6 +123,8 @@ func GetDefaultDNSZone(networkType NetworkType) string {
 	switch networkType {
 	case Mainnet:
 		return mainnetDNSZone
+	case Babylon:
+		return babylonDNSZone
 	case Testnet:
 		return testnetDNSZone
 	case Pangaea:

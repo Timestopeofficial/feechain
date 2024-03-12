@@ -19,6 +19,7 @@ const (
 	Pangaea
 	Partner
 	StressNet
+	Babylon
 	DevNet
 )
 

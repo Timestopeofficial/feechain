@@ -49,6 +49,7 @@ var (
 	ForTest      = NewFactory(params.TestChainConfig)
 	ForTestnet   = NewFactory(params.TestnetChainConfig)
 	ForMainnet   = NewFactory(params.MainnetChainConfig)
+	ForBabylon   = NewFactory(params.BabylonChainConfig)
 	ForPangaea   = NewFactory(params.PangaeaChainConfig)
 	ForPartner   = NewFactory(params.PartnerChainConfig)
 	ForStressnet = NewFactory(params.StressnetChainConfig)

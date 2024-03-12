@@ -90,6 +90,9 @@ func getDefaultDNSSyncConfig(nt nodeconfig.NetworkType) feechainconfig.DnsSync {
 	case nodeconfig.Mainnet:
 		dnsSync.Server = true
 		dnsSync.Client = true
+	case nodeconfig.Babylon:
+		dnsSync.Server = true
+		dnsSync.Client = true
 	case nodeconfig.Testnet:
 		dnsSync.Server = true
 		dnsSync.Client = true
@@ -115,6 +118,8 @@ func parseNetworkType(nt string) nodeconfig.NetworkType {
 	switch nt {
 	case "asadal":
 		return nodeconfig.Mainnet
+	case "babylon":
+		return nodeconfig.Babylon
 	case "testnet":
 		return nodeconfig.Testnet
 	case "pangaea", "staking", "stk":
@@ -136,6 +141,8 @@ func getDefaultSyncConfig(nt nodeconfig.NetworkType) feechainconfig.SyncConfig {
 	switch nt {
 	case nodeconfig.Mainnet:
 		return defaultMainnetSyncConfig
+	case nodeconfig.Babylon:
+		return defaultBabylonSyncConfig
 	case nodeconfig.Testnet:
 		return defaultTestNetSyncConfig
 	case nodeconfig.Localnet:
