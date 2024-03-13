@@ -17,14 +17,14 @@ var (
 	// 99 FEE per block
 	PreStakedBlocks = new(big.Int).Mul(big.NewInt(99), big.NewInt(denominations.One))
 	// StakedBlocks is the flat-rate block reward for epos staking launch.
-	// 99 FEE per block.
+	// 100 FEE per block.
 	StakedBlocks = numeric.NewDecFromBigInt(new(big.Int).Mul(
-		big.NewInt(99), big.NewInt(denominations.One),
+		big.NewInt(100), big.NewInt(denominations.One),
 	))
 	// FiveSecStakedBlocks is the flat-rate block reward.
-	// 5 FEE per block
+	// 99 FEE per block
 	FiveSecStakedBlocks = numeric.NewDecFromBigInt(new(big.Int).Mul(
-		big.NewInt(5*denominations.Nano), big.NewInt(denominations.Nano),
+		big.NewInt(99*denominations.Nano), big.NewInt(denominations.Nano),
 	))
 
 	// TotalInitialTokens is the total amount of tokens (in ONE) at block 0 of the network.

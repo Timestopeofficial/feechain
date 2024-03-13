@@ -54,6 +54,8 @@ const (
 	GenesisEpoch = 0
 	// GenesisONEToken is the initial total number of FEE in the genesis block for asadal.
 	GenesisONEToken = 40000000000
+	// BabylonGenesisToken is the initial total number of FEE in the genesis block for babylon.
+	BabylonGenesisToken = 45000000000
 	// ContractDeployerInitFund is the initial fund for the contract deployer account in testnet/devnet.
 	ContractDeployerInitFund = 10000000000
 	// InitFreeFund is the initial fund for permissioned accounts for testnet/devnet/
@@ -63,6 +65,8 @@ const (
 var (
 	// GenesisFund is the initial total number of FEE (in atto) in the genesis block for asadal.
 	GenesisFund = new(big.Int).Mul(big.NewInt(GenesisONEToken), big.NewInt(denominations.One))
+	// BabylonGenesisFund is the initial total number of FEE (in atto) in the genesis block for babylon.
+	BabylonGenesisFund = new(big.Int).Mul(big.NewInt(BabylonGenesisToken), big.NewInt(denominations.One))
 )
 
 // Genesis specifies the header fields, state of a genesis block. It also defines hard
@@ -106,7 +110,7 @@ func NewGenesisSpec(netType nodeconfig.NetworkType, shardID uint32) *Genesis {
 		chainConfig = *params.BabylonChainConfig
 		if shardID == 0 {
 			foundationAddress := common.HexToAddress("0xfee66D0724Ce45D67664699AfbEe3BadF3Fe923a")
-			genesisAlloc[foundationAddress] = GenesisAccount{Balance: GenesisFund}
+			genesisAlloc[foundationAddress] = GenesisAccount{Balance: BabylonGenesisFund}
 		}
 	case nodeconfig.Pangaea:
 		chainConfig = *params.PangaeaChainConfig
