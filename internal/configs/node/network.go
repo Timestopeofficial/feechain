@@ -7,8 +7,7 @@ var (
 	}
 
 	babylonBootNodes = []string{
-		"/ip4/107.155.65.131/tcp/28175/p2p/QmYAppojcNmbVu6Wb2CvQRwKns1TuKAP1S7KxpBxf8NS3F",
-		"/ip4/89.233.108.44/tcp/28175/p2p/QmZKsSuz714uDhLcNLCurPLG9E1R8UBRJ9KaGXCBzK9jhe",
+		"/ip4/199.241.137.196/tcp/28175/p2p/QmbJHmK9M8LnwNkiFDN9TN4RXScbJJJEiFQZzzREDpJ5Ru",
 	}
 
 	testnetBootNodes = []string{
