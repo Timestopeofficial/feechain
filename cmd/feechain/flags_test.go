@@ -138,7 +138,7 @@ func TestFeechainFlags(t *testing.T) {
 					IP:         "0.0.0.0",
 					Port:       9900,
 					EnablePush: true,
-					Gateway:    "https://gateway.timestope.net",
+					Gateway:    "https://gateway.mojaik.com",
 				},
 				Sync: defaultMainnetSyncConfig,
 				ShardData: feechainconfig.ShardDataConfig{

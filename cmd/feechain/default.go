@@ -128,7 +128,7 @@ var defaultPrometheusConfig = feechainconfig.PrometheusConfig{
 	IP:         "0.0.0.0",
 	Port:       17900,
 	EnablePush: false,
-	Gateway:    "https://gateway.timestope.net",
+	Gateway:    "https://gateway.mojaik.com",
 }
 
 var (

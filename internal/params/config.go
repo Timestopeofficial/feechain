@@ -11,7 +11,7 @@ import (
 // Well-known chain IDs.
 var (
 	MainnetChainID            = big.NewInt(101)
-	BabylonChainID            = big.NewInt(106)
+	BabylonChainID            = big.NewInt(108)
 	TestnetChainID            = big.NewInt(102)
 	PangaeaChainID            = big.NewInt(103)
 	PartnerChainID            = big.NewInt(104)
