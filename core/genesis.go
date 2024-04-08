@@ -98,7 +98,7 @@ func NewGenesisSpec(netType nodeconfig.NetworkType, shardID uint32) *Genesis {
 	genesisAlloc := make(GenesisAlloc)
 	chainConfig := params.ChainConfig{}
 	gasLimit := params.GenesisGasLimit
-	timestamp := 1656374400 // GMT: Tue Jun 28 2022 00:00:00 GMT+0000
+	timestamp := uint64(1656374400) // GMT: Tue Jun 28 2022 00:00:00 GMT+0000
 
 	switch netType {
 	case nodeconfig.Mainnet:
@@ -108,7 +108,7 @@ func NewGenesisSpec(netType nodeconfig.NetworkType, shardID uint32) *Genesis {
 			genesisAlloc[foundationAddress] = GenesisAccount{Balance: GenesisFund}
 		}
 	case nodeconfig.Babylon:
-		timestamp := 1712631600 // GMT: Tue Apr 09 2024 03:00:00 GMT+0000
+		timestamp := uint64(1712631600) // GMT: Tue Apr 09 2024 03:00:00 GMT+0000
 		chainConfig = *params.BabylonChainConfig
 		if shardID == 0 {
 			foundationAddress := common.HexToAddress("0x00E41619B1B0DD5A94F014986Ac485129efc502E")
